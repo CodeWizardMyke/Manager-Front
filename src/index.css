@@ -1,0 +1,37 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+:root{
+  --auth-header: #0056B3;
+  --auth-header-text: #FFFFFF;
+  --text-dark: #4A4A4A;
+  --d-border: #D9D9D9;
+  --bt-orange: #FFC481;
+  --bt-orange-hover: #FFAE52;
+  --d-bt-txt-color: #ffff;
+}
+
+body{
+  background-color: rgb(34, 34, 34);
+}
+
+.bt{
+  height: 25px;
+  width: 120px;
+  border-color: transparent;
+  border-radius: 5px;
+  user-select: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bt-orange{
+  background-color: var(--bt-orange) ;
+  color: var(--d-bt-txt-color);
+  transition: all 200ms ease;
+}
+.bt-orange:hover{
+  background-color: var(--bt-orange-hover);
+}

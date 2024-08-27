@@ -1,0 +1,124 @@
+@media only screen and (-webkit-min-device-pixel-ratio: 2), 
+only screen and (min--moz-device-pixel-ratio: 2), 
+only screen and (-o-min-device-pixel-ratio: 2/1), 
+only screen and (min-device-pixel-ratio: 2), 
+only screen and (min-resolution: 192dpi) {
+  .auth-section {
+        background-image:  url("../images/background_auth.jpg");
+    }
+}
+
+.container{
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.auth-header{
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1440px;
+  width: 100%;
+  height: 75px;
+  font-size: 26pt;
+  font-weight: 600;
+  background-color: var(--auth-header);
+  color: var(--auth-header-text);
+}
+.auth-header svg{
+  margin-right: 5px;
+  height: 40px;
+  width: 40px;
+}
+
+.auth-section{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-attachment: fixed;
+  background-image: url("../images/background_auth.jpg");
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+}
+
+.wrapper-auth{
+  width: 850px;
+  height: 450px;
+  display: flex;
+  background-color: #ffff;
+}
+.bx-left{
+  height: 100%;
+  width: 400px;
+  background-image: url("../images/auth_image_form.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.bx-rigth{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.logo-page{
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dark);
+  font-size: 26pt;
+}
+.logo-page svg{
+  width: 50px;
+  height: 50px;
+  margin-right: 5px;
+}
+
+.bx-rigth form{
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.auth-inputs-group{
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.auth-inputs-group label{
+  margin-right: 15px;
+  font-size: 14pt;
+  font-weight: 600;
+}
+.auth-inputs-group input {
+  height: 25px;
+  width: 100%;
+  max-width: 200px ;
+  outline: none;
+  border-radius: 5px;
+  padding-left: 5px;
+  border: var(--d-border) 2px solid;
+}
+.keeplogin{
+  width: 100%;
+  max-width: 200px;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  justify-content: end;
+}
+.keeplogin label{
+  cursor: pointer;
+  margin-right: 5px;
+}
