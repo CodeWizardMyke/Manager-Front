@@ -89,11 +89,18 @@ only screen and (min-resolution: 192dpi) {
 }
 
 .auth-inputs-group{
-  height: 50px;
+  height: 65px;
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+  flex-direction: column;
+}
+.auth-inputs-group span{
+  width: 100%;
+  text-align: start;
+  padding-left: 110px;
+
 }
 .auth-inputs-group label{
   margin-right: 15px;
