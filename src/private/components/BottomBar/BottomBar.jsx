@@ -1,6 +1,9 @@
 import { SiNginxproxymanager } from "react-icons/si";
 import { IoExitSharp } from "react-icons/io5";
 import { FaUserLock } from "react-icons/fa6";
+import { IoHome } from "react-icons/io5";
+import { RiDashboard2Fill } from "react-icons/ri";
+import { GoGear } from "react-icons/go";
 
 import './BottomBar.css'
 
@@ -23,15 +26,15 @@ function BottomBar() {
           Administrador
         </button>
         <button className="btm btm-home">
-          <FaUserLock/>
+          <IoHome/>
           Home
         </button>
         <button className="btm btm-dashboard">
-          <FaUserLock/>
+          <RiDashboard2Fill/>
           Dashboard
         </button>
         <button className="btm btm-config">
-          <FaUserLock/>
+          <GoGear/>
           Configurações
         </button>
       </div>
