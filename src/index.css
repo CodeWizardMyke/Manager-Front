@@ -14,9 +14,16 @@
 }
 
 body{
-  background-color: rgb(34, 34, 34);
+  background-color: rgb(179, 179, 179);
 }
 
+.container{
+  background-color: #ffff;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+}
 .bt{
   height: 25px;
   width: 120px;

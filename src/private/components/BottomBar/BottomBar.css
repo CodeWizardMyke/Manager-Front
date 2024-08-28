@@ -1,0 +1,108 @@
+.btm{
+  height: 55px;
+  width: 120px;
+  border-color: transparent;
+  outline: none;
+  cursor: pointer;border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 12 pt;
+  color: #F5F5F5;
+  transition: all 200ms ease;
+}
+
+.btm svg{
+  height: 25px;
+  width: 25px;
+}
+.btm:hover{
+  color: #4A4A4A;
+}
+
+.btm-logout{
+  background-color: #DC3545;
+
+}
+.btm-logout:hover{
+  background-color: #db2b3d;
+  color: fff;
+}
+.btm-adm{
+  background-color: #6F42C1;
+}
+.btm-adm:hover{
+  background-color: #6734c5;
+}
+.btm-home{
+  background-color: #0056B3;
+}
+.btm-home:hover{
+  background-color: #0e5eb4;
+}
+.btm-dashboard{
+  background-color: #17A2B8;
+}
+.btm-dashboard:hover{
+  background-color: #02a4bd;
+}
+.btm-config{
+  background-color: #FD7E14;
+}
+.btm-config:hover{
+  background-color: #fc8423;
+}
+
+.BottomBar{
+  height: 100px;
+  display: flex;  
+  justify-content: space-between;
+}
+
+.bb-left{
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.bb-left_top{
+  background-color: #F8F9FA;
+  height: 65px;
+  width: 290px;
+  border-bottom: 2px solid #4A4A4A;
+  display: flex;
+  align-items: end;
+  justify-content: start;
+  font-size: 24pt;
+  padding: 0 20px 5px 20px;
+  color: #4A4A4A;
+  margin-left: 5px;
+}
+.bb-left_top svg{
+  margin-bottom: 3px;
+  margin-right: 5px;
+}
+
+.bb-left_bottom{
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+}
+
+.bb-rigth{
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.bb-center{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  padding: 0 10px;
+}
+.bb-center button {
+  margin-left: 15px
+}
