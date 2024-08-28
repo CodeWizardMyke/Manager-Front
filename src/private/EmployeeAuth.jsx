@@ -6,8 +6,13 @@ import { useState } from 'react';
 import "./style/AppPrivate.css"
 
 function AppPrivate() {
-  const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
+  const token = localStorage.getItem('token')
+  if(token){
+    navigate('/main.manager');
+  }
+
+  const [errors, setErrors] = useState([]);
   let keeplogin = 'off';
   
   async function handdlerSubmit (event) {
@@ -30,7 +35,7 @@ function AppPrivate() {
         sessionStorage.setItem('token', JSON.stringify(response.data.token));
       }
 
-     // navigate('/main.manager')
+     navigate('/main.manager')
     } catch (error) {
       const {response} = error
       console.log(console.log(error))
@@ -53,6 +58,7 @@ function AppPrivate() {
     }
     setErrors([]);
    };
+
 
   return (
     <div className="container">

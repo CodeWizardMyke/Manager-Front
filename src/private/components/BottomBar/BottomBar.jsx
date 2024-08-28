@@ -1,3 +1,7 @@
+import {useNavigate} from 'react-router-dom'
+
+import './BottomBar.css'
+
 import { SiNginxproxymanager } from "react-icons/si";
 import { IoExitSharp } from "react-icons/io5";
 import { FaUserLock } from "react-icons/fa6";
@@ -5,9 +9,34 @@ import { IoHome } from "react-icons/io5";
 import { RiDashboard2Fill } from "react-icons/ri";
 import { GoGear } from "react-icons/go";
 
-import './BottomBar.css'
-
 function BottomBar() {
+  const navigate = useNavigate();
+
+  function goToHome(){
+    navigate('/main.manager');
+  }
+
+  function goToAdmin(){
+    navigate('/main.admin');
+  }
+
+  function goToDashboard(){
+    navigate('/main.dashboard');
+  }
+
+  function goToConfig(){
+    navigate('/main.config');
+  }
+
+  function logout(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('employee');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('employee');
+
+    navigate('/auth.manager');
+  }
+
   return (
     <div className='BottomBar'>
       <div className="bb-left">
@@ -21,25 +50,45 @@ function BottomBar() {
         </div>
       </div>
       <div className="bb-center">
-        <button className="btm btm-adm">
+        <button 
+          type="button"
+          className="btm btm-adm"
+          onClick={goToAdmin}
+        >
           <FaUserLock/>
           Administrador
         </button>
-        <button className="btm btm-home">
+        <button 
+          type="button"
+          className="btm btm-home"
+          onClick={goToHome}
+        >
           <IoHome/>
           Home
         </button>
-        <button className="btm btm-dashboard">
+        <button 
+          className="btm btm-dashboard"
+          type="button"
+          onClick={goToDashboard}
+        >
           <RiDashboard2Fill/>
           Dashboard
         </button>
-        <button className="btm btm-config">
+        <button 
+          className="btm btm-config"
+          type="button"
+          onClick={goToConfig}
+        >
           <GoGear/>
           Configurações
         </button>
       </div>
       <div className="bb-rigth">
-        <button className="btm btm-logout" type="button">
+        <button 
+          className="btm btm-logout"
+          type="button"
+          onClick={logout}
+        >
           <IoExitSharp/>
           Logout
         </button>
