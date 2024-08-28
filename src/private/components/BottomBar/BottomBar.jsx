@@ -8,11 +8,15 @@ import { FaUserLock } from "react-icons/fa6";
 import { IoHome } from "react-icons/io5";
 import { RiDashboard2Fill } from "react-icons/ri";
 import { GoGear } from "react-icons/go";
+import { useContext } from 'react';
+import ManagerContext from '../../context/ManagerContext';
 
 function BottomBar() {
   const navigate = useNavigate();
+  const {updateMenuOptions} = useContext(ManagerContext)
 
   function goToHome(){
+    updateMenuOptions([])
     navigate('/main.manager');
   }
 

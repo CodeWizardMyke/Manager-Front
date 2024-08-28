@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {useNavigate} from 'react-router-dom';
+import ManagerContext from '../../context/ManagerContext';
+
 import './SideMenu.css';
 
 function SideMenu() {
   const navigate = useNavigate();
+  const {menuOptions} = useContext(ManagerContext);
 
   function goToProducts(){
     navigate('/main.manager/products');
@@ -18,9 +21,29 @@ function SideMenu() {
     navigate('/main.manager/employee');
   };
 
+  function handdlerNavigateDinamic(option) {
+   navigate(`/main.manager/${option.current}/${option.next}`)
+  }
+
   return (
     <div className='SideMenu'>
-      <div className="side-menu-top"></div>
+      <div className="side-menu-top">
+        {menuOptions.length > 0  && (
+          <>
+            <h4>Gerenciamento de {menuOptions[0].title}</h4>
+            <div className='wsm-buttons'> 
+              {   
+                  menuOptions.map((option, index)=> (
+                    <button 
+                    key={'buttonMenu-'+index}
+                    onClick={()=>{handdlerNavigateDinamic(option)}}
+                  >{option.text}</button>
+                ))
+              }
+            </div>
+          </>
+        )}
+      </div>
       <div className="side-menu-bottom">
         <h4>Módulos</h4>
         <div className="wsm-buttons">
