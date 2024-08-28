@@ -58,6 +58,11 @@
   height: 100px;
   display: flex;  
   justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  background-color: #ffff;
+  width: 100%;
+  max-width: 1440px;
 }
 
 .bb-left{

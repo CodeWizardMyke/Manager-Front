@@ -3,7 +3,7 @@ import fetchAxios from './axios/config';
 import { SiNginxproxymanager } from "react-icons/si";
 import { useState } from 'react';
 
-import "./style/AppPrivate.css"
+import "./EmployeeAuth.css"
 
 function AppPrivate() {
   const navigate = useNavigate();

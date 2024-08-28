@@ -17,15 +17,15 @@ function BottomBar() {
   }
 
   function goToAdmin(){
-    navigate('/main.admin');
+    navigate('/main.manager/admin');
   }
 
   function goToDashboard(){
-    navigate('/main.dashboard');
+    navigate('/main.manager/dashboard');
   }
 
   function goToConfig(){
-    navigate('/main.config');
+    navigate('/main.manager/config');
   }
 
   function logout(){
