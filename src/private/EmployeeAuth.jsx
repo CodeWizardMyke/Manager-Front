@@ -1,19 +1,22 @@
 import { useNavigate } from 'react-router-dom'
 import fetchAxios from './axios/config';
 import { SiNginxproxymanager } from "react-icons/si";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import "./EmployeeAuth.css"
 
 function AppPrivate() {
   const navigate = useNavigate();
-  const token = localStorage.getItem('token')
-  if(token){
-    navigate('/main.manager');
-  }
-
+  const [keepLogIn, setKeepLogIn] = useState('off');
+  
   const [errors, setErrors] = useState([]);
-  let keeplogin = 'off';
+
+  useEffect(()=>{
+    const userOn = localStorage.getItem('token');
+    if(userOn){
+      navigate('/main.manager')
+    }
+  },[navigate])
   
   async function handdlerSubmit (event) {
     try {
@@ -23,7 +26,7 @@ function AppPrivate() {
       const formData = new FormData(event.target);
 
       const response = await fetchAxios.post('/auth/login', formData);
-      if(keeplogin === 'on'){
+      if(keepLogIn === 'on'){
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('employee');
         localStorage.setItem('employee',  JSON.stringify(response.data.user));
@@ -92,7 +95,7 @@ function AppPrivate() {
               </div>
               <div className="keeplogin">
                 <label htmlFor="keeplogin">Manter logado</label>
-                <input type="checkbox" name="keeplogin" id="keeplogin" onChange={(e) => keeplogin = (e.target.value)}/>
+                <input type="checkbox" name="keeplogin" id="keeplogin" onChange={(e) => setKeepLogIn(e.target.value)}/>
               </div>
               <div className="wrapper-button">
                 <button type="submit" className="bt bt-orange">Entrar</button>

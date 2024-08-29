@@ -13,12 +13,14 @@ import Cart from './private/pages/Cart';
 import Dashboard from './private/pages/Dashboard';
 import Config from './private/pages/Config';
 import Admin from './private/pages/Admin';
+import Home from './private/pages/Home';
 
 const router = createBrowserRouter([
   {
     path:'/main.manager',
     element:<Manager/>,
     children:[
+      {path:'/main.manager/',element:<Home/>},
       {path:'/main.manager/products', element:<Products/>},
       {path:'/main.manager/cart',     element:<Cart/>},
       {path:'/main.manager/clients',  element:<Clients/>},

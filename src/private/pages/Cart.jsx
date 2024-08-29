@@ -7,14 +7,14 @@ function Cart() {
   useEffect(()=>{
       updateMenuOptions([
         {
-          title:"Funcionários",
+          title:"Carrinho",
           text:"Cadastro",
-          current: 'employee',
+          current: 'cart',
           next: ''
         },
         {
           text:"Gerenciar",
-          current: 'employee',
+          current: 'cart',
           next: ''
         },
       ])
