@@ -9,7 +9,9 @@ function Manager() {
       <Provider>
         <div className='wrapper-app'>
           <SideMenu/>
-          <Outlet/>
+          <div className='wrapper-rigth'>
+            <Outlet/>
+          </div>
         </div>
         <BottomBar/>
       </Provider>

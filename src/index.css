@@ -49,3 +49,16 @@ body{
 .bt-orange:hover{
   background-color: var(--bt-orange-hover);
 }
+
+.wrapper-rigth{
+  flex-grow: 1;
+  padding: 10px;
+  max-width: 1140px;
+  height: 853px;
+  position: relative;
+  overflow: auto;
+  background-image: url('./private//images//img_backgound.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+}

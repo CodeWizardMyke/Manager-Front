@@ -6,7 +6,7 @@ import './SideMenu.css';
 
 function SideMenu() {
   const navigate = useNavigate();
-  const {menuOptions} = useContext(ManagerContext);
+  const {menuOptions, setModuleClick,} = useContext(ManagerContext);
   let activerHandder = {current:'null'};
 
   if(menuOptions.length){
@@ -27,7 +27,7 @@ function SideMenu() {
   };
 
   function handdlerNavigateDinamic(option) {
-   navigate(`/main.manager/${option.current}/${option.next}`)
+    setModuleClick(option);
   }
 
   return (
