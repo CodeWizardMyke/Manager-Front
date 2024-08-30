@@ -3,6 +3,8 @@ import Provider from './context/Provider';
 import BottomBar from './components/BottomBar/BottomBar';
 import SideMenu from './components/SideMenu/SideMenu';
 
+import './style/PrivateComponents.css'
+
 function Manager() {
   return (
     <div className='container'>
