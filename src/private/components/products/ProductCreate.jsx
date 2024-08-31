@@ -3,13 +3,15 @@ import FieldsFormCreateProducts from '../../configs/FieldsFormCreateProduct'
 import FieldFormItem from './FormCreate/FieldFormItem';
 import FieldsFormPriceProduct from './FormCreate/FieldsFormPriceProduct';
 import FieldsFormDescription from './FormCreate/FieldsFormDescription';
+import UtilitisProductCreate from './util/UtilitisProductCreate';
 
 function ProductCreate() {
   const FieldsForm = FieldsFormCreateProducts;
 
   return (
     <div className='module-content'>
-      <div >
+      <div className='utils-content'>
+        <UtilitisProductCreate/>
       </div>
       <div className="module-actions">
         <form className='form-dual'>

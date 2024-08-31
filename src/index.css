@@ -47,6 +47,11 @@ body{
 .w-15{ width: 150px;}
 .w-10{ width: 100px;}
 
+.d-flex-colum-evl{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
 
 .container{
   background-color: #ffff;
@@ -86,6 +91,29 @@ body{
 }
 .bt-primary:hover{
   background-color: #0056B3;
+}
+.bt-excel{
+  background-color: #28A745;
+  color: #fff;
+}
+.bt-excel:hover{
+  background-color: #5fc076;
+}
+
+.bt-txt{
+  width: max-content !important;
+  padding: 5px 10px;
+  background-color: #4A90E2;
+  color: #fff;
+  transition: all;
+}
+.bt-txt:hover{
+  background-color: #0056B3;
+}
+
+.bt-play{
+  background-color: #FFC481;
+  color: #4A4A4A;
 }
 
 .wrapper-rigth{
