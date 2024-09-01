@@ -2,12 +2,12 @@ import React from 'react'
 
 function FieldFormItem({inputConfig, cssConfig, oldData}) {
   const {type, name, txtValue} = inputConfig;
-  const { formGroup, error} = cssConfig;
+  const { styleDiv, error} = cssConfig;
 
   const placeholderValue = oldData && oldData[name] ? oldData[name] :"Valor não preenchido";
 
   return (
-    <div className={ formGroup ? "form-group " + formGroup : 'form-group'}>
+    <div className={ styleDiv ? styleDiv : ''}>
       <label htmlFor={name}>{txtValue}</label>
       {
         type === 'select' && (
