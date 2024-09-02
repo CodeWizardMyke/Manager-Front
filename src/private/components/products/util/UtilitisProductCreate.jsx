@@ -9,7 +9,8 @@ import { MdSwapVerticalCircle } from "react-icons/md";
 function UtilitisProductCreate() {
   return (
     <>
-      <div className='util-box d-flex-colum-evl'>
+      <div className='util-box d-flex-colum-evl disabled-content'>
+        <div className="disabled"></div>
         <div className="util-func">
           <span>Duplicar um produto</span>
           <label htmlFor="id_product">ID Produto</label>
@@ -28,7 +29,8 @@ function UtilitisProductCreate() {
           </button>
         </div>
       </div>
-      <div className="util-box">
+      <div className="util-box disabled-content">
+      <div className="disabled"></div>
           <div className="custom-util">
             <span>Calculadora Logística</span>
             <div className="func-item custom-f_item">
@@ -43,7 +45,8 @@ function UtilitisProductCreate() {
             </div>  
           </div>
       </div>
-      <div className="util-box">
+      <div className="util-box disabled-content">
+      <div className="disabled"></div>
           <div className="custom-util-price">
             <span className='title'>Preço da concorrência</span>
             <div className="func-item">
