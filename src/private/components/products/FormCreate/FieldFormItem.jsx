@@ -1,10 +1,10 @@
 import React from 'react'
 
-function FieldFormItem({inputConfig, cssConfig, oldData}) {
+function FieldFormItem({inputConfig, cssConfig, prodItemData}) {
   const {type, name, txtValue} = inputConfig;
   const { styleDiv, error} = cssConfig;
 
-  const placeholderValue = oldData && oldData[name] ? oldData[name] :"Valor não preenchido";
+  const placeholderValue = prodItemData && prodItemData[name] ? prodItemData[name] :"";
 
   return (
     <div className={ styleDiv ? styleDiv : ''}>

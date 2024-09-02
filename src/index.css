@@ -127,6 +127,10 @@ body{
   background-color: #DC3545;
   color: #ffff;
 }
+.bt-close{
+  background-color: #DC3545;
+  color: #ffff;
+}
 .wrapper-rigth{
   flex-grow: 1;
   padding: 10px;
@@ -138,4 +142,16 @@ body{
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
+}
+.top-utils{
+  position: absolute;
+  width: 100%;
+  height: 45px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  padding: 0 15px;
+  color: #4A4A4A;
 }

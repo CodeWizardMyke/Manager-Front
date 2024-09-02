@@ -7,7 +7,7 @@ import fetchAxios from '../../axios/config';
 import Loading from '../loading/Loading';
 import FBResponse from '../pupup/FBResponse';
 
-function ProductCreate() {
+function ProductCreate({prodItemData, setProdItemData}) {
   const FieldsForm = FieldsFormCreateProducts;
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -20,9 +20,15 @@ function ProductCreate() {
     try {
       const formData = new FormData(event.target);
 
-      await fetchAxios.post('product/crud/create',formData,{headers:{'Content-Type':'multipart/form-data'}});
-      setPopup(true)
-      setLoading(false);
+      if(prodItemData){
+        await fetchAxios.put('product/crud/update',formData,{headers:{'Content-Type':'multipart/form-data',product_id:prodItemData.product_id,}});
+        setPopup(true)
+        setLoading(false);
+      }else{
+        await fetchAxios.post('product/crud/create',formData,{headers:{'Content-Type':'multipart/form-data'}});
+        setPopup(true)
+        setLoading(false);
+      }
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -58,6 +64,16 @@ function ProductCreate() {
     <div className='module-content'>
       { loading && <Loading/> }
       { popup && <FBResponse msg={"produto cadastrado com sucesso!"} />}
+
+      {
+        prodItemData && (
+          <div className='top-utils'>
+            <h4>Atualizar produto ID: {prodItemData.product_id}</h4>
+            <button className='bt bt-close' onClick={()=> {setProdItemData(null)}}>Fechar</button>
+          </div>
+        )
+      }
+
       <div className='utils-content'>
         <UtilitisProductCreate/>
       </div>
@@ -67,15 +83,15 @@ function ProductCreate() {
           <div className="form-rigth">
             {
               FieldsForm.map((field,index) => (
-                <FieldFormItem key={`FieldFormProd_${index}`} inputConfig={field.inputConfig} cssConfig={field.cssConfig} />
+                <FieldFormItem key={`FieldFormProd_${index}`} inputConfig={field.inputConfig} cssConfig={field.cssConfig} prodItemData={prodItemData} />
               ))
             }
           </div>
 
           <div className="form-left">
-            <FieldsFormDescription/>
+            <FieldsFormDescription prodItemData={prodItemData}/>
             <div className='content-bt-form'>
-              <button className='bt bt-primary'>Cadastrar</button>
+              <button className='bt bt-primary'>{prodItemData ? 'Atualizar' : "Cadastrar"}</button>
             </div>
           </div>
 

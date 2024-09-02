@@ -7,7 +7,7 @@ function Provider({children}) {
   
   const value = {
     moduleClick,setModuleClick,
-    menuOptions,updateMenuOptions
+    menuOptions,updateMenuOptions,
   }
 
   return (

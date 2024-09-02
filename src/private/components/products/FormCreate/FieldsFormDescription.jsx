@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 
 import './FieldsFormDescription.css'
+import fetchAxios from '../../../axios/config';
 
-function FieldsFormDescription() {
+function FieldsFormDescription({prodItemData}) {
+  const URL_BackEnd =  fetchAxios.defaults.baseURL.split('/api')[0];
+
   const [imgSelect, setImgSelect] = useState(null);
 
   function thumbnailsHanddler(e){
@@ -16,12 +19,11 @@ function FieldsFormDescription() {
     }
   }
 
-
   return (
     <>
       <div className="form-group w-100 ">
       <label htmlFor="discribe">Descrição:</label>
-        <textarea id="discribe" name="discribe" rows={10} placeholder='Detalhes técnicos do produto.' />
+        <textarea id="discribe" name="discribe" rows={10} placeholder={ prodItemData ? prodItemData.discribe : "Detalhes técnicos do produto."} />
         <div className="error errors-discribe"></div>
       </div>
         
@@ -40,7 +42,14 @@ function FieldsFormDescription() {
               <div className="images">
                 <img src={imgSelect} alt="Imagem selecionada" />
               </div>
-            ) : "Nenuhma imagem Selecionada!"}
+            ) : (
+              prodItemData ? (
+                <div className="images">
+                  <img src={URL_BackEnd+prodItemData.thumbnails} alt="Imagem selecionada" />
+                </div>
+              ): "Nenhuma imagem selecionada!"
+            )}
+            
         </div>
       </div>
 
