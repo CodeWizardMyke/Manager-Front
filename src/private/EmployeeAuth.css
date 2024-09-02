@@ -8,7 +8,6 @@ only screen and (min-resolution: 192dpi) {
     }
 }
 
-
 .auth-header{
   position: fixed;
   display: flex;

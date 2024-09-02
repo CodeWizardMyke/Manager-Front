@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import ManagerContext from '../context/ManagerContext';
 import ProductCreate from '../components/products/ProductCreate';
 import ProductManager from '../components/products/ProductManager';
@@ -12,12 +12,12 @@ function Products() {
           title:"Produtos",
           text:"Cadastro",
           current: 'products',
-          next: 'create'
+          next: 'create',
         },
         {
           text:"Gerenciar",
           current: 'products',
-          next: 'manager'
+          next: 'manager',
         },
       ])
   },[updateMenuOptions])

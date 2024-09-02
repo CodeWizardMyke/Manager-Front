@@ -41,6 +41,7 @@ function SideMenu() {
                   menuOptions.map((option, index)=> (
                     <button 
                     key={'buttonMenu-'+index}
+                    id={'buttonMenu_'+index}
                     onClick={()=>{handdlerNavigateDinamic(option)}}
                   >{option.text}</button>
                 ))

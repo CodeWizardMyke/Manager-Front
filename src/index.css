@@ -115,7 +115,18 @@ body{
   background-color: #FFC481;
   color: #4A4A4A;
 }
-
+.bt-filter{
+  background-color: #FFC107;
+  color: #4A4A4A;
+}
+.bt-excel {
+  background-color: #28A745;
+  color: #ffff;
+}
+.bt-pdf {
+  background-color: #DC3545;
+  color: #ffff;
+}
 .wrapper-rigth{
   flex-grow: 1;
   padding: 10px;

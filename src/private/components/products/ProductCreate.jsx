@@ -12,7 +12,6 @@ function ProductCreate() {
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [popup, setPopup] = useState(false)
-  let msg = "produto cadastrado com sucesso!"
 
   async function handdlerForm(event){
     event.preventDefault();
