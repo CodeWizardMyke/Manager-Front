@@ -1,8 +1,10 @@
 import React, { useContext, useEffect } from 'react'
 import ManagerContext from '../context/ManagerContext';
+import RegisterCart from '../components/cart/RegisterCart';
+import ManagerCart from '../components/cart/ManagerCart';
 
 function Cart() {
-  const {updateMenuOptions} = useContext(ManagerContext);
+  const {updateMenuOptions, moduleClick } = useContext(ManagerContext);
   
   useEffect(()=>{
       updateMenuOptions([
@@ -10,18 +12,21 @@ function Cart() {
           title:"Carrinho",
           text:"Cadastro",
           current: 'cart',
-          next: ''
+          next: 'register'
         },
         {
           text:"Gerenciar",
           current: 'cart',
-          next: ''
+          next: 'manager'
         },
       ])
   },[updateMenuOptions])
   
   return (
-    <div>Cart</div>
+    <>
+      {moduleClick.next === 'register' && <RegisterCart/>}
+      {moduleClick.next === 'manager' && <ManagerCart/>}
+    </>
   )
 }
 

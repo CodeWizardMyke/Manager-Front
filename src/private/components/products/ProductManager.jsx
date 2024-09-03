@@ -80,7 +80,7 @@ function ProductManager() {
                       <th>Categoria</th>
                       <th>Preço</th>
                       <th>Estoque</th>
-                      <th>Exibir</th>
+                      <th>Mostrar + </th>
                     </tr>
                   </thead>
                   <tbody>
