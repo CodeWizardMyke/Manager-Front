@@ -4,6 +4,7 @@ import Loading from '../loading/Loading';
 import fetchAxios from '../../axios/config';
 import HeadUtil from '../assets/head_util/HeadUtil';
 import { BiShowAlt } from "react-icons/bi";
+import { FaCartPlus } from "react-icons/fa";
 
 const configUtils = {
   search:{
@@ -25,6 +26,7 @@ function RegisterCart() {
   const [ count, setCount ] =useState(1);
   const [ loading, setLoading ] = useState(false);
 
+  const [ itemData, setItemData ] = useState(null);
   const [ data, setData ]= useState([]);
   const [ searchBy, setSearchBy ] = useState("");
   const [ query, setQuery ] = useState("");
@@ -59,6 +61,12 @@ function RegisterCart() {
     }
   }, [page, sendRequest]); 
 
+
+  function addItemCart(){
+    setItemData(null)
+    alert('adicionado')
+  }
+
   return (
     <div className='module-content'>
       { loading && <Loading/> }
@@ -88,13 +96,57 @@ function RegisterCart() {
                             <td>{item.category}</td>
                             <td>{item.price}</td>
                             <td>{item.stock}</td>
-                            <td><button><BiShowAlt/></button></td>
+                            <td>
+                              <button onClick={()=>{setItemData(item)}}>
+                                <BiShowAlt/>
+                              </button>
+                            </td>
                         </tr>
                         ))
                       )
                     }
                   </tbody>
-              </table>  
+              </table>
+              {
+                itemData && (
+                  <div className="table-item-select">
+                    <div className="table-item-select-header">
+                      <h3>Adicionar ao carrinho!</h3>
+                      <button 
+                        className='bt bt-close'
+                        onClick={()=>{setItemData(null)}}
+                      >close</button>
+                    </div>
+                    <div className='cart-item-detail'>
+                      <span className='cid-title'>Produto selecionado</span>
+                      <div className='d-flex-r mt-5'>
+                        <div className='wrapper-label'>
+                          <label htmlFor="prod_name" >Nome</label>
+                        </div>
+                        <input type="text" id='prod_name' value={itemData.title} readOnly/>
+                      </div>
+                      <div className='d-flex-r mt-5'>
+                        <div className='wrapper-label'>
+                          <label htmlFor="prod_id">ID</label>
+                        </div>
+                        <input type="number" id="prod_id" value={itemData.product_id} readOnly/>
+                      </div>
+                    </div>
+                    <div className="cart-inputs">
+                      <div className='d-flex-r'>
+                        <div className='wrapper-label'>
+                          <label htmlFor="qtd">Quantidade</label>
+                        </div>
+                        <input type="number" id="qtd" min={1} className='w-10' max={ itemData.stock } />
+                      </div>
+                      <button 
+                        className='bt bt-add-cart'
+                        onClick={addItemCart}
+                       >Adicionar <FaCartPlus/> </button>
+                    </div>
+                  </div>
+                )
+              }
             </div>
             <Pagination setSize={setSize} setPage={setPage} count={count} size={size}  page={page} />
           </div>

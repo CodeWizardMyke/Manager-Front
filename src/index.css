@@ -76,6 +76,9 @@ body{
   font-weight: 600;
   cursor: pointer;
 }
+.bt svg{
+  margin-left: 5px;
+}
 
 .bt-orange{
   background-color: var(--bt-orange) ;
@@ -130,6 +133,20 @@ body{
 .bt-close{
   background-color: #DC3545;
   color: #ffff;
+}
+.bt-close:hover{
+  color: #4A4A4A;
+}
+.bt-add-cart{
+  background-color: #4A4A4A;
+  color: #ffff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.bt-add-cart:hover{
+  background-color: #686868;
 }
 .wrapper-rigth{
   flex-grow: 1;
