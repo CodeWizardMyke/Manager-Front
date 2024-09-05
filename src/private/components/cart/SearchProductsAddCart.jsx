@@ -20,16 +20,16 @@ const configUtils = {
   },
 }
 
-function RegisterCart() {
-  const [ size, setSize ] = useState(15);
-  const [ page, setPage ] = useState(0);
-  const [ count, setCount ] =useState(1);
+function SearchProductsAddCart({dataCart, setDataCart, navigate, setNavigate}) {
+  const [ pagination, setPagination ]  = useState({size:15,page:0,count:1})
   const [ loading, setLoading ] = useState(false);
 
   const [ itemData, setItemData ] = useState(null);
   const [ data, setData ]= useState([]);
   const [ searchBy, setSearchBy ] = useState("");
   const [ query, setQuery ] = useState("");
+  const [ qtdProducts, setQtdProducs ] = useState(1);
+
   let filter = searchBy;
 
   const sendRequest = useCallback( async () => {
@@ -38,14 +38,17 @@ function RegisterCart() {
 
       let url = `/product/${query ? 'search/title' : 'crud/read'}`
       let options = {
-        page:page,
-        size:size,
+        page:pagination.page,
+        size:pagination.size,
         title:query,
       }
 
       const response = await fetchAxios.get(url, {headers:options});
       setData(response.data.rows);
-      setCount(response.data.count);
+      
+      pagination.count =  response.data.count;
+      setPagination(pagination);
+
       setLoading(false);
 
     } catch (error) {
@@ -53,25 +56,45 @@ function RegisterCart() {
       window.alert(error);
       console.log(error);
     }
-  }, [page, size, query])
-
-  useEffect(() => {
-    if (page > 0) {
-      sendRequest();
-    }
-  }, [page, sendRequest]); 
-
+  }, [pagination])
 
   function addItemCart(){
+    itemData.qtd_products = qtdProducts;
+
+    if(data.length > 0){
+
+      let newArr = data.map( (item) => {
+        if(item.product_id === itemData.product_id){
+          item.stock -= qtdProducts
+        }
+        return item
+      })
+
+      setData(newArr)
+    }
+
+    setDataCart([...dataCart, itemData])
     setItemData(null)
-    alert('adicionado')
   }
 
   return (
     <div className='module-content'>
       { loading && <Loading/> }
+      <div className="top-utils">
+        <div className="wrapper-progreess">
+          <div className={`wp-item products_search ${navigate === 'products' ? 'wp-active' : '' }`}>
+            <button>Buscar Produtos</button>
+          </div>
+          <div className="wp-item cart_selection">
+            <button>Selecionar Carrinho</button>
+          </div>
+          <div className="wp-item client_search">
+            <button>Buscar Cliente</button>
+          </div>
+        </div>
+      </div>
       <div className="utils-content">
-      < HeadUtil configHeadUtil={configUtils} setSearchBy={setSearchBy} setQuery={setQuery}  filter={filter}  sendRequest={sendRequest} />
+        <HeadUtil configHeadUtil={configUtils} setSearchBy={setSearchBy} setQuery={setQuery}  filter={filter}  sendRequest={sendRequest} />
       </div>
       <div className="module-actions">
             <div className="content-table">
@@ -84,6 +107,7 @@ function RegisterCart() {
                       <th>Preço</th>
                       <th>Estoque</th>
                       <th>Mostrar +</th>
+                      <th>Carrinho</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -97,8 +121,13 @@ function RegisterCart() {
                             <td>{item.price}</td>
                             <td>{item.stock}</td>
                             <td>
-                              <button onClick={()=>{setItemData(item)}}>
+                              <button className='bt-show-Prod'>
                                 <BiShowAlt/>
+                              </button>
+                            </td>
+                            <td>
+                              <button onClick={()=>{setItemData(item)}} className='bt-cartAdd'>
+                                <FaCartPlus/>
                               </button>
                             </td>
                         </tr>
@@ -137,7 +166,7 @@ function RegisterCart() {
                         <div className='wrapper-label'>
                           <label htmlFor="qtd">Quantidade</label>
                         </div>
-                        <input type="number" id="qtd" min={1} className='w-10' max={ itemData.stock } />
+                        <input type="number" id="qtd" min={1} className='w-10' max={ itemData.stock } onChange={(e)=> setQtdProducs(e.target.value) } />
                       </div>
                       <button 
                         className='bt bt-add-cart'
@@ -148,10 +177,10 @@ function RegisterCart() {
                 )
               }
             </div>
-            <Pagination setSize={setSize} setPage={setPage} count={count} size={size}  page={page} />
+            <Pagination  pagination={pagination} setPagination={setPagination} sendRequest={sendRequest} />
           </div>
     </div>
   )
 }
 
-export default RegisterCart
+export default SearchProductsAddCart;

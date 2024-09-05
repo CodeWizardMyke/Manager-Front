@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import ManagerContext from '../context/ManagerContext';
-import RegisterCart from '../components/cart/RegisterCart';
 import ManagerCart from '../components/cart/ManagerCart';
+import CreateCart from '../components/cart/CreateCart';
 
 function Cart() {
   const {updateMenuOptions, moduleClick } = useContext(ManagerContext);
@@ -24,7 +24,7 @@ function Cart() {
   
   return (
     <>
-      {moduleClick.next === 'register' && <RegisterCart/>}
+      {moduleClick.next === 'register' && <CreateCart/>}
       {moduleClick.next === 'manager' && <ManagerCart/>}
     </>
   )

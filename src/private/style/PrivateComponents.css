@@ -267,12 +267,9 @@
 }
 
 
-.content-table table button{
-  height: 22px;
-  padding: 5px 15px;
-  display: flex;
-  align-items: center;
-  justify-items: center;
+.bt-show-Prod{
+  height: 25px;
+  width: 35px;
   margin:  0 auto;
   border: none;
   outline: none;
@@ -281,15 +278,36 @@
   border-radius: 5px;
   cursor: pointer;
   color: #ffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.content-table table button:hover{
+
+.bt-show-Prod:hover{
   background-color: #1f89fa;
 }
 .content-table svg{
-  height: 20px;
-  width: 20px;
+  height: 15px;
+  width: 15px;
 }
-
+.bt-cartAdd{
+  height: 25px;
+  width: 35px;
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;  
+  color: #fff;
+  background-color: #28A745;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 200ms;
+}
+.bt-cartAdd:hover{
+  background-color: #09bd33;
+}
 .table-item-select {
   border: 2px solid #dddd;
   box-shadow: 0 0 15px #4A4A4A;
@@ -328,4 +346,28 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.wrapper-progreess{
+  background-color: rebeccapurple;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+.wp-item button{
+  width: 100%;
+  background-color: #4A90E2;
+  cursor: pointer;
+  height: 35px;
+  font-size: 14pt;
+  font-weight: 600;
+  color: #f5f5f5;
+  border: 2px solid transparent;
+  border-right-color: #4A4A4A;
+  transition: all 200ms;
+}
+
+.wp-item button:hover{
+  background-color: #357ABD;
+  border-bottom-color: #FFC481;
 }

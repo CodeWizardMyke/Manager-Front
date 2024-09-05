@@ -64,7 +64,6 @@ function ProductCreate({prodItemData, setProdItemData}) {
     <div className='module-content'>
       { loading && <Loading/> }
       { popup && <FBResponse msg={"produto cadastrado com sucesso!"} />}
-
       {
         prodItemData && (
           <div className='top-utils'>

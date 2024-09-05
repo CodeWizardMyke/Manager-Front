@@ -1,10 +1,28 @@
 import React from 'react'
 import './Paginate.css'
 
-function Pagination({setSize, setPage,count, page ,size}) {
+function Pagination({pagination,setPagination, sendRequest}) {
   
-  function paginatePrev() { if (page > 1) {setPage(page - 1);}}
-  function paginateNext() { if (page < count / size) {setPage(page + 1);}}
+  function paginatePrev() {
+    if(pagination.page > 1){
+      pagination.page --;
+      setPagination(pagination);
+      sendRequest();
+    }
+  }
+  function paginateNext() {
+    if(pagination.page < (pagination.count / pagination.size)){
+      pagination.page ++;
+      setPagination(pagination);
+      sendRequest();
+    }
+  }
+
+  function handdlerSize (e){
+    pagination.size = e.target.value;
+    setPagination(pagination);
+    sendRequest();
+  }
 
   return (
     <div className='paginate'>
@@ -14,7 +32,7 @@ function Pagination({setSize, setPage,count, page ,size}) {
       </div>
       <div className="paginate_size">
         <label htmlFor="size">QTD: </label>
-        <select id="size" onChange={(e) => setSize(e.target.value)}>
+        <select id="size" onChange={(e) => handdlerSize(e)}>
           <option value="15">15</option>
           <option value="40">40</option>
           <option value="80">80</option>
