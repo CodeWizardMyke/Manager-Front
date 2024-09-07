@@ -1,25 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import SearchProductsAddCart from './SearchProductsAddCart';
 
 function CreateCart() {
-
-  const [dataCart, setDataCart] = useState([]);
-  const [dataClient, setDataClient] = useState(null);
-  const [cartMount, setCartMount] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [navigate, setNavivate] = useState('products');
+  const [productsData, setProductsData] = useState([]);
+  const [clientData, setClientData] = useState(null);
+
+  const cartStates = {
+    navigate, setNavivate,
+    loading, setLoading,
+    productsData, setProductsData,
+    clientData, setClientData,
+  };
   
   return (
     <>
       {
         navigate === 'products' && (
           <SearchProductsAddCart
-            dataCart={dataCart} setDataCart={setDataCart}
-            navigate={navigate} setNavivate={setNavivate}
+          cartStates={cartStates}
           />
         )
       }
     </>
   )
-}
+};
 
-export default CreateCart
+export default CreateCart;

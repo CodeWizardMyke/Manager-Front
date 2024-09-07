@@ -1,65 +1,42 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import HeadUtil from '../assets/head_util/HeadUtil'
-import { BiShowAlt } from "react-icons/bi";
+import React, { useState } from 'react'
 import fetchAxios from '../../axios/config';
+
+import { BiShowAlt } from "react-icons/bi";
+
 import Pagination from '../assets/paginate/Paginate';
 import Loading from '../loading/Loading';
 import ProductCreate from './ProductCreate';
+import ToolsApp from '../assets/tools/ToolsApp';
 
 function ProductManager() {
-  const [data, setData] = useState([]);
-  const [query, setQuery] = useState("");
-  const [searchBy, setSearchBy] = useState("");
-  const [size, setSize] = useState(15);
-  const [page, setPage] = useState(0);
-  const [count, setCount] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [ prodItem, setProdItem ] = useState(null);
-  let filter = ''
+  const [ loading, setLoading] = useState(false);
+  const [ pagination, setPagination ]  = useState({size:15,page:0,count:1});
+  const [ searchOpt, setSearchOpt ] = useState({query: '', searchType: ''});
 
-  const sendRequest = useCallback(async () => {
+  const [ data, setData] = useState([]);
+  const [ prodItem, setProdItem ] = useState(null);
+
+  const sendRequest = async () => {
     try {
       setLoading(true);
-      let url = `/product/${searchBy ? 'search/' + searchBy : 'crud/read'}`;
+      let url = `/product/${searchOpt.query ? 'search/title': 'crud/read'}`;
       let headers = {
-        page: page,
-        size: size,
-        title: query,
-        query: query
+        page:pagination.page, size:pagination.size,
+        title: searchOpt.query, query: searchOpt.query,
       };
 
       const response = await fetchAxios.get(url, { headers: headers });
       setData(response.data.rows);
-      setCount(response.data.count);
+
+      pagination.count =  response.data.count;
+      setPagination(pagination);
       setLoading(false);
 
     } catch (error) {
       console.log(error);
       setLoading(false);
     }
-  }, [page, size, searchBy, query]); 
-
-  useEffect(() => {
-    if (page > 0) {
-      sendRequest();
-    }
-  }, [page, sendRequest]); 
-
-
-  const configHeadUtil = {
-    search:{
-      options:[
-        {value:'title',txt:'título'},
-        {value:'id',txt:'id'},
-      ],
-    },
-    filter:{
-      options:[
-        {value:'id',txt:'id'},
-        {value:'title',txt:'título'},
-      ],
-    },
-  }
+  }; 
 
   return (
     <>
@@ -68,7 +45,7 @@ function ProductManager() {
         <div className='module-content'>
           { loading && <Loading/> }
           <div className="utils-content">
-            <HeadUtil configHeadUtil={configHeadUtil} setSearchBy={setSearchBy} setQuery={setQuery} filter={filter} sendRequest={sendRequest} />
+            <ToolsApp setQuerySearch={setSearchOpt} searchFunction={sendRequest} />
           </div>
           <div className="module-actions">
             <div className="content-table">
@@ -102,7 +79,7 @@ function ProductManager() {
                   </tbody>
               </table>  
             </div>
-            <Pagination setSize={setSize} setPage={setPage} count={count} size={size}  page={page} />
+            <Pagination pagination={pagination} setPagination={setPagination} sendRequest={sendRequest}/>
           </div>
         </div>
         )}

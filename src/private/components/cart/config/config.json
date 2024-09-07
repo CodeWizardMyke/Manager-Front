@@ -1,0 +1,13 @@
+{
+  "search":{
+    "options":[
+      {"value":"title","txt":"Nome produto"},
+    ]
+  },
+  "filter":{
+    "options":[
+      {"value":"id","txt":"id"},
+      {"value":"title","txt":"Nome produto"},
+    ]
+  }
+}
