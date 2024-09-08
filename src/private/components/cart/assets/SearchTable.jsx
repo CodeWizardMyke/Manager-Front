@@ -2,19 +2,19 @@ import React, { useState } from 'react'
 import { BiShowAlt } from "react-icons/bi";
 import { FaCartPlus } from "react-icons/fa";
 
-function SearchTable({productsData, setProductsData}) {
+function SearchTable({productsData, setProductsData, setProductShow}) {
   const [prodSelect, setProdSelect] = useState(null);
-  let qtd_products = 1; 
 
   function addItemCart(){
    const productsInCart = productsData.map(product => {
 
       if(product.product_id === prodSelect.product_id){
-        if( product.stock >= qtd_products){
-          product.stock -= qtd_products
+        if( product.stock >=  product.qtd_products){
+          product.stock -= product.qtd_products;
+        }else{
+          product.qtd_products = product.stock;
         }
         product.inCart = true;
-        product.qtd_products = qtd_products;
         console.log(product)
       }
       return product
@@ -48,7 +48,12 @@ function SearchTable({productsData, setProductsData}) {
                     <td>{item.price}</td>
                     <td>{item.stock}</td>
                     <td>
-                      <button className='bt-show-Prod'>
+                      <button 
+                        className='bt-show-Prod'
+                        onClick={() => {
+                          setProductShow(item)
+                        }}
+                      >
                         <BiShowAlt/>
                       </button>
                     </td>
@@ -93,7 +98,7 @@ function SearchTable({productsData, setProductsData}) {
                 <div className='wrapper-label'>
                   <label htmlFor="qtd">Quantidade</label>
                 </div>
-                <input type="number" id="qtd" min={1} className='w-10' max={ prodSelect.stock } onChange={(e)=> qtd_products = e.target.value } />
+                <input type="number" id="qtd" min={1} className='w-10' max={ prodSelect.stock } onChange={(e)=> prodSelect.qtd_products = e.target.value } />
               </div>
               <button 
                 className='bt bt-add-cart'

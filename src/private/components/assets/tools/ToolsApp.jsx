@@ -5,11 +5,11 @@ import DownloadData from './DownloadData'
 
 function ToolsApp({setQuerySearch,searchFunction}) {
   return (
-    <div>
+    <>
       <SearchData setQuerySearch={setQuerySearch} searchFunction={searchFunction} />
       <FilterData/>
       <DownloadData/>
-    </div>
+    </>
   )
 }
 

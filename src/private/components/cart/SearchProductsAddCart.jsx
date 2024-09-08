@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 // imports outher components
 import Pagination from '../assets/paginate/Paginate';
@@ -7,11 +7,17 @@ import fetchAxios from '../../axios/config';
 import ToolsApp from '../assets/tools/ToolsApp';
 import WrapperProgress from './assets/WrapperProgress';
 import SearchTable from './assets/SearchTable';
+import ProductCreate from '../products/ProductCreate';
+import {CartContext} from '../../context/CartProvider';
 
 function SearchProductsAddCart({cartStates}) {
   const { productsData, setProductsData, loading, setLoading, navigate, setNavivate, } = cartStates;
   const [ pagination, setPagination ]  = useState({size:15,page:0,count:1})
   const [ searchOpt, setSearchOpt ] = useState({query: '', searchType: ''});
+  const [ productShow, setProductShow ]= useState(null);
+
+  const {cartNavigate} = useContext(CartContext)
+  console.log(cartNavigate)
 
   async function searchReq() {
     try {
@@ -38,17 +44,22 @@ function SearchProductsAddCart({cartStates}) {
 
   return (
     <div className='module-content'>
+      { productShow && <ProductCreate prodItemData={productShow} setProdItemData={setProductShow} /> }
       { loading && <Loading/> }
-      <div className="top-utils">
-        <WrapperProgress navigate={navigate} setNavivate={setNavivate} />
-      </div>
-      <div className="utils-content">
-        <ToolsApp setQuerySearch={setSearchOpt} searchFunction={searchReq} />
-      </div>
-      <div className="module-actions">
-        <SearchTable productsData={productsData} setProductsData={setProductsData} />
-        <Pagination  pagination={pagination} setPagination={setPagination} sendRequest={searchReq} />
-      </div>
+      { !productShow && (
+        <>
+          <div className="top-utils">
+            <WrapperProgress navigate={navigate} setNavivate={setNavivate} />
+          </div>
+          <div className="utils-content">
+            <ToolsApp setQuerySearch={setSearchOpt} searchFunction={searchReq} setProductShow={setProductShow} />
+          </div>
+          <div className="module-actions">
+            <SearchTable productsData={productsData} setProductsData={setProductsData} setProductShow={setProductShow} />
+            <Pagination  pagination={pagination} setPagination={setPagination} sendRequest={searchReq} />
+          </div>
+        </>
+      )}
     </div>
   )
 }

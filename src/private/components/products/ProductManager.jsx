@@ -70,7 +70,7 @@ function ProductManager() {
                             <td>{item.category}</td>
                             <td>{item.price}</td>
                             <td>{item.stock}</td>
-                            <td><button onClick={()=> {setProdItem(item)}}
+                            <td><button className='bt-show-Prod' onClick={()=> {setProdItem(item)}}
                             ><BiShowAlt/></button></td>
                         </tr>
                         ))

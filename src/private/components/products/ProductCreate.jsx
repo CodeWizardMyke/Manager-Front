@@ -86,14 +86,12 @@ function ProductCreate({prodItemData, setProdItemData}) {
               ))
             }
           </div>
-
           <div className="form-left">
             <FieldsFormDescription prodItemData={prodItemData}/>
             <div className='content-bt-form'>
               <button className='bt bt-primary'>{prodItemData ? 'Atualizar' : "Cadastrar"}</button>
             </div>
           </div>
-
         </form>
       </div>
     </div>
