@@ -1,28 +1,18 @@
-import React, { useState } from 'react';
-import SearchProductsAddCart from './SearchProductsAddCart';
+import { useContext } from 'react';
+import { CartContext } from '../../context/CartProvider';
+
+import SearchProducts from './register/SearchProducts';
+import ShowCart from './register/ShowCart';
+import SearchClients from './register/SearchClients';
 
 function CreateCart() {
-  const [loading, setLoading] = useState(false);
-  const [navigate, setNavivate] = useState('products');
-  const [productsData, setProductsData] = useState([]);
-  const [clientData, setClientData] = useState(null);
+  const {navigate} = useContext(CartContext);
 
-  const cartStates = {
-    navigate, setNavivate,
-    loading, setLoading,
-    productsData, setProductsData,
-    clientData, setClientData,
-  };
-  
   return (
     <>
-      {
-        navigate === 'products' && (
-          <SearchProductsAddCart
-          cartStates={cartStates}
-          />
-        )
-      }
+      {navigate === 'products' && <SearchProducts/>}
+      {navigate === 'cart' &&  <ShowCart/> }
+      {navigate === 'clients' && <SearchClients/>}
     </>
   )
 };

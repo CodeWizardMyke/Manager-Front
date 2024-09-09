@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { BiShowAlt } from "react-icons/bi";
 import { FaCartPlus } from "react-icons/fa";
+import { CartContext } from '../../../context/CartProvider';
 
-function SearchTable({productsData, setProductsData, setProductShow}) {
+function SearchTable({setProductShow}) {
+  const {productsData, setProductsData} = useContext(CartContext);
   const [prodSelect, setProdSelect] = useState(null);
 
   function addItemCart(){

@@ -5,11 +5,18 @@ import React, { createContext, useState } from 'react';
 const CartContext = createContext();
 
 function CartProvider({ children }) {
-  const [cartNavigate, setCartNavigate] = useState('');
+  const [pagination, setPagination]  = useState({size:15,page:0,count:1})
+  const [loading, setLoading] = useState(false);
+  const [navigate, setNavigate] = useState('products');
+  const [productsData, setProductsData] = useState([]);
+  const [clientData, setClientData] = useState(null);
 
   const cartValue = {
-    cartNavigate,
-    setCartNavigate,
+    pagination, setPagination,
+    loading, setLoading,
+    navigate, setNavigate,
+    productsData, setProductsData,
+    clientData, setClientData
   };
 
   return (
