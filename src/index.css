@@ -99,6 +99,14 @@ body{
   background-color: #DC3545;
 }
 
+.bt-clean{
+  background-color: #DC3545;
+  color: #f5f5f5;
+  transition: all 200ms;
+}
+.bt-clean:hover{
+  color: #4A4A4A;
+}
 .bt-orange{
   background-color: var(--bt-orange) ;
   color: var(--d-bt-txt-color);
@@ -190,4 +198,7 @@ body{
   text-align: center;
   padding: 0 15px;
   color: #4A4A4A;
+}
+.txt-center{
+  text-align: center;
 }
