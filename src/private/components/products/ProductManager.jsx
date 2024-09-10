@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import fetchAxios from '../../axios/config';
 
 import { BiShowAlt } from "react-icons/bi";
@@ -7,11 +7,12 @@ import Pagination from '../assets/paginate/Paginate';
 import Loading from '../loading/Loading';
 import ProductCreate from './ProductCreate';
 import ToolsApp from '../assets/tools/ToolsApp';
+import ManagerContext from '../../context/ManagerContext';
 
 function ProductManager() {
   const [ loading, setLoading] = useState(false);
-  const [ pagination, setPagination ]  = useState({size:15,page:0,count:1});
   const [ searchOpt, setSearchOpt ] = useState({query: '', searchType: ''});
+  const {pagination, setPagination} = useContext(ManagerContext);
 
   const [ data, setData] = useState([]);
   const [ prodItem, setProdItem ] = useState(null);
@@ -79,7 +80,7 @@ function ProductManager() {
                   </tbody>
               </table>  
             </div>
-            <Pagination pagination={pagination} setPagination={setPagination} sendRequest={sendRequest}/>
+            <Pagination sendRequest={sendRequest}/>
           </div>
         </div>
         )}

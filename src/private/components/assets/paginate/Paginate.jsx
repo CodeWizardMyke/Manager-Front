@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import './Paginate.css'
-import { CartContext } from '../../../context/CartProvider';
+import ManagerContext from '../../../context/ManagerContext';
 
-function Pagination({sendRequest}) {
-  const {pagination, setPagination} = useContext(CartContext);
+function Pagination({sendRequest }) {
+  const {pagination, setPagination} = useContext(ManagerContext);
   
   function paginatePrev() {
     if(pagination.page > 1){

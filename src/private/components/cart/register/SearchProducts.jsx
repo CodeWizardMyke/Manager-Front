@@ -9,9 +9,11 @@ import WrapperProgress from '../assets/WrapperProgress';
 import SearchTable from './SearchTable';
 import ProductCreate from '../../products/ProductCreate';
 import {CartContext} from '../../../context/CartProvider';
+import ManagerContext from '../../../context/ManagerContext';
 
 function SearchProducts() {
-  const { setProductsData, loading, setLoading, pagination, setPagination } = useContext(CartContext);
+  const { setProductsData, loading, setLoading} = useContext(CartContext);
+  const { pagination, setPagination } = useContext(ManagerContext);
   const [ searchOpt, setSearchOpt ] = useState({query: '', searchType: ''});
   const [ productShow, setProductShow ]= useState(null);
 

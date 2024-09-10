@@ -36,6 +36,17 @@ function ShowCart() {
 
   },[productsData])
 
+  function cleanCartHanddler(){
+    const cleanCart = productsData.map((item) => {
+      if(item.inCart){
+        item.stock = Number(item.stock) + Number(item.qtd_products);
+        item.inCart = false;
+      }
+      return item;
+    })
+    setProductsData(cleanCart);
+  }
+
   return (
     <div className='module-content'>
       <div className="top-utils">
@@ -54,7 +65,7 @@ function ShowCart() {
           </div>
         </div>
 
-        <button className='bt bt-clean'>Limpar carrinho</button>
+        <button className='bt bt-clean' onClick={cleanCartHanddler}>Limpar carrinho</button>
 
       </div>
       <div className="module-actions">
