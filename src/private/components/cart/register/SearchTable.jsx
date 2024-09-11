@@ -27,11 +27,7 @@ function SearchTable({setProductShow}) {
 
   return (
     <div className="content-table">
-<<<<<<< HEAD
       <table>
-=======
-      < table>
->>>>>>> b0098043b5ec2cd3c22d913b0f3553fc558a0679
           <thead>
             <tr>
               <th>Id</th>

@@ -80,7 +80,6 @@ body{
 .bt svg{
   margin-left: 5px;
 }
-<<<<<<< HEAD
 .bt-add{
   background-color: #28A745;
   color: #4A4A4A;
@@ -107,8 +106,6 @@ body{
 .bt-add:hover{
   color: #ffff;
 }
-=======
->>>>>>> b0098043b5ec2cd3c22d913b0f3553fc558a0679
 .bt-remove{
   cursor: pointer;
   height: 25px;
