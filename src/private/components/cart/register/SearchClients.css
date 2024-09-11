@@ -1,0 +1,14 @@
+.d-flex-row{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.util-func h3{
+  min-width: 140px;
+  text-align: end;
+  padding-right: 10px;
+  color: #4A4A4A;
+  font-size: 14pt;
+  margin-left: 5px;
+}

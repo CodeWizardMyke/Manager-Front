@@ -1,0 +1,73 @@
+@keyframes top-menu-animate {
+  0%{
+    opacity: 0;
+    height: 0;
+  }
+  25%{
+    opacity: 0.2;
+    height: 50px;
+  }
+  50%{
+    opacity: 0.5;
+    height: 150px;
+  }
+  75%{
+    opacity: 0.7;
+    height: 250px;
+  }
+  100%{
+    opacity: 1;
+    height: 360px;
+  }
+}
+
+.SideMenu{
+  height: 100%;
+  background-color: #ffff;
+  width: 300px;
+}
+
+.SideMenu h4{
+  background-color: #4A90E2;
+  text-align: center;
+  padding: 0 35px;
+  width: 100%; 
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16pt;
+  color: #ffff;
+  font-weight: 600;
+}
+.wsm-buttons{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 300px;
+}
+.wsm-buttons button{
+  height: 35px;
+  width: 200px;
+  color: #ffff;
+  background-color: #6C757D;
+  border: none;
+  outline: none;
+  margin-top: 15px;
+  border-radius: 5px;
+  font: 14pt;
+  cursor: pointer;
+  transition: all 200ms ease
+}
+
+.wsm-buttons button:hover{
+  background-color: #0056B3;
+}
+
+.smt-active{
+  animation: top-menu-animate 200ms ease-in 1 backwards;
+}
+
+.wsm-btn-active{
+  background-color: #0056B3 !important;
+}
