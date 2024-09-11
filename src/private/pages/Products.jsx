@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useContext, useEffect } from 'react'
+=======
+import React, { useContext, useEffect, useState } from 'react'
+>>>>>>> b0098043b5ec2cd3c22d913b0f3553fc558a0679
 import ManagerContext from '../context/ManagerContext';
 import ProductCreate from '../components/products/ProductCreate';
 import ProductManager from '../components/products/ProductManager';
