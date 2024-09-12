@@ -27,7 +27,6 @@ function SearchClients() {
          window.alert('ao consultar os clientes pelo seu id do instagram, deve ser inserido algum valor para a pesquisa!!!')
          setLoading(false)
       }else{
-        console.log(searchQuery)
         let url = searchQuery.searchType ? `/client/search/${searchQuery.searchType}` : '/client/crud/read'
         
         let options = { 

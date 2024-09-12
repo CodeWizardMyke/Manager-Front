@@ -17,7 +17,6 @@ function SearchTable({setProductShow}) {
           product.qtd_products = product.stock;
         }
         product.inCart = true;
-        console.log(product)
       }
       return product
     })

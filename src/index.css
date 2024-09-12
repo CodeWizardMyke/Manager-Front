@@ -85,6 +85,23 @@ body{
   color: #4A4A4A;
   transition: all 200ms;
 }
+
+.bt-cancel{
+  background-color: #DC3545;
+  color: #f5f5f5;
+}
+.bt-cancel:hover{
+  color:#4A4A4A ;
+}
+
+.bt-approve{
+  background-color: #FFC107;
+  color: #f5f5f5;
+}
+.bt-approve:hover{
+  color: #4A4A4A;
+}
+
 .bt-selection{
   border: none;
   outline: none;

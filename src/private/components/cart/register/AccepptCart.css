@@ -1,0 +1,86 @@
+.dual-box-x{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px;
+}
+.box-x-left{
+  width: 100%;
+  max-width: 740px;
+  height: 100%;
+  max-height: 550px;
+}
+
+.box-x-rigth{
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cartResume{
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cartResume input{
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  height: 25px;
+  width: 100px;
+  text-align: center;
+  margin-left: 15px;
+}
+.cb-h{
+  max-height: 500px;
+}
+
+.contentClientData{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.clientDataItem{
+  position: relative;
+  background-color: #d5d5d5;
+  margin: 15px 0;
+  padding: 5px;
+}
+.clientDataItem .title{
+  position: absolute;
+  top: -15px;
+  right: 0;
+}
+
+.clientDataItem input{
+  border: 0;
+  border-radius: 5px;
+  outline: none;
+  height: 25px;
+  width: 200px;
+}
+.clientDataItem div.jsf{
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+}
+.cart-actions{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 15px;
+  padding: 15px 5px;
+}
+
+.cart-actions span.title{
+  position: absolute;
+  top: -15px;
+  right: 0;
+}
