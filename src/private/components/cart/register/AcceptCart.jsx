@@ -1,13 +1,59 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import ClientHistoricBuy from '../assets/ClientHistoricBuy'
 import WrapperProgress from '../assets/WrapperProgress'
 import DownloadData from '../../assets/tools/DownloadData'
 import './AccepptCart.css';
-
+import { CartContext } from '../../../context/CartProvider';
+import fetchAxios from '../../../axios/config';
+import Loading from '../../loading/Loading';
 
 function AcceptCart() {
+  const {productsData, setProductsData, clientData, setClientData, setNavigate, loading, setLoading} = useContext(CartContext);
+  
+  const cartItems = productsData.filter( product => product.inCart === true);
+  let cartPrice = productsData.reduce((acc, product) => ( product.inCart ? Number(product.price) * Number(product.qtd_products) : 0 ) + acc ,0)
+  let qtd_items = productsData.reduce((acc, product) => ( product.inCart ? Number(product.qtd_products) : 0 ) + acc ,0)
+
+
+  async function approvedCart() {
+    try {
+      setLoading(true)
+      const body ={
+        clientInstagram: clientData.clientInstagram,
+        clientName: clientData.clientName,
+        items:cartItems
+      }
+
+      const response = await fetchAxios.post('/cart/crud/create', body)
+      setLoading(false)
+      
+      console.log(response)
+      window.alert('Criado com sucesso!');
+
+      cartCancel();
+    } catch (error) {
+      setLoading(false)
+      console.log(error);
+      window.alert('Erro inesperado', error);
+    }
+  }
+
+  function cartCancel() {
+    const removeCart = productsData.map( (product) => {
+      if(product.inCart){
+        product.inCart = false;
+        product.stock = Number(product.stock) + Number(product.qtd_products);
+      }
+      return product;
+    })
+    setProductsData(removeCart);
+    setClientData(null);
+    setNavigate('products');
+  }
+
   return (
     <div className='module-content'>
+      {loading && <Loading/>}
       <div className="top-utils">
       <WrapperProgress/>
       </div>
@@ -21,11 +67,11 @@ function AcceptCart() {
             <div className="cartResume">
               <div>
                 <label htmlFor="priceCart">Valor final do carrinho</label>
-                <input type="text" id='priceCart' readOnly  value={'R$: 0.00'}/>
+                <input type="text" id='priceCart' readOnly  value={cartPrice.toLocaleString('pt-br',{style:'currency', currency:'BRL'})}/>
               </div>
               <div>
-                <label htmlFor="qtd_cart">Valor final do carrinho</label>
-                <input type="number" id='qtd_cart' readOnly  value={1}/>
+                <label htmlFor="qtd_cart">QTD de items no carrinho </label>
+                <input type="number" id='qtd_cart' readOnly  value={qtd_items}/>
               </div>
             </div>
             <div className="content-table cb-h">
@@ -41,7 +87,18 @@ function AcceptCart() {
                   </tr>
                 </thead>
                 <tbody>
-
+                  {cartItems.length > 0 && (
+                    cartItems.map((product, index) => (
+                      <tr key={product.product_id +'prodcart'}>
+                        <td>{product.product_id}</td>
+                        <td>{product.title}</td>
+                        <td>{product.category}</td>
+                        <td>{product.price}</td>
+                        <td>{product.qtd_products}</td>
+                        <td>{ Number(product.qtd_products) * Number(product.price)}</td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
@@ -52,23 +109,23 @@ function AcceptCart() {
                 <span className="title">Dados do cliente</span>
                 <div className='jsf'>
                   <label htmlFor="clientName">Nome</label>
-                  <input type="text" readOnly  id='clientName' value={''}/>
+                  <input type="text" readOnly  id='clientName' value={clientData.clientName}/>
                 </div>
                 <div className='jsf'>
                   <label htmlFor="email">email</label>
-                  <input type="text" readOnly  id='email' value={''}/>
+                  <input type="text" readOnly  id='email' value={clientData.email}/>
                 </div>
                 <div className='jsf'>
                   <label htmlFor="clientInstagram">Instagram</label>
-                  <input type="text" readOnly  id='clientInstagram' value={''}/>
+                  <input type="text" readOnly  id='clientInstagram' value={clientData.clientInstagram}/>
                 </div>
                 <div className='jsf'>
                   <label htmlFor="telephone">Telefone</label>
-                  <input type="text" readOnly  id='telephone' value={''}/>
+                  <input type="text" readOnly  id='telephone' value={clientData.telephone}/>
                 </div>
                 <div className='jsf'>
                   <label htmlFor="clientCPF">CPF</label>
-                  <input type="text" readOnly  id='clientCPF' value={''}/>
+                  <input type="text" readOnly  id='clientCPF' value={clientData.cpf}/>
                 </div>
               </div>
               <div className="clientDataItem">
@@ -105,8 +162,14 @@ function AcceptCart() {
             </div>
             <div className="cart-actions">
               <span className="title">Açoes do carrinho</span>
-              <button className='bt bt-cancel'>Cancelar</button>
-              <button className='bt bt-approve'>Aprovar</button>
+              <button 
+                className='bt bt-cancel'
+                onClick={cartCancel}
+              >Cancelar</button>
+              <button 
+                className='bt bt-approve'
+                onClick={approvedCart}
+              >Aprovar</button>
             </div>
           </div>
         </div>
