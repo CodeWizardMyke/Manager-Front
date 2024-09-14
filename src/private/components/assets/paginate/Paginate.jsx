@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import './Paginate.css'
 import ManagerContext from '../../../context/ManagerContext';
 
-function Pagination({sendRequest }) {
+function Pagination({ sendRequest }) {
   const {pagination, setPagination} = useContext(ManagerContext);
   
   function paginatePrev() {

@@ -8,13 +8,15 @@ function CartProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [navigate, setNavigate] = useState('first');
   const [productsData, setProductsData] = useState([]);
-  const [clientData, setClientData] = useState(null);
+  const [ clientData, setClientData ] = useState(null);
+  const [ clientCart, setClientCart ] = useState(null);
 
   const cartValue = {
     loading, setLoading,
     navigate, setNavigate,
     productsData, setProductsData,
-    clientData, setClientData
+    clientData, setClientData,
+    clientCart, setClientCart
   };
 
   return (
