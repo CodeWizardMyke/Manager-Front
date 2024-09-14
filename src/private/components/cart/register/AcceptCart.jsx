@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import ClientHistoricBuy from '../assets/ClientHistoricBuy'
 import WrapperProgress from '../assets/WrapperProgress'
 import DownloadData from '../../assets/tools/DownloadData'
@@ -6,35 +6,32 @@ import './AccepptCart.css';
 import { CartContext } from '../../../context/CartProvider';
 import fetchAxios from '../../../axios/config';
 import Loading from '../../loading/Loading';
+import CartQuery from '../assets/CartQuery';
 
 function AcceptCart() {
   const {productsData, setProductsData, clientData, setClientData, setNavigate, loading, setLoading} = useContext(CartContext);
-  
+  const [ response, setResponse ] =  useState(null);
+
   const cartItems = productsData.filter( product => product.inCart === true);
   let cartPrice = productsData.reduce((acc, product) => ( product.inCart ? Number(product.price) * Number(product.qtd_products) : 0 ) + acc ,0)
   let qtd_items = productsData.reduce((acc, product) => ( product.inCart ? Number(product.qtd_products) : 0 ) + acc ,0)
 
-
-  async function approvedCart() {
+  const sendCart = async () => {
     try {
       setLoading(true)
-      const body ={
-        clientInstagram: clientData.clientInstagram,
-        clientName: clientData.clientName,
-        items:cartItems
+      const options = {
+        clientInstagram:clientData.clientInstagram,
+        clientclientName:clientData.clientName,
+        items:cartItems,
       }
+  
+      const response = await fetchAxios.post('/cart/crud/create', options);
+      setResponse(response.data)
 
-      const response = await fetchAxios.post('/cart/crud/create', body)
       setLoading(false)
-      
-      console.log(response)
-      window.alert('Criado com sucesso!');
-
-      cartCancel();
     } catch (error) {
-      setLoading(false)
       console.log(error);
-      window.alert('Erro inesperado', error);
+      window.alert(error)
     }
   }
 
@@ -53,7 +50,8 @@ function AcceptCart() {
 
   return (
     <div className='module-content'>
-      {loading && <Loading/>}
+      { response && <CartQuery setResponse={setResponse} response={response} cancelCart={cartCancel} /> }
+      { loading && <Loading />}
       <div className="top-utils">
       <WrapperProgress/>
       </div>
@@ -168,7 +166,7 @@ function AcceptCart() {
               >Cancelar</button>
               <button 
                 className='bt bt-approve'
-                onClick={approvedCart}
+                onClick={sendCart}
               >Aprovar</button>
             </div>
           </div>
