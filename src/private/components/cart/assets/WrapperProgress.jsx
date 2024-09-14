@@ -7,13 +7,13 @@ function WrapperProgress() {
   return (
     <div className="wrapper-progreess">
       <div className={`wp-item products_search`}>
-        <button onClick={()=> setNavigate('products')}>Buscar Produtos</button>
+        <button onClick={()=> setNavigate('first')}>Buscar Produtos</button>
       </div>
       <div className="wp-item cart_selection">
-        <button onClick={()=> setNavigate('cart')}>Selecionar Carrinho</button>
+        <button onClick={()=> setNavigate('secound')}>Selecionar Carrinho</button>
       </div>
       <div className="wp-item client_search">
-        <button onClick={()=> setNavigate('clients')}>Buscar Cliente</button>
+        <button onClick={()=> setNavigate('third')}>Buscar Cliente</button>
       </div>
   </div>
   )

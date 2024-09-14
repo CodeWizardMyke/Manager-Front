@@ -14,7 +14,7 @@ import ToolCreateClient from '../assets/ToolCreateClient';
 const ToolsConfig = {options:[{value:'',txt:'buscar Todos'},{value:'instagram',txt:'instagram'}],};
 
 function SearchClients() {
-  const { setClientData , loading, setLoading} = useContext(CartContext);
+  const { setClientData , loading, setLoading, setNavigate} = useContext(CartContext);
   const { pagination } = useContext(ManagerContext);
 
   const [searchQuery, setQuerySearch] = useState({query:'', searchType:''});
@@ -47,6 +47,11 @@ function SearchClients() {
       console.log(error);
       window.alert(error);
     }
+  }
+
+  function handdlerSelectClient(client){
+    setClientData(client);
+    setNavigate("");
   }
 
   return (
@@ -87,7 +92,7 @@ function SearchClients() {
                       <td>
                         <button 
                           className='bt-selection'
-                          onClick={()=> setClientData(item)}
+                          onClick={()=> handdlerSelectClient(item)}
                         ><TbCopyPlusFilled/></button>
                       </td>
                   </tr>

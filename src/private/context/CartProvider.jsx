@@ -6,7 +6,7 @@ const CartContext = createContext();
 
 function CartProvider({ children }) {
   const [loading, setLoading] = useState(false);
-  const [navigate, setNavigate] = useState('products');
+  const [navigate, setNavigate] = useState('first');
   const [productsData, setProductsData] = useState([]);
   const [clientData, setClientData] = useState(null);
 
