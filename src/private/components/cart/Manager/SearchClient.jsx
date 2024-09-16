@@ -28,7 +28,6 @@ function SearchClient() {
 
        const url = searchQuery.searchType !== '' ? `/client/search/${searchQuery.searchType}` : '/client/crud/read';
  
-       console.log(searchQuery)
        const options = {
          page: pagination.page,
          size:pagination.size,
