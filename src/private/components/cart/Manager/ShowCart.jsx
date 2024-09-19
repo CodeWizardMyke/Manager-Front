@@ -10,8 +10,17 @@ function ShowCart() {
   const { clientData, clientCart, setClientCart, setNavigate, loading, setLoading} = useContext(CartContext);
   const [ cartItems, setCartItems] = useState([]);
 
-  const cartPrice = clientCart.amount
-  const qtd_items = clientCart.qtd_products
+  
+  useEffect(()=>{
+    if( !clientCart || !clientData ){
+      window.alert("Nenhum cliente foi selecionado ou nenhum carrinho foi selecionado!");
+      setNavigate('first');
+    }
+  },[clientCart,clientData, setNavigate])
+
+
+  const cartPrice = clientCart ?  clientCart.amount : 0
+  const qtd_items = clientCart ?clientCart.qtd_products : 0
 
   const getCartItemsData = useCallback (async () => {
     try {
@@ -24,8 +33,6 @@ function ShowCart() {
 
       const response = await fetchAxios.get(url,{headers:options});
       setCartItems(response.data.rows)
-
-      console.log(response)
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -34,14 +41,11 @@ function ShowCart() {
     }
   },[clientCart,setLoading])
 
-
-  useEffect(()=>{
-    if( !clientCart || !clientData ){
-      window.alert("Nenhum cliente foi selecionado ou nenhum carrinho foi selecionado!");
-      setNavigate('first');
+  useEffect(()=> {
+    if(clientCart && clientData){
+      getCartItemsData()
     }
-    getCartItemsData()
-  },[clientCart,clientData, getCartItemsData, setNavigate])
+  },[clientCart,clientData,getCartItemsData])
 
   function destroyCart() {
     setLoading(true);
@@ -88,7 +92,7 @@ function ShowCart() {
               </div>
               <div>
                 <label htmlFor="state">Estado do carrinho</label>
-                <input type="text" id='state' readOnly  value={clientCart.state}/>
+                <input type="text" id='state' readOnly  value={ clientCart ? clientCart.state : 'undefined'}/>
               </div>
               <div>
                 <label htmlFor="qtd_cart">QTD de items no carrinho </label>
@@ -132,23 +136,23 @@ function ShowCart() {
                 <span className="title">Dados do cliente</span>
                 <div className='jsf'>
                   <label htmlFor="clientName">Nome</label>
-                  <input type="text" readOnly  id='clientName' value={clientData.clientName}/>
+                  <input type="text" readOnly  id='clientName' value={ clientData ? clientCart.clientName : ''}/>
                 </div>
                 <div className='jsf'>
                   <label htmlFor="email">email</label>
-                  <input type="text" readOnly  id='email' value={clientData.email}/>
+                  <input type="text" readOnly  id='email' value={  clientData ? clientData.email : ""}/>
                 </div>
                 <div className='jsf'>
                   <label htmlFor="clientInstagram">Instagram</label>
-                  <input type="text" readOnly  id='clientInstagram' value={clientData.clientInstagram}/>
+                  <input type="text" readOnly  id='clientInstagram' value={ clientData ? clientData.clientInstagram : ""}/>
                 </div>
                 <div className='jsf'>
                   <label htmlFor="telephone">Telefone</label>
-                  <input type="text" readOnly  id='telephone' value={clientData.telephone}/>
+                  <input type="text" readOnly  id='telephone' value={ clientData ? clientData.telephone : "" }/>
                 </div>
                 <div className='jsf'>
                   <label htmlFor="clientCPF">CPF</label>
-                  <input type="text" readOnly  id='clientCPF' value={clientData.cpf}/>
+                  <input type="text" readOnly  id='clientCPF' value={  clientData ? clientData.cpf : ""}/>
                 </div>
               </div>
               <div className="clientDataItem">
