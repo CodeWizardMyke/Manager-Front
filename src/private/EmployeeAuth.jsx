@@ -4,10 +4,12 @@ import { SiNginxproxymanager } from "react-icons/si";
 import { useEffect, useState } from 'react';
 
 import "./EmployeeAuth.css"
+import Loading from './components/loading/Loading';
 
 function AppPrivate() {
   const navigate = useNavigate();
   const [keepLogIn, setKeepLogIn] = useState('off');
+  const [loading, setLoading] = useState(false);
   
   const [errors, setErrors] = useState([]);
 
@@ -20,6 +22,7 @@ function AppPrivate() {
   
   async function handdlerSubmit (event) {
     try {
+      setLoading(true);
       event.preventDefault();
       updateErrorsSpan();
       
@@ -37,9 +40,12 @@ function AppPrivate() {
         sessionStorage.setItem('employee',  JSON.stringify(response.data.user));
         sessionStorage.setItem('token', JSON.stringify(response.data.token));
       }
+      setLoading(false);
 
      navigate('/main.manager')
     } catch (error) {
+      setLoading(false);
+      window.alert('Erro inesperado');
       const {response} = error
       console.log(console.log(error))
       if(response){
@@ -70,7 +76,7 @@ function AppPrivate() {
         <h4>Manager io</h4>
       </header>
       <section className="auth-section">
-
+        { loading && <Loading/>}
         <div className="wrapper-auth">
           <div className="bx-left"></div>
           <div className="bx-rigth">
