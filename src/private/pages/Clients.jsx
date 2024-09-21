@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react'
 import ManagerContext from '../context/ManagerContext';
+import ClientCreate from '../components/clients/ClientCreate';
 
 function Clients() {
-  const {updateMenuOptions} = useContext(ManagerContext);
+  const {updateMenuOptions, moduleClick} = useContext(ManagerContext);
   
   useEffect(()=>{
       updateMenuOptions([
@@ -10,19 +11,23 @@ function Clients() {
           title:"Cliente",
           text:"Cadastro",
           current: 'clients',
-          next: ''
+          next: 'create'
         },
         {
           text:"Gerenciar",
           current: 'clients',
-          next: ''
+          next: 'manager'
         },
       ])
   },[updateMenuOptions])
   
+  console.log('moduleClick', moduleClick)
 
   return (
-    <div>Clients</div>
+    <>
+      {moduleClick.next === 'create' && <ClientCreate/> }
+      {moduleClick.next === 'manager' && <>manager client</>}
+    </>
   )
 }
 
