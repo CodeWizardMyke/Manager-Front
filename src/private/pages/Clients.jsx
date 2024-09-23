@@ -21,8 +21,6 @@ function Clients() {
       ])
   },[updateMenuOptions])
   
-  console.log('moduleClick', moduleClick)
-
   return (
     <>
       {moduleClick.next === 'create' && <ClientCreate/> }

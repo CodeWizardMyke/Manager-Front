@@ -6,7 +6,7 @@ function ClientCreateUtils() {
       <div className="util-box">
         <div className="util-func fn-custom">
           <span>Nota do cliente</span>
-          <h2>A</h2>
+          <h2>D</h2>
           <p>relacionamento com cliente</p>
         </div>
       </div>
