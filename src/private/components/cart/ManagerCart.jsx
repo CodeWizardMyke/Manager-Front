@@ -9,11 +9,11 @@ function ManagerCart() {
   const {navigate} = useContext(CartContext);
 
   return (
-    <div>
+    <>
       {navigate === 'first' && <SearchClient/>}
       {navigate === 'secound' && <SelectCart/>}
       {navigate === 'third' && <ShowCart/>}
-    </div>
+    </>
   )
 }
 
