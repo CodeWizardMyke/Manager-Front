@@ -13,7 +13,7 @@ function ClientSearch() {
   const [clientData, setClientData] = useState([]);
   const [loading,setLoading] = useState(false);
   const {pagination, setPagination} = useContext(ManagerContext);
-  const {setClientSelect} = useContext(ClientContext);
+  const {setClientSelect,setNavigate} = useContext(ClientContext);
 
   async function requestClientData() {
     try {
@@ -45,6 +45,7 @@ function ClientSearch() {
 
   function handdlerClickShow(data) {
     setClientSelect(data);
+    setNavigate('secound')
   }
 
   return (

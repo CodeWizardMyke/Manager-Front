@@ -1,35 +1,32 @@
-import React, { useState } from 'react'
-import ClientCreateUtils from './assets/ClientCreateUtils'
-import './assets/ClientCreate.css'
+import React, { useContext } from 'react';
+import {ClientContext} from '../../context/ClientProvider';
 import Loading from '../loading/Loading';
+import ClientCreateUtils from './assets/ClientCreateUtils';
 import fetchAxios from '../../axios/config';
 
-function ClientCreate() {
-  const [loading, setLoading] = useState(false)
-  const [clientName,setClietName] = useState('')
-  const [clientInstagram,setClieInstagram] = useState('')
+function ClientData() {
+  const {loading,setLoading,clientSelect,setClientSelect,setNavigate} = useContext(ClientContext)
 
-  async function createNewClient(){
+  async function requestPutClientData() {
     try {
-      setLoading(true)
-      const form = document.querySelector("#form")
-      const formData = new FormData(form);
+      setLoading(true);
 
-      if(clientInstagram.length >0 && clientName.length > 0){
-        const response  = await fetchAxios.post('/client/crud/create', formData)
-        window.alert('criado com sucesso!');
-        console.log('response', response.data)
-        form.reset();
-      }else{
-        window.alert('Preencha os dados de nome e instagram do cliente!')
-      }
+      const body = new FormData(document.querySelector('#clientFormPut'));
 
-      setLoading(false)
+      const response = await fetchAxios.put('client/crud/update', body, { headers: {client_id:clientSelect.client_id } } );
+      
+      window.alert('atualziado com sucesso!', response.data);
+      
+      setLoading(false);
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
       console.log('error', error);
-      window.alert(error);
+      window.alert(error)
     }
+  }
+  function closeClientData() {
+    setClientSelect(null);
+    setNavigate('first')
   }
 
   return (
@@ -37,29 +34,30 @@ function ClientCreate() {
       { loading && <Loading/> }
       <div className="top-utils">
         <div className="content-util">
-          <h3>Cadastro de novos clientes</h3>
+          <h3>Atualizar cliente</h3>
         </div>
       </div>
       <div className="utils-content">
         <ClientCreateUtils/>
+        <button onClick={closeClientData} className='bt bt-close'>Voltar ao início</button>
       </div>
       <div className="module-actions">
         <div className="bx_double">
           <div className="bx_left">
             <h3>Dados Básicos do cliente</h3>
             <div className="wrapper_clientsAcc">
-              <form className='formClient' id='form'>
+              <form className='formClient' id='clientFormPut'>
                 <div>
                   <label htmlFor="name">Nome</label>
-                  <input type="text" name="clientName" id="name" onChange={ e => setClietName(e.target.value)} />
+                  <input type="text" name="clientName" id="name" placeholder={clientSelect.clientName}  />
                 </div>
                 <div>
                   <label htmlFor="insagram">Instagram</label>
-                  <input type="text" name="clientInstagram" id="insagram" onChange={ e => setClieInstagram(e.target.value)}/>
+                  <input type="text" name="clientInstagram" id="insagram" placeholder={clientSelect.clienInstagram} />
                 </div>
                 <div>
                   <label htmlFor="clientemail">Email / Login</label>
-                  <input type="email" name="email" id="clientemail" autoComplete='new-email' />
+                  <input type="email" name="email" id="clientemail" autoComplete='new-email'  placeholder={clientSelect.email} />
                 </div>
                 <div>
                   <label htmlFor="password">Senha</label>
@@ -73,7 +71,7 @@ function ClientCreate() {
                 <div className="wrapper-btn">
                   <h4>Ações do formulário de cliente</h4>
                   <button className='bt bt-cancel'>Desativar Conta</button>
-                  <button className='bt bt-accept' onClick={createNewClient}>Cadastrar</button>
+                  <button className='bt bt-accept' onClick={requestPutClientData} >Atualizar</button>
                 </div>
             </div>
           </div>
@@ -138,4 +136,4 @@ function ClientCreate() {
   )
 }
 
-export default ClientCreate
+export default ClientData
