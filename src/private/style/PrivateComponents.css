@@ -57,6 +57,15 @@
   background-color: #e6e6e6;
   border-radius: 5px;
 }
+.cb_util input {
+  margin-right: 25px;
+}
+.cb_util{
+  display: flex ;
+  align-items: center;
+  justify-content: start;
+  padding: 2px;
+}
 
 .util-func select{
   min-width: 120px;

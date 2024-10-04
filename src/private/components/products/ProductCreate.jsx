@@ -72,6 +72,15 @@ function ProductCreate({prodItemData, setProdItemData}) {
           </div>
         )
       }
+      {
+        !prodItemData && (
+        <div className="top-utils">
+          <div className="content-util">
+            <h3>Cadastro de um novo produto</h3>
+          </div>
+        </div>
+        )
+      }
 
       <div className='utils-content'>
         <UtilitisProductCreate/>

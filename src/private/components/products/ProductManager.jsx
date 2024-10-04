@@ -45,6 +45,11 @@ function ProductManager() {
         { !prodItem && (
         <div className='module-content'>
           { loading && <Loading/> }
+          <div className="top-utils">
+            <div className="content-util">
+              <h3>Gerenciamento de produto</h3>
+            </div>
+          </div>
           <div className="utils-content">
             <ToolsApp setQuerySearch={setSearchOpt} searchFunction={sendRequest} />
           </div>

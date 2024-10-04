@@ -53,6 +53,9 @@ body{
   flex-direction: column;
   justify-content: space-evenly;
 }
+.txt-end{
+  text-align: end;
+}
 
 .container{
   background-color: #ffff;

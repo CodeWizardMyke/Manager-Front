@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react'
 import ManagerContext from '../context/ManagerContext'
+import EmployeeData from '../components/employee/EmployeeData';
 
 function Employee() {
-  const {updateMenuOptions} = useContext(ManagerContext);
+  const {updateMenuOptions, moduleClick} = useContext(ManagerContext);
   
   useEffect(()=>{
       updateMenuOptions([
@@ -10,18 +11,20 @@ function Employee() {
           title:"Funcionários",
           text:"Cadastro",
           current: 'employee',
-          next: ''
+          next: 'create'
         },
         {
           text:"Gerenciar",
           current: 'employee',
-          next: ''
+          next: 'manager'
         },
       ])
   },[updateMenuOptions])
 
   return (
-    <div>Employee</div>
+    <>
+      {moduleClick.next === 'create' && <EmployeeData/>}
+    </>
   )
 }
 
