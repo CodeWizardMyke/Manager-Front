@@ -1,23 +1,35 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import Loading from '../loading/Loading'
-import ManagerContext from '../../context/ManagerContext'
 import EmployeeRole from './assets/EmployeeRole';
 import EmployeeSalary from './assets/EmployeeSalary';
 import EmployeeBenefit from './assets/EmployeeBenefit';
 
 import './EmployeeData.css'
+import fetchAxios from '../../axios/config';
 
 function EmployeeData() {
-  const { loading,setLoading } = useContext(ManagerContext);
+  const [loading, setLoading] = useState(false);
   const [role, setRole] = useState('admin');
   const [salary, setSalary] = useState('')
   const [benefit,setBenefit] = useState({'academia': 'off', 'convenio_medico': 'off'})
 
-  async  function sendForm (){
+  async  function sendForm (form){
     try {
+      form.preventDefault();
       setLoading(true)
       
-      
+      console.log(form.target)
+      const formData = new FormData(form.target);
+      formData.append('role', role);
+      formData.append('salary', salary);
+      formData.append('benefit', benefit);
+
+      const response = await fetchAxios.post('/employee/crud/create', formData);
+
+      console.log(response);
+      window.alert('criado com sucesso !');
+      form.target.reset()
+
       setLoading(false)
     } catch (error) {
       setLoading(false)
@@ -25,8 +37,6 @@ function EmployeeData() {
       window.alert(error);
     }
   }
-  console.log('salary', benefit)
-
 
   return (
     <div className='module-content'>
@@ -40,27 +50,31 @@ function EmployeeData() {
         <EmployeeBenefit setBenefit={setBenefit} />
       </div>
       <div className="module-actions">
-        <form>
+        <form onSubmit={(e) => sendForm(e) }>
           <div className="doublerow">
             <div className="divLeft">
               <div className="divHeader">
               <div className="form-group">
                 <label htmlFor="Login">Login</label>
-                <input type="text" name='login' id='Login' placeholder='login funcionário' autoComplete='off'/>
+                <input type="text" name='email' required id='Login' placeholder='login funcionário' autoComplete='off'/>
               </div>
               <div className="form-group">
-                <label htmlFor="password">Senha</label>
-                <input type="password" name='password' id='password' />
+                <label htmlFor="password" >Senha</label>
+                <input type="password"required name='password' id='password' />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password" >Senha</label>
+                <input type="password"required name='re_password' id='password' />
               </div>
               </div>
               <div className="divBody">
                 <div className="form-group">
-                  <label htmlFor="full_name">Nome Completo</label>
-                  <input type="text" name='full_name' id='full_name' />
+                  <label htmlFor="full_name" >Nome Completo</label>
+                  <input type="text" name='name'required id='full_name' />
                 </div>
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
-                  <input type="email" name="email" id="email" />
+                  <input type="email" name="employee_email" id="email" />
                 </div>
                 <div className="form-group">
                   <label htmlFor="telephone">Telefone</label>
