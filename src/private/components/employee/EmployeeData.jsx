@@ -6,6 +6,7 @@ import EmployeeBenefit from './assets/EmployeeBenefit';
 
 import './EmployeeData.css'
 import fetchAxios from '../../axios/config';
+let arrError  = [];
 
 function EmployeeData() {
   const [loading, setLoading] = useState(false);
@@ -13,28 +14,50 @@ function EmployeeData() {
   const [salary, setSalary] = useState('')
   const [benefit,setBenefit] = useState({'academia': 'off', 'convenio_medico': 'off'})
 
+
   async  function sendForm (form){
+    
     try {
       form.preventDefault();
       setLoading(true)
-      
-      console.log(form.target)
       const formData = new FormData(form.target);
       formData.append('role', role);
       formData.append('salary', salary);
       formData.append('benefit', benefit);
 
-      const response = await fetchAxios.post('/employee/crud/create', formData);
+      await fetchAxios.post('/employee/crud/create', formData);
 
-      console.log(response);
       window.alert('criado com sucesso !');
       form.target.reset()
 
       setLoading(false)
     } catch (error) {
+      const { response }  = error
       setLoading(false)
-      console.log(error)
+      handdlerError(response.data.errors)
       window.alert(error);
+    }
+  }
+
+  function emptyError(){
+    console.log('arrError', arrError)
+    if(arrError.length > 0){
+      arrError.map(e => {
+        return document.querySelector(`.error-${e.path}`).innerHTML = ''
+      }) 
+      arrError = []
+    }
+  }
+
+  function handdlerError(error) {
+    emptyError()
+    console.log(error)
+    if(error.length > 0)
+      {
+      error.map( (e) => {
+        arrError.push(e)
+        return document.querySelector(`.error-${e.path}`).innerHTML = e.msg
+      })
     }
   }
 
@@ -53,29 +76,28 @@ function EmployeeData() {
         <form onSubmit={(e) => sendForm(e) }>
           <div className="doublerow">
             <div className="divLeft">
-              <div className="divHeader">
-              <div className="form-group">
-                <label htmlFor="Login">Login</label>
-                <input type="text" name='email' required id='Login' placeholder='login funcionário' autoComplete='off'/>
-              </div>
-              <div className="form-group">
-                <label htmlFor="password" >Senha</label>
-                <input type="password"required name='password' id='password' />
-              </div>
-              <div className="form-group">
-                <label htmlFor="password" >Senha</label>
-                <input type="password"required name='re_password' id='password' />
-              </div>
-              </div>
               <div className="divBody">
                 <div className="form-group">
-                  <label htmlFor="full_name" >Nome Completo</label>
-                  <input type="text" name='name'required id='full_name' />
+                  <label htmlFor="email">Email</label>
+                  <input type="email" name="email" id="email"   autoComplete='off'/>
+                  <span className='error-email'></span>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <input type="email" name="employee_email" id="email" />
+                  <label htmlFor="password" >Senha</label>
+                  <input type="password"required name='password' id='password' />
+                  <span className='error-password'></span>
                 </div>
+                <div className="form-group">
+                  <label htmlFor="password" >Senha</label>
+                  <input type="password"required name='re_password' id='password' />
+                  <span className='error-re_password'></span>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="full_name" >Nome Completo</label>
+                  <input type="text" name='name' id='full_name' />
+                  <span className='error-name'></span>
+                </div>
+
                 <div className="form-group">
                   <label htmlFor="telephone">Telefone</label>
                   <input type="text" name="telephone" id="telephone" />

@@ -11,8 +11,8 @@
   min-width: 559px;
 }
 .divHeader{
-  min-height: 150px;
   width: 100%;
+  min-height: 150px;
   padding: 5px 15px;
   display: flex;
   flex-direction: column;
@@ -20,6 +20,8 @@
   justify-content: space-evenly;
   border: 1px solid #d8d8d8;
 }
+
+
 .divBody{
   height: 100%;
   width: 100%;
