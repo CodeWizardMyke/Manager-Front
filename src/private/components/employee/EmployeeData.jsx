@@ -117,7 +117,6 @@ function EmployeeData() {
               </div>
             </div>
             <div className="divRigth">
-
               <div className="divBody">
                   <div className="form-group">
                     <label htmlFor="road">Endereço</label>
