@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
-function EmployeeSalary({role_salary, setSalary}) {
+function EmployeeSalary({role_salary, setSalary, data}) {
   let salaryByRole = role_salary ? role_salary : 'Não definido!'
   const [salarySelect, setSalarySelect] = useState('');
 
   useEffect(()=>{
-    setSalary(salarySelect)    
-  },[salarySelect])
+    if(data){
+      setSalary(data)
+    }else{
+      setSalary(salarySelect)
+    }
+  },[salarySelect,setSalary,data])
 
 
   return (

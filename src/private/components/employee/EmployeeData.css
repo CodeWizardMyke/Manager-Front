@@ -35,3 +35,8 @@
 .doublerow input{
  width: 300px;
 }
+
+.position-ab-lf{
+  position: absolute;
+  right: 25px;
+}

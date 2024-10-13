@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react'
 
-function EmployeeBenefit({setBenefit}) {
+function EmployeeBenefit({setBenefit, data}) {
   const [ gym ,setGym] = useState()
   const [medicalAgreement, setMedicalAgreement] = useState()
 
   useEffect(()=>{
+    let benefit = {}
 
-    const bnf = {
-      'academia': gym? gym : 'off',
-      'convenio_medico': medicalAgreement ? medicalAgreement : 'off'
+    if(data){
+      benefit.academia = data.gym;
+      benefit.convenio_medico = data.medicalAgreement;
+    }
+    else{
+      benefit.academia = gym ? gym : 'off';
+      benefit.convenio_medico = medicalAgreement ? medicalAgreement : 'off';
     }
 
-    setBenefit(bnf)
+    setBenefit(benefit)
 
-  },[gym,medicalAgreement,setBenefit])
+  },[gym,medicalAgreement,setBenefit,data])
 
   return (
     <div className="util-box">

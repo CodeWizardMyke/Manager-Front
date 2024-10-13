@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
-function EmployeeRole({role, setRole}) {
+function EmployeeRole({role, setRole, data}) {
   const options = role ? role : [{value:'adiministrador',txt:'adiministrador'},{value:'assistente',txt:'assistente'}]
   const [roleSelect, setRoleSelect ] = useState('admin')
 
   useEffect(()=> {
-    setRole(roleSelect)
-  }, [roleSelect,setRole])
+    if(data){
+      setRole(data)
+    }else{
+      setRole(roleSelect)
+    }
+  }, [roleSelect,setRole,data])
 
   return (
     <div className="util-box">
