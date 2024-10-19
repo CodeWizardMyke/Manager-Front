@@ -6,9 +6,9 @@ import EmployeeBenefit from './assets/EmployeeBenefit';
 
 import './EmployeeData.css'
 import fetchAxios from '../../axios/config';
-let arrError  = [];
 
 function EmployeeView({data,setData}) {
+  let arrError  = [];
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useState('admin');
   const [salary, setSalary] = useState('')
@@ -21,7 +21,7 @@ function EmployeeView({data,setData}) {
       form.preventDefault();
       setLoading(true)
       const formData = new FormData(form.target);
-
+      console.log('data', data)
 
       formData.append('role', role);
       formData.append('salary', salary);
@@ -35,31 +35,34 @@ function EmployeeView({data,setData}) {
         }
       });
 
-      await fetchAxios.post('/employee/crud/update', filteredFormData);
+      await fetchAxios.put('/employee/crud/update', filteredFormData, { headers:{employee_id: data.employee_id}});
 
       window.alert('Atualizado com sucesso !');
 
       setLoading(false)
     } catch (error) {
-      const { response }  = error
-      setLoading(false)
-      handdlerError(response.data.errors)
+      setLoading(false);
+
+      if(error.status === 400 ){
+        emptyError()
+        console.log('error', error)
+        handdlerError(error.response.data.errors)
+      }
+      console.log('error', error)
       window.alert(error);
     }
   }
 
   function emptyError(){
-    console.log('arrError', arrError)
     if(arrError.length > 0){
       arrError.map(e => {
-        return document.querySelector(`.error-${e.path}`).innerHTML = ''
-      }) 
-      arrError = []
-    }
-  }
+        return document.querySelector(`.error-${e.path}`).innerHTML = '';
+      });
+      arrError = [];
+    };
+  };
 
   function handdlerError(error) {
-    emptyError()
     console.log(error)
     if(error.length > 0)
       {
@@ -69,6 +72,7 @@ function EmployeeView({data,setData}) {
       })
     }
   }
+
 
   return (
     <div className='module-content'>
@@ -90,40 +94,40 @@ function EmployeeView({data,setData}) {
               <div className="divBody">
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
-                  <input type="email" name="email" id="email" defaultValue={data.email}  autoComplete='off'/>
+                  <input type="email" name="email" id="email" placeholder={data.email}  autoComplete='new-email'/>
                   <span className='error-email'></span>
                 </div>
                 <div className="form-group">
                   <label htmlFor="password" >Senha</label>
-                  <input type="password"required name='password' id='password' />
+                  <input type="password" name='password' id='password' autoComplete='new-password' />
                   <span className='error-password'></span>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="password" >Senha</label>
-                  <input type="password"required name='re_password' id='password' />
+                  <label htmlFor="re_password" >Senha</label>
+                  <input type="password" name='re_password' id='re_password' autoComplete='new-password' />
                   <span className='error-re_password'></span>
                 </div>
                 <div className="form-group">
                   <label htmlFor="full_name" >Nome Completo</label>
-                  <input type="text" name='name' id='full_name' defaultValue={data.name} />
+                  <input type="text" name='name' id='full_name' placeholder={data.name} autoComplete='new-name' />
                   <span className='error-name'></span>
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="telephone">Telefone</label>
-                  <input type="text" name="telephone" id="telephone" defaultValue={data.telephone} />
+                  <input type="text" name="telephone" id="telephone" placeholder={data.telephone} autoComplete='new-telephone' />
                 </div>
                 <div className="form-group">
                   <label htmlFor="yers_old">Idade</label>
-                  <input type="date" name="yers_old" id="yesrs_old"defaultValue={data.yers_old} />
+                  <input type="date" name="yers_old" id="yesrs_old"placeholder={data.yers_old} autoComplete='new-yers_old' />
                 </div>
                 <div className="form-group">
                   <label htmlFor="rg">RG</label>
-                  <input type="text" name="rg" id="rg" defaultValue={data.rg}/>
+                  <input type="text" name="rg" id="rg" placeholder={data.rg} autoComplete='new-rg'/>
                 </div>
                 <div className="form-group">
                   <label htmlFor="cpf">CPF</label>
-                  <input type="cpf" name="cpf" id="cpf" defaultValue={data.cpf}/>
+                  <input type="cpf" name="cpf" id="cpf" placeholder={data.cpf} autoComplete='new-cpf' />
                 </div>
               </div>
             </div>
@@ -131,27 +135,27 @@ function EmployeeView({data,setData}) {
               <div className="divBody">
                   <div className="form-group">
                     <label htmlFor="road">Endereço</label>
-                    <input type="text" name='road' id='road' defaultValue={data.road}/>
+                    <input type="text" name='road' id='road' placeholder={data.road}  onFocus={(e) => e.target.removeAttribute('readonly')} autoComplete='new-road' />
                   </div>
                   <div className="form-group">
                     <label htmlFor="cep">CEP</label>
-                    <input type="cep" name="cep" id="cep" defaultValue={data.cep} />
+                    <input type="cep" name="cep" id="cep" placeholder={data.cep} autoComplete='new-cep' />
                   </div>
                   <div className="form-group">
                     <label htmlFor="district">Bairro</label>
-                    <input type="text" name="district" id="district" defaultValue={data.district}/>
+                    <input type="text" name="district" id="district" placeholder={data.district} autoComplete='new-district' />
                   </div>
                   <div className="form-group">
                     <label htmlFor="city">Cidade</label>
-                    <input type="text" name="city" id="city" defaultValue={data.city}/>
+                    <input type="text" name="city" id="city" placeholder={data.city} autoComplete='new-city' />
                   </div>
                   <div className="form-group">
                     <label htmlFor="state">Estado</label>
-                    <input type="state" name="state" id="state"defaultValue={data.state} />
+                    <input type="state" name="state" id="state"placeholder={data.state} autoComplete='new-state' />
                   </div>
                   <div className="form-group">
                     <label htmlFor="complements">Complemento</label>
-                    <input type="text" name="complements" id="complements" defaultValue={data.complements}/>
+                    <input type="text" name="complements" id="complements" placeholder={data.complements} autoComplete='new-complements' />
                 </div>    
               </div>
               <div className="divHeader">
