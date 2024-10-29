@@ -1,6 +1,10 @@
 import React, { useContext } from 'react';
 import {useNavigate} from 'react-router-dom';
 import ManagerContext from '../../context/ManagerContext';
+import { FaProductHunt } from "react-icons/fa";
+import { TbShoppingCartStar } from "react-icons/tb";
+import { FaPeopleGroup } from "react-icons/fa6";
+import { FiUsers } from "react-icons/fi";
 
 import './SideMenu.css';
 
@@ -31,48 +35,62 @@ function SideMenu() {
   }
 
   return (
-    <div className='SideMenu'>
-      <div className={menuOptions.length ? "side-menu-top smt-active" : "side-menu-top" }>
-        {menuOptions.length > 0  && (
-          <>
-            <h4>Gerenciamento de {menuOptions[0].title}</h4>
-            <div className='wsm-buttons'> 
-              {   
-                  menuOptions.map((option, index)=> (
-                    <button 
-                    key={'buttonMenu-'+index}
-                    id={'buttonMenu_'+index}
-                    onClick={()=>{handdlerNavigateDinamic(option)}}
-                  >{option.text}</button>
-                ))
-              }
-            </div>
-          </>
-        )}
-      </div>
-      <div className="side-menu-bottom">
-        <h4>Módulos</h4>
-        <div className="wsm-buttons">
-          <button 
-            type="button"
-            className={activerHandder.current === 'products' ? "wsm-btn-active" : ""}
-            onClick={goToProducts}
-          >Produtos</button>
-          <button 
-            type="button"
-            className={activerHandder.current === 'cart' ? "wsm-btn-active" : ""}
-            onClick={goToCart}            
-          >Carinho</button>
-          <button 
-            type="button"
-            className={activerHandder.current === 'clients' ? "wsm-btn-active" : ""}
-            onClick={goToClients}
-          >Clientes</button>
-          <button 
-            type="button"
-            className={activerHandder.current === 'employee' ? "wsm-btn-active" : ""}
-            onClick={goToEmployee}
-          >Funcionários</button>
+    <div className='mainMenu'>
+      <div className="wrapper-main_menu">
+        <div className={menuOptions.length ? "smt-active" : "" }>
+          {menuOptions.length > 0  && (
+            <>
+              <h4>{menuOptions[0].title}</h4>
+              <div className='wsm-buttons'> 
+                {   
+                    menuOptions.map((option, index)=> (
+                      <button 
+                      key={'buttonMenu-'+index}
+                      id={'buttonMenu_'+index}
+                      onClick={()=>{handdlerNavigateDinamic(option)}}
+                    >{option.text}</button>
+                  ))
+                }
+              </div>
+            </>
+          )}
+        </div>
+        <div className="side-menu-bottom">
+          <h4>Módulos</h4>
+          <div className="wsm-buttons">
+            <button 
+              type="button"
+              className={activerHandder.current === 'products' ? "wsm-btn-active" : ""}
+              onClick={goToProducts}
+            >
+              <span>Produtos</span>
+              <FaProductHunt/>
+            </button>
+            <button 
+              type="button"
+              className={activerHandder.current === 'cart' ? "wsm-btn-active" : ""}
+              onClick={goToCart}            
+            >
+              <span>Carinho</span>
+              <TbShoppingCartStar/>
+            </button>
+            <button 
+              type="button"
+              className={activerHandder.current === 'clients' ? "wsm-btn-active" : ""}
+              onClick={goToClients}
+            >
+              <span>Clientes</span>
+              <FaPeopleGroup/>
+            </button>
+            <button 
+              type="button"
+              className={activerHandder.current === 'employee' ? "wsm-btn-active" : ""}
+              onClick={goToEmployee}
+            >
+              <span>Funcionários</span>
+              <FiUsers/>
+            </button>
+          </div>
         </div>
       </div>
     </div>

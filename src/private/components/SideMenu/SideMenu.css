@@ -21,31 +21,37 @@
   }
 }
 
-.SideMenu{
-  height: 100%;
-  background-color: #ffff;
+.mainMenu{
   width: 300px;
+  height: 100%;
+  position: relative;
 }
-
-.SideMenu h4{
+.wrapper-main_menu{
+  width: 100%;
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0;right: 0;
+}
+.mainMenu h4{
   background-color: #4A90E2;
   text-align: center;
   padding: 0 35px;
   width: 100%; 
-  height: 60px;
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16pt;
+  font-size: 14pt;
   color: #ffff;
   font-weight: 600;
 }
+
 .wsm-buttons{
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 300px;
 }
+
 .wsm-buttons button{
   height: 35px;
   width: 200px;
@@ -59,6 +65,10 @@
   cursor: pointer;
   transition: all 200ms ease
 }
+.wsm-buttons button svg{
+  display: none;
+  font-size: 16pt;
+}
 
 .wsm-buttons button:hover{
   background-color: #0056B3;
@@ -66,8 +76,33 @@
 
 .smt-active{
   animation: top-menu-animate 200ms ease-in 1 backwards;
+  height: 300px;
 }
 
 .wsm-btn-active{
   background-color: #0056B3 !important;
+}
+
+.side-menu-bottom{
+  min-height: 60%;
+}
+
+@media screen and (max-width:790px) {
+  .mainMenu{
+    width: 200px;
+  }
+  .wsm-buttons button{
+    width: 75px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .wsm-buttons button span{
+    display: none;
+  }
+  .wsm-buttons button svg{
+    display: block;
+  }
+
 }

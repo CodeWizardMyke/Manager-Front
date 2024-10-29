@@ -136,7 +136,7 @@ function ShowCart() {
                 <span className="title">Dados do cliente</span>
                 <div className='jsf'>
                   <label htmlFor="clientName">Nome</label>
-                  <input type="text" readOnly  id='clientName' value={ clientData ? clientCart.clientName : ''}/>
+                  <input type="text" readOnly  id='clientName' value={ clientData ? clientData.clientName : ''}/>
                 </div>
                 <div className='jsf'>
                   <label htmlFor="email">email</label>
