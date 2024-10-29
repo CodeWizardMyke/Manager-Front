@@ -111,3 +111,22 @@
 .bb-center button {
   margin-left: 15px
 }
+
+@media screen and ( max-width: 690px) {
+  .bb-center button{
+    font-size: 12pt !important;
+    width: 55px;
+    height: 55px;
+  }
+  .bb-center{
+    justify-content: space-evenly;
+  }
+  .bb-center button span{
+    display: none;
+  }
+}
+@media screen and ( max-width: 1000px){
+  .bb-left{
+    display: none;
+  }
+}

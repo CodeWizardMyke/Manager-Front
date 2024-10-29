@@ -29,20 +29,11 @@ function AppPrivate() {
       const formData = new FormData(event.target);
 
       const response = await fetchAxios.post('/auth/login', formData);
-      if(keepLogIn === 'on'){
-        sessionStorage.removeItem('token');
-        sessionStorage.removeItem('employee');
-        localStorage.setItem('employee',  JSON.stringify(response.data.user));
-        localStorage.setItem('token', JSON.stringify(response.data.token));
-      }else{
-        localStorage.removeItem('employee');
-        localStorage.removeItem('token');
-        sessionStorage.setItem('employee',  JSON.stringify(response.data.user));
-        sessionStorage.setItem('token', JSON.stringify(response.data.token));
-      }
+      sucessEmployeeAuth(response);
       setLoading(false);
 
-     navigate('/main.manager')
+     navigate('/main.manager');
+
     } catch (error) {
       setLoading(false);
       window.alert('Erro inesperado');
@@ -54,6 +45,20 @@ function AppPrivate() {
     };
   };
 
+  function sucessEmployeeAuth(response) {
+    if(keepLogIn === 'on'){
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('employee');
+      localStorage.setItem('employee',  JSON.stringify(response.data.user));
+      localStorage.setItem('token', JSON.stringify(response.data.token));
+    }else{
+      localStorage.removeItem('employee');
+      localStorage.removeItem('token');
+      sessionStorage.setItem('employee',  JSON.stringify(response.data.user));
+      sessionStorage.setItem('token', JSON.stringify(response.data.token));
+    }
+  }
+
   function handdlerErrors(data){
     console.log('data.errors')
     console.log(data.errors)
@@ -64,10 +69,9 @@ function AppPrivate() {
   function updateErrorsSpan(){
     if(errors.length > 0){
      errors.map( (e) =>  document.querySelector(`.errors-${e.path}`).innerHTML = '' );
-    }
+    };
     setErrors([]);
    };
-
 
   return (
     <div className="container">

@@ -60,7 +60,7 @@ function BottomBar() {
           onClick={goToAdmin}
         >
           <FaUserLock/>
-          Administrador
+          <span>Administrador</span>
         </button>
         <button 
           type="button"
@@ -68,7 +68,7 @@ function BottomBar() {
           onClick={goToHome}
         >
           <IoHome/>
-          Home
+          <span>Home</span>
         </button>
         <button 
           className="btm btm-dashboard"
@@ -76,7 +76,7 @@ function BottomBar() {
           onClick={goToDashboard}
         >
           <RiDashboard2Fill/>
-          Dashboard
+          <span>Dashboard</span>
         </button>
         <button 
           className="btm btm-config"
@@ -84,7 +84,7 @@ function BottomBar() {
           onClick={goToConfig}
         >
           <GoGear/>
-          Configurações
+          <span>Configurações</span>
         </button>
       </div>
       <div className="bb-rigth">
@@ -94,7 +94,7 @@ function BottomBar() {
           onClick={logout}
         >
           <IoExitSharp/>
-          Logout
+          <span>Logout</span>
         </button>
       </div>
     </div>

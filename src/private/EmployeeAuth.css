@@ -21,6 +21,7 @@ only screen and (min-resolution: 192dpi) {
   background-color: var(--auth-header);
   color: var(--auth-header-text);
 }
+
 .auth-header svg{
   margin-right: 5px;
   height: 40px;
@@ -43,7 +44,9 @@ only screen and (min-resolution: 192dpi) {
   width: 850px;
   height: 450px;
   display: flex;
-  background-color: #ffff;
+  background-color:var(--auth-header);
+  color: #f5f5f5;
+
 }
 .bx-left{
   height: 100%;
@@ -65,6 +68,7 @@ only screen and (min-resolution: 192dpi) {
   align-items: center;
   justify-content: center;
   color: var(--text-dark);
+  color: #ffff;
   font-size: 26pt;
 }
 .logo-page svg{
@@ -121,4 +125,19 @@ only screen and (min-resolution: 192dpi) {
 .keeplogin label{
   cursor: pointer;
   margin-right: 5px;
+}
+
+@media screen and ( max-width: 500px ) {
+  .bx-left{
+    width: 0;
+  }
+  .wrapper-auth{
+    width: 300px;
+    height: 370px;
+    padding: 0;
+    border-radius: 10px;
+  }
+  .logo-page{
+    padding-top: 15px;
+  }
 }

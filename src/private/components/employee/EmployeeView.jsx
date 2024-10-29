@@ -93,8 +93,8 @@ function EmployeeView({data,setData}) {
             <div className="divLeft">
               <div className="divBody">
                 <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <input type="email" name="email" id="email" placeholder={data.email}  autoComplete='new-email'/>
+                  <label htmlFor="email">Login</label>
+                  <input type="email" name="email" id="user" placeholder={data.email}  autoComplete='new-email'/>
                   <span className='error-email'></span>
                 </div>
                 <div className="form-group">

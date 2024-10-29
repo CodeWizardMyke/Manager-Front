@@ -232,7 +232,6 @@ body{
 .wrapper-rigth{
   flex-grow: 1;
   padding: 10px;
-  max-width: 1140px;
   height: 853px;
   position: relative;
   overflow: auto;
@@ -240,6 +239,30 @@ body{
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
+}
+.arrow_content{
+  font-size: 20pt;
+  position: absolute;
+  left: 2px;
+  top: 44%;
+  display: flex;
+  align-items: center;
+  color: #f5f5f5;
+  background-color: #0056B3;
+  justify-content: start;
+  border-radius: 100%;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  transition: all 200ms;
+  rotate: 180deg;
+  z-index: 100;
+}
+.arrow_content:hover{
+  color: orangered;
+}
+.arrowRotate{
+  rotate: 0deg;
 }
 .top-utils{
   position: absolute;

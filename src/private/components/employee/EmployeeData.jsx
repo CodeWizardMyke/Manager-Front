@@ -19,13 +19,14 @@ function EmployeeData() {
     
     try {
       form.preventDefault();
+      console.log('form', form)
       setLoading(true)
       const formData = new FormData(form.target);
       formData.append('role', role);
       formData.append('salary', salary);
       formData.append('benefit', benefit);
 
-      await fetchAxios.post('/employee/crud/create', formData);
+      //await fetchAxios.post('/employee/crud/create', formData);
 
       window.alert('criado com sucesso !');
       form.target.reset()
@@ -79,17 +80,17 @@ function EmployeeData() {
               <div className="divBody">
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
-                  <input type="email" name="email" id="email"   autoComplete='off'/>
+                  <input type="text" name="email" id="email" autoComplete='new-email' />
                   <span className='error-email'></span>
                 </div>
                 <div className="form-group">
                   <label htmlFor="password" >Senha</label>
-                  <input type="password"required name='password' id='password' />
+                  <input type="password" name='password' id='password' autoComplete='new-password' />
                   <span className='error-password'></span>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="password" >Senha</label>
-                  <input type="password"required name='re_password' id='password' />
+                  <label htmlFor="re_password" >Senha</label>
+                  <input type="password" name='re_password' id='re_password' autoComplete='new-re_password' />
                   <span className='error-re_password'></span>
                 </div>
                 <div className="form-group">

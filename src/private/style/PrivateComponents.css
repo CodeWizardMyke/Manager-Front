@@ -189,6 +189,13 @@
   border-radius: 5px;
   transition: all 200ms;
 }
+
+.form-group input:-webkit-autofill 
+{    
+    -webkit-box-shadow: 0 0 0px 1000px #f9fbfd inset !important;
+    -webkit-text-fill-color: #4D90FE !important;
+}
+
 .form-group input[type="date"]{
   text-align: center;
 }
