@@ -96,7 +96,13 @@ body{
 .bt-accept:hover{
   color: #4A4A4A;
 }
-
+.btn-remove{
+  background-color: #DC3545;
+  color: #f5f5f5;
+}
+.btn-remove:hover{
+  color:#4A4A4A ;
+}
 .bt-cancel{
   background-color: #DC3545;
   color: #f5f5f5;
@@ -248,8 +254,7 @@ body{
   top: 55%;
   display: flex;
   align-items: center;
-  color: #f5f5f5;
-  background-color: #0056B3;
+  color: #4A4A4A;
   justify-content: start;
   border-radius: 100%;
   width: 25px;

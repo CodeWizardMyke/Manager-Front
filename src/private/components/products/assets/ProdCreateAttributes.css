@@ -1,0 +1,77 @@
+.add_attribute{
+  background-color: #ddd;
+  display: flex;
+  flex-wrap: wrap;
+  width: 200px;
+  height: 120px;
+  align-items: center;
+  justify-content: space-evenly ;
+  border-radius: 5px;
+  position: relative;
+  padding: 5px;
+}
+.add_attribute span{
+  height: 25px;
+  width: 100%;
+  text-align: center;
+}
+.add_attribute input{
+  max-width: 120px;
+  margin-right: 5px;
+  height: 25px;
+  padding-left: 5px;
+  border-radius: 5px;
+  border: 1px solid #dddd;
+  outline: none;
+}
+.add_attribute label{
+  margin-right: 10px;
+}
+.c_buttons{
+  display: flex;
+}
+.btn_create{
+  height: 25px;
+  width: 25px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+.btn_search {
+  height: 25px;
+  width: 25px;
+  border: none;outline: none;
+  background-color: #4A90E2;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16pt;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.content_attribute button svg{
+  background-color: rebeccapurple;
+}
+.content_attribute button:hover{
+  background-color: #0056B3;
+}
+.add_attribute select{
+  width: 160px;
+  height: 25px;
+  border-radius: 5px;
+  padding-left: 3px;
+  background-color: #fff;
+  border: 1px solid transparent;
+  outline: none;
+  cursor: pointer;
+  transition: all 200ms;
+  text-align: center;
+}
+.add_attribute select option{
+  text-align: center;
+}
+
+.add_attribute select:hover{
+  border-color: #0056B3;
+}
