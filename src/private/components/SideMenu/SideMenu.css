@@ -22,8 +22,10 @@
 }
 
 .mainMenu{
-  width: 300px;
+  display: block;
+  min-width: 300px;
   height: 100%;
+  padding: 15px;
   position: relative;
 }
 .wrapper-main_menu{
@@ -89,7 +91,8 @@
 
 @media screen and (max-width:790px) {
   .mainMenu{
-    width: 200px;
+    min-width: 120px;
+
   }
   .wsm-buttons button{
     width: 75px;

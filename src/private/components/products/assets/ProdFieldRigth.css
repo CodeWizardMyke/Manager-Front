@@ -7,6 +7,25 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: 5px;
+}
+
+.attributes_pricing{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.attributes_pricing input {
+  max-width: 120px;
+  margin: 5px;
+}
+
+
+@media screen and (max-width:1200px){
+  .prod_rigth_fields{
+    margin-bottom: 30px;
+    width: 100%;
+  }
 }

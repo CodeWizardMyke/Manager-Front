@@ -37,6 +37,15 @@
   justify-content: space-between;
 }
 
+.text_align-center{
+  text-align: center;
+}
+.text_align-end{
+  text-align: end;
+  padding-right: 10px;
+}
+
+
 @media screen and (max-width:580px ) {
   .manager_prod_top{
     flex-direction: column;

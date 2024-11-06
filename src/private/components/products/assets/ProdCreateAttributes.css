@@ -9,6 +9,7 @@
   border-radius: 5px;
   position: relative;
   padding: 5px;
+  margin: 5px;
 }
 .add_attribute span{
   height: 25px;
@@ -75,3 +76,5 @@
 .add_attribute select:hover{
   border-color: #0056B3;
 }
+
+
