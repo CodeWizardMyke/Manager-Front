@@ -16,6 +16,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
+  margin-top: 10px;
 }
 .attributes_pricing input {
   max-width: 120px;

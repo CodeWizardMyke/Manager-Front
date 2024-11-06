@@ -54,7 +54,9 @@ function ProdThumbnails() {
           </div>
           <div className="select_thumbnails">
             <span>Selecione suas imagems</span>
-            <button className='bt_add_thumbnail'>  <label htmlFor="file_thumbnails">Adicionar</label> </button>
+            {
+              images.length < 6 ? (<button className='bt_add_thumbnail'>  <label htmlFor="file_thumbnails">Adicionar</label> </button>) : "Limite maximo atingido!"
+            }
             <input type="file"
               id="file_thumbnails"
               multiple className='hideElement'
