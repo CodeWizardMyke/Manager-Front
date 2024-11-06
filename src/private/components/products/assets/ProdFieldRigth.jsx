@@ -2,7 +2,7 @@ import React from 'react'
 import './ProdFieldRigth.css'
 import ProdCreateBrand from './ProdCreateBrand'
 import ProdCreateCategory from './ProdCreateCategory'
-import ProdPriccing from './ProdPriccing'
+import ProdPriccing from './ProdPricing'
 
 function ProdFieldRigth() {
 

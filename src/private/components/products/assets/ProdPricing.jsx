@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-function ProdPriccing() {
+function ProdPricing() {
   const [productCost, setProductCost] = useState('');
   const [feelsTaxes, setFeelsTaxes ] = useState('');
   const [discounts, setDiscounts] = useState('');
@@ -107,4 +107,4 @@ function ProdPriccing() {
   )
 }
 
-export default ProdPriccing
+export default ProdPricing
