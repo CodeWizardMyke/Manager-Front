@@ -193,10 +193,19 @@
   }
 }
 
+@media screen and (max-width: 670px){
+  .wrapper_prod_thumbnails{
+    max-width: none;
+    min-width: 230px;
+  }
+  .select_thumbnails{
+    background-color: transparent;
+  }
+}
+
 @media screen and (max-width:580px ) {
 
   .wrapper_prod_thumbnails{
-    max-width: none;
   }
   .wrapper_thumbnails_list{
     border-color: transparent;

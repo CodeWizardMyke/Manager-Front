@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 
 function ProdPriccing() {
   const [productCost, setProductCost] = useState('');
-  const [feelsTaxes, setFeelsTaxes ] = useState(0);
-  const [discounts, setDiscounts] = useState(0);
-  const [profitMargin,setProfitMargin] = useState(0);
+  const [feelsTaxes, setFeelsTaxes ] = useState('');
+  const [discounts, setDiscounts] = useState('');
+  const [profitMargin,setProfitMargin] = useState('');
   const [sellingPrice, setSellingPrice]= useState('');
 
   const formatingPrice = (e) => {
@@ -94,7 +94,14 @@ function ProdPriccing() {
       </div>
       <div className="fd-group">
         <label htmlFor="selling_price">Preço de venda</label>
-        <input type="text" id='selling_price' name='selling_price' className='text_align-end' value={sellingPrice} />
+        <input 
+          type="text" 
+          id="selling_price" 
+          name="selling_price" 
+          className="text_align-end" 
+          value={sellingPrice} 
+          readOnly 
+        />
       </div>
     </div>
   )
