@@ -1,0 +1,166 @@
+.FormButtonsAndAdv{
+  height: 200px;
+  display: flex;
+  justify-content: space-between;
+}
+.FormButtons{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.productState span{
+  margin-right: 5px;
+}
+
+.advertisingProduct{
+  width: 350px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.advThumbnail{
+  background-color: #dddd;
+  margin-right: 5px;
+  width: 180px;
+  height: 200px;
+  background-color: transparent;
+  text-align: center;
+}
+.advThumbnailList li{
+  border: 2px solid #4A4A4A;
+  border-radius: 5px;
+  transition: all 200ms;
+  cursor: pointer;
+}
+.advThumbnailList li:hover{
+  border-color: #4A90E2;
+}
+.advThumbnail img{
+  height: 100%;
+  max-width: 100%;
+}
+
+.advThumbnailList ul{
+  list-style: none;
+}
+.advRemoveThumbnails{
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-weight: 600;
+  background-color: #DC3545;
+  color: #f5f5f5;
+  cursor: pointer;
+}
+.advRemoveThumbnails:hover{
+  color: #4A4A4A;
+}
+
+.wrapperAdvImage{
+  height: 80px;
+  width: 100px;
+  margin: 5px 0;
+  position: relative;
+}
+.wrapperAdvImage img{
+  max-height: 100%;
+  cursor: pointer;
+}
+
+
+.btn_remove_img{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 25px;
+  height: 25px;
+  font-size: 14pt;
+  border: none;
+  background-color: transparent;
+  color: #4A4A4A;
+  cursor: pointer;
+  transition: all 200ms; 
+}
+.btn_remove_img:hover{
+  color: #DC3545;
+}
+
+.advThumbnailList{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 150px;
+  height: 175px;
+}
+.advThumbnailList input{
+  display: none;
+}
+.advThumbnailList label{
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #dddd;
+  font-size: 24pt;
+  font-weight: 600;
+  color: #ffff;
+  transition: all 200ms;
+}
+.advThumbnailList label:hover{
+  background-color: #f5f5f5;
+  color: #4A90E2;
+}
+
+.FormButtons button{
+  margin-top: 5px;
+}
+
+@media screen and (max-width: 1450px) {
+  .advertisingProduct{
+    position: relative;
+  }
+  .advThumbnailList{
+    width: 80px;
+    align-items: center;
+  }
+  
+  .advThumbnailList li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 45px;
+
+  }
+  .advRemoveThumbnails{
+    position: absolute;
+    bottom: 5px;
+    left: 15px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .FormButtonsAndAdv{
+    flex-direction: column;
+    height: auto;
+    border-top: 1px solid #4A4A4A;
+    padding-top: 5px;
+    align-items: center;
+  }
+  .FormButtons{
+    margin-top: 15px;
+  }
+  .advertisingProduct{
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  .advRemoveThumbnails{
+    right: 15px;
+    left: auto;
+  }
+}

@@ -3,6 +3,7 @@ import './ProdFieldRigth.css'
 import ProdCreateBrand from './ProdCreateBrand'
 import ProdCreateCategory from './ProdCreateCategory'
 import ProdPriccing from './ProdPricing'
+import FormButtonsAndAdv from './FormButtonsAndAdv'
 
 function ProdFieldRigth() {
 
@@ -15,7 +16,7 @@ function ProdFieldRigth() {
         <ProdCreateCategory/>
       </div>
       <ProdPriccing/>
-
+      <FormButtonsAndAdv/>
     </div>
   )
 }

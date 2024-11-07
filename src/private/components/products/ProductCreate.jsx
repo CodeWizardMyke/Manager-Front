@@ -65,7 +65,6 @@ function ProductCreate({prodItemData, setProdItemData}) {
       { loading && <Loading/> }
       <div className="wrapper-manager_prod">
         <div className="content_text_module-action"><span>Cadastrio de novos produtos</span></div>
-          <div className="manager_menu_utils"></div>
           <div className="manager_prod_top">
             <ProdThumbnails/>
             <ProdMovie/>

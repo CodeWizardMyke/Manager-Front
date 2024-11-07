@@ -21,12 +21,13 @@ function ProdThumbnails() {
     // Cria um novo array filtrando a imagem com indicie igual ao passsado por parâmetro
     const updatedImages = images.filter((_, i) => i !== index);
     
-    // Atualiza o estado de imagens
-    setImages(updatedImages);
-  
     // atualiza a imagem em exibição, se tiver item no array, entao busco uma imagem com indicie valido usando Math.min, entre o index removido e o tamanho do array, caso nao tenha um valor valido preencha com valor nulo
     setIndexImageView(updatedImages.length > 0 ? Math.min(index, updatedImages.length - 1) : null);
+    // Atualiza o estado de imagens
+
+    setImages(updatedImages);
   }
+
   return (
     <div className='wrapper_prod_thumbnails'>
       <div className="thumbnail_view">
@@ -44,7 +45,7 @@ function ProdThumbnails() {
                 images.map( (image,index) => (
                   <li key={'img_'+index}>
                     <div className="content_thumbnail_feature">
-                      <button onClick={() => removeImageByIndex(index,image)} ><IoTrashBin/></button>
+                      <button onClick={() => removeImageByIndex(index)} ><IoTrashBin/></button>
                       <img src={URL.createObjectURL(image)} alt={`imagem ${index +1 }`} onClick={() => setIndexImageView(index)} />
                     </div>
                   </li>
