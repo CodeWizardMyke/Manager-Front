@@ -36,9 +36,10 @@ function AppPrivate() {
 
     } catch (error) {
       setLoading(false);
+      console.log(error)
       window.alert('Erro inesperado');
+
       const {response} = error
-      console.log(console.log(error))
       if(response){
         handdlerErrors(response.data);
       };

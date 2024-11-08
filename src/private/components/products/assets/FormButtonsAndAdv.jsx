@@ -1,69 +1,56 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext,useState } from 'react';
 import './FormButtonsAndAdv.css';
 import { IoTrashBin } from 'react-icons/io5';
+import ProductCreateContext from '../../../context/ProductCreateContext';
 
 function FormButtonsAndAdv() {
-  const [imagesAdv, setImagesAdv] = useState([]);
-  const [indexImageAdv, setIndexImageAdv] = useState(null);
+  const {advertisings,setAdvertisings} = useContext(ProductCreateContext);
+  const [index, setIndex] = useState(null);
 
   function handlerImagesAdv(e) {
-    const imageSelected = Array.from(e.target.files);
-    setImagesAdv((prevImage) => {
-      const addedNewImage = [...prevImage, ...imageSelected];
-      setIndexImageAdv(addedNewImage.length - 1);
-      return addedNewImage;
-    });
+    let nextImage = Array.from(e.target.files);
+    setAdvertisings((prevImage) => [...prevImage, ...nextImage] );
+    setIndex(advertisings.length);
   }
 
-  useEffect(() => {
-  }, [imagesAdv, indexImageAdv]);
-
-  
   function removeImageAdv(index) {
-    setImagesAdv((prevImages) => {
-      const imageRemoved = prevImages.filter((_, i) => i !== index);
-
-      // Atualiza o index para null se não houver mais imagens
-      if (imageRemoved.length === 0) {
-        setIndexImageAdv(null);
-      } else {
-        setIndexImageAdv(Math.min(index, imageRemoved.length - 1));
-      }
-
-      return imageRemoved;
-    });
+    setAdvertisings((prevImages) => prevImages.filter((_, i) => i !== index));
+    if(advertisings.length > 1){
+      setIndex(index -1)
+    }else{
+      setIndex(null);
+    }
   }
 
   function removeAllImagesAdv() {
-    setImagesAdv([]);
-    setIndexImageAdv(null);
+      setIndex(null);
+      setAdvertisings([]);
   }
 
   return (
     <div className='FormButtonsAndAdv'>
       <div className="advertisingProduct">
         <div className="advThumbnail">
-          {indexImageAdv !== null ? (
-            <img src={URL.createObjectURL(imagesAdv[indexImageAdv])} alt="imagem selecionada" />
-          ) : 'nenhuma imagem selecionada'}
+          {
+            index !== null ? <img src={URL.createObjectURL(advertisings[index])} alt="imagem selecionada" /> : "Nenhuma imagem selecionada!"
+          }
         </div>
         <div className="advThumbnailList"> 
           <div>
             <ul>
-              {imagesAdv.length > 0 && imagesAdv.map((image, index) => (
+              {advertisings.length > 0 && advertisings.map((image, index) => (
                 <li 
                   key={`listAdv_${index}`}
                   className='wrapperAdvImage'
-                  onClick={() => setIndexImageAdv(index)}
                 >
-                  <img src={URL.createObjectURL(image)} alt='imagem propaganda' />
-                  <button className='btn_remove_img' onClick={() => removeImageAdv(index)}>
+                  <img src={URL.createObjectURL(image)} alt='imagem propaganda' onClick={() => setIndex(index)} />
+                  <button type='button' className='btn_remove_img' onClick={() => removeImageAdv(index)}>
                     <IoTrashBin />
                   </button>
                 </li>
               ))}
 
-              {imagesAdv.length < 2 && (
+              {advertisings.length < 2 && (
                 <li className='wrapperAdvImage'>
                   <label htmlFor="adv_1">+</label>
                   <input type="file" name="adv_1" id="adv_1" onChange={handlerImagesAdv} />
@@ -77,17 +64,15 @@ function FormButtonsAndAdv() {
         </div>
       </div>
       <div className="FormButtons">
-        <button className='bt bt-cancel'>Deletar</button>
-        <button className='bt bt-primary'>Visualizar</button>
-        <button className='bt bt-approve '>Cadastrar</button>
+        <button type='button' className='bt bt-cancel'>Deletar</button>
+        <button type='button' className='bt bt-primary'>Visualizar</button>
+        <button type='submit' className='bt bt-approve'>Cadastrar</button>
         <div className="productState">
           <div>
             <span>Status do produto</span>
-            <b>ativo</b>
           </div>
           <div>
             <span>última atualização</span>
-            <b>00/00/0000</b>
           </div>
         </div>
       </div>

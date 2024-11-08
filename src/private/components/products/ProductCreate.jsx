@@ -7,11 +7,14 @@ import ProdThumbnails from './assets/ProdThumbnails';
 import ProdMovie from './assets/ProdMovie,';
 import ProdFieldsLeft from './assets/ProdFieldsLeft';
 import ProdFieldRigth from './assets/ProdFieldRigth';
+import ProductCreateProvider from '../../context/ProductCreateProvider';
 
 function ProductCreate({prodItemData, setProdItemData}) {
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [popup, setPopup] = useState(false)
+
+console.log('handdlerForm', handdlerForm)
 
   async function handdlerForm(event){
     event.preventDefault();
@@ -58,23 +61,25 @@ function ProductCreate({prodItemData, setProdItemData}) {
      errors.map( (e) =>  document.querySelector(`.errors-${e.path}`).innerHTML = '' );
     };
     setErrors([])
-   };
+  };
 
   return (
-    <div className='module-content'>
-      { loading && <Loading/> }
-      <div className="wrapper-manager_prod">
-        <div className="content_text_module-action"><span>Cadastrio de novos produtos</span></div>
-          <div className="manager_prod_top">
-            <ProdThumbnails/>
-            <ProdMovie/>
-          </div>
-          <div className="manager_prod_bottom">
-            <ProdFieldsLeft/>
-            <ProdFieldRigth/>
-          </div>
+    <ProductCreateProvider>
+      <div className='module-content'>
+        { loading && <Loading/> }
+        <div className="wrapper-manager_prod">
+          <div className="content_text_module-action"><span>Cadastrio de novos produtos</span></div>
+            <div className="manager_prod_top">
+              <ProdThumbnails/>
+              <ProdMovie/>
+            </div>
+            <div className="manager_prod_bottom">
+              <ProdFieldsLeft/>
+              <ProdFieldRigth/>
+            </div>
+        </div>
       </div>
-    </div>
+    </ProductCreateProvider>
   )
 }
 

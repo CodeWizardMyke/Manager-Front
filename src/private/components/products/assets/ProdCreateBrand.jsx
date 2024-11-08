@@ -6,9 +6,9 @@ import fetchAxios from '../../../axios/config';
 
 function ProdCreateBrand() {
   const [ createOrAdd, setCreateOrAdd] = useState(false);
-  const [query, setQuery] = useState('');
-  const [categoryList, setCategoryList] = useState([]);
-  const [msgState,setMsgState] = useState('');
+  const [ query, setQuery] = useState('');
+  const [ categoryList, setCategoryList] = useState([]);
+  const [ msgState, setMsgState] = useState('');
 
   function handdlerButton (){
     if(createOrAdd){
@@ -20,12 +20,8 @@ function ProdCreateBrand() {
 
   const searchBrand = async () => {
     try {
-      
-      const options = {
-        query:query
-      }
 
-      const response = await fetchAxios.get('/brand', {headers:options})
+      const response = await fetchAxios.get('/brand', {headers:{query:query}})
 
       const arrLimited = response.data.rows.slice(0,5)
       setCategoryList(arrLimited)

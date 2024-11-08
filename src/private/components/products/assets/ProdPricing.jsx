@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import { useContext } from 'react';
+import ProductCreateContext from '../../../context/ProductCreateContext';
 
 function ProdPricing() {
+  const {unformatPrice} = useContext(ProductCreateContext);
   const [productCost, setProductCost] = useState('');
   const [feelsTaxes, setFeelsTaxes ] = useState('');
   const [discounts, setDiscounts] = useState('');
@@ -17,43 +20,31 @@ function ProdPricing() {
     const formattedPrice = new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL',
-      minimumFractionDigits: 2
+      minimumFractionDigits: 2,
     }).format(value / 100);
 
-    return formattedPrice
-  }
-
-  function unformatPrice(formattedPrice) {
-    // Remova o símbolo de moeda e os pontos, substitua vírgula por ponto
-    const numericValue = formattedPrice
-      .replace(/[R$\s.]/g, '') // Remova "R$", espaços e pontos
-      .replace(',', '.'); // Substitui vírgula por ponto e converta em float
-    
-    return parseFloat(numericValue);
-  }
+    return formattedPrice;
+  };
 
   const productCoastHanddler = (e) => {
     let value = formatingPrice(e);
     setProductCost(value);
-  }
+  };
 
-  const sellingPriceHandle = () => {
+  const sellingPriceHandle = useCallback(() => {
     let coastProduct = unformatPrice(productCost);
-    let appliProfitMargin =  (coastProduct + (coastProduct * (profitMargin / 100))).toFixed(2);
+    let appliProfitMargin = (coastProduct + (coastProduct * (profitMargin / 100))).toFixed(2);
     let appliFeelsTaxes = (appliProfitMargin - (appliProfitMargin * (feelsTaxes / 100))).toFixed(2);
-    let appliDiscounts = (appliFeelsTaxes - (appliFeelsTaxes * (discounts /100))).toFixed(2);
+    let appliDiscounts = (appliFeelsTaxes - (appliFeelsTaxes * (discounts / 100))).toFixed(2);
 
     setSellingPrice(appliDiscounts);
-  }
+  }, [productCost, feelsTaxes, discounts, profitMargin, unformatPrice]);
 
   useEffect(() => {
-    if(productCost !== '' || feelsTaxes > 0 || discounts > 0 || profitMargin > 0){
+    if (productCost !== '' || feelsTaxes > 0 || discounts > 0 || profitMargin > 0) {
       sellingPriceHandle();
     }
-  }, [productCost,feelsTaxes,discounts,profitMargin])
-
-
-
+  }, [productCost, feelsTaxes, discounts, profitMargin, sellingPriceHandle]);
 
   return (
     <div className="attributes_pricing">

@@ -1,7 +1,7 @@
 .FormButtonsAndAdv{
   height: 200px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .FormButtons{
   display: flex;
@@ -25,9 +25,11 @@
   height: 200px;
   background-color: transparent;
   text-align: center;
+  border: 2px solid #dddd;
+  border-radius: 5px;
 }
 .advThumbnailList li{
-  border: 2px solid #4A4A4A;
+  border: 2px solid #dddd;
   border-radius: 5px;
   transition: all 200ms;
   cursor: pointer;
@@ -60,6 +62,9 @@
   height: 80px;
   width: 100px;
   margin: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
 }
 .wrapperAdvImage img{
@@ -72,17 +77,24 @@
   position: absolute;
   right: 0;
   top: 0;
-  width: 25px;
-  height: 25px;
+
   font-size: 14pt;
   border: none;
   background-color: transparent;
   color: #4A4A4A;
   cursor: pointer;
   transition: all 200ms; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  background-color: #dddd;
+  border-radius: 10px;
 }
 .btn_remove_img:hover{
   color: #DC3545;
+  transform: scale(1.2);
+  top: 10px;
 }
 
 .advThumbnailList{
