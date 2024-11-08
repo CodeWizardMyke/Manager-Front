@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import fetchAxios from '../../axios/config';
 import Loading from '../loading/Loading';
 
@@ -7,66 +7,41 @@ import ProdThumbnails from './assets/ProdThumbnails';
 import ProdMovie from './assets/ProdMovie,';
 import ProdFieldsLeft from './assets/ProdFieldsLeft';
 import ProdFieldRigth from './assets/ProdFieldRigth';
-import ProductCreateProvider from '../../context/ProductCreateProvider';
+import ProductCreateContext from '../../context/ProductCreateContext';
 
 function ProductCreate({prodItemData, setProdItemData}) {
-  const [errors, setErrors] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [popup, setPopup] = useState(false)
-
-console.log('handdlerForm', handdlerForm)
-
+  const {loading, setLoading, thumbnails, advertisings, unformatPrice} = useContext(ProductCreateContext);
+  
   async function handdlerForm(event){
     event.preventDefault();
     setLoading(true);
-    updateErrors()
-    try {
-      const formData = new FormData(event.target);
 
-      if(prodItemData){
-        await fetchAxios.put('product/crud/update',formData,{headers:{'Content-Type':'multipart/form-data',product_id:prodItemData.product_id,}});
-        setPopup(true)
-        setLoading(false);
-      }else{
-        await fetchAxios.post('product/crud/create',formData,{headers:{'Content-Type':'multipart/form-data'}});
-        setPopup(true)
-        setLoading(false);
-      }
+    const formData = new FormData(event.target);
+    
+    formData.set('thumbnails',thumbnails);
+    formData.set('advertisings',advertisings);
+    
+    let costPriceUnFormat = unformatPrice(formData.get('product_cost'))
+    formData.set('product_cost', costPriceUnFormat);
+
+    try {
+
+      await fetchAxios.post('product/crud/create',formData,{headers:{'Content-Type':'multipart/form-data'}});
+      
+      setLoading(false);
+
     } catch (error) {
       console.log(error);
       setLoading(false);
-      if(error.response){
-        setErrors(error.response.data.errors);
-      };
     }
   }
 
-  useEffect( () => {
-    if(errors.length > 0){
-      errors.map( (e) => document.querySelector(`.errors-${e.path}`).innerHTML = e.msg );
-    };
-  }, [errors])
-
-  useEffect(()=>{
-    if(popup){
-      setTimeout(() => {
-        setPopup(false)
-      }, 2000);
-    }
-
-  },[popup])
-
-  function updateErrors(){
-    if(errors.length > 0){
-     errors.map( (e) =>  document.querySelector(`.errors-${e.path}`).innerHTML = '' );
-    };
-    setErrors([])
-  };
-
   return (
-    <ProductCreateProvider>
-      <div className='module-content'>
-        { loading && <Loading/> }
+    <div className='module-content'>
+      { loading && <Loading/> }
+      <form 
+        onSubmit={handdlerForm}
+      >
         <div className="wrapper-manager_prod">
           <div className="content_text_module-action"><span>Cadastrio de novos produtos</span></div>
             <div className="manager_prod_top">
@@ -78,8 +53,8 @@ console.log('handdlerForm', handdlerForm)
               <ProdFieldRigth/>
             </div>
         </div>
-      </div>
-    </ProductCreateProvider>
+      </form>
+    </div>
   )
 }
 
