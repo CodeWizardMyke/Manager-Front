@@ -7,6 +7,14 @@
   align-items: center;
   justify-content: space-evenly;
 }
+.check_image{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 15px;
+}.check_image input{
+  margin-left: 5px;
+}
 
 .thumbnail_view{
   position: relative;

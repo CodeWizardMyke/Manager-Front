@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './ProdCreateAttributes.css'
 import { MdOutlineContentPasteSearch } from "react-icons/md";
 import { MdCreate } from "react-icons/md";
 import fetchAxios from '../../../axios/config';
+import ProductCreateContext from '../../../context/ProductCreateContext';
 
 function ProdCreateBrand() {
+  const {setLoading} = useContext(ProductCreateContext);
+
   const [ createOrAdd, setCreateOrAdd] = useState(false);
   const [ query, setQuery] = useState('');
   const [ categoryList, setCategoryList] = useState([]);
@@ -20,20 +23,24 @@ function ProdCreateBrand() {
 
   const searchBrand = async () => {
     try {
+      setLoading(true)
 
       const response = await fetchAxios.get('/brand', {headers:{query:query}})
 
       const arrLimited = response.data.rows.slice(0,5)
       setCategoryList(arrLimited)
+      setLoading(false)
       
     } catch (error) {
       console.log('error', error);
+      setLoading(false)
       alert('error',error.state);
     }
   }
 
   const createBrand = async () => {
     try {
+      setLoading(true)
       setMsgState('');
       const body = {
         brand_name : query
@@ -41,8 +48,10 @@ function ProdCreateBrand() {
 
       const response = await fetchAxios.post('/brand', body )
 
+      setLoading(false)
       setMsgState(response.data.msg)
     } catch (error) {
+      setLoading(false)
       console.log('error', error);
       window.alert('error', error.state)
     }
@@ -58,7 +67,7 @@ function ProdCreateBrand() {
         </div>
           {
             !createOrAdd && (
-              <select name='fk_id_brand' id='fk_id_brand' >
+              <select name='fk_brand_id'>
                <option>Selecione a Marca</option>
                 {
                   categoryList.map( (element) => {

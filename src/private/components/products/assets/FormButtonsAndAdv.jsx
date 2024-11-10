@@ -52,8 +52,8 @@ function FormButtonsAndAdv() {
 
               {advertisings.length < 2 && (
                 <li className='wrapperAdvImage'>
-                  <label htmlFor="adv_1">+</label>
-                  <input type="file" name="adv_1" id="adv_1" onChange={handlerImagesAdv} />
+                  <label htmlFor="ad">+</label>
+                  <input type="file" id="ad" onChange={handlerImagesAdv} />
                 </li>
               )}
             </ul>

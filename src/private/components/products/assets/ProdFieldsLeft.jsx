@@ -5,8 +5,8 @@ function ProdFieldsLeft() {
   return (
     <div className='prod_left_fields'>
       <div className="content_textArea">
-        <label htmlFor="description">Descrição do Produto</label>
-        <textarea name="description" cols={40} id="description"></textarea>
+        <label htmlFor="discribe">Descrição do Produto</label>
+        <textarea name="discribe" cols={40} id="discribe"></textarea>
       </div>
       <div className="bottom_left_fields">
         <div className="fd-group w50" >
@@ -34,20 +34,37 @@ function ProdFieldsLeft() {
           <input type="date" name='winner_item_id' id='winner_item_id'/>
         </div>
         <div className="fd-group" >
-          <label htmlFor="item_condittion">Lançamento</label>
-          <select name="item_condittion" id="item_condittion">
+          <label htmlFor="additional">Adicional</label>
+          <input type="text" name='additional' id='additional'/>
+        </div>
+        <div className="fd-group" >
+          <label htmlFor="product_shape">Forma do produto</label>
+          <input type="text" name='product_shape' id='product_shape'/>
+        </div>
+        <div className="fd-group" >
+          <label htmlFor="isNewArrival">Lançamento</label>
+          <select name="isNewArrival" id="isNewArrival">
             <option value="new">Lançamento</option>
             <option value="commun">Comum</option>
           </select>
         </div>
         <div className="fd-group" >
-          <label htmlFor="item_condittion">Gênero</label>
-          <select name="gender" id="gender">
+          <label htmlFor="targetGender">Gênero</label>
+          <select name="targetGender" id="targetGender">
+            <option value="Any"></option>
             <option value="F">Feminino</option>
             <option value="M">Masculino</option>
-            <option value="Null">nenhum</option>
           </select>
         </div>
+        <div className="fd-group" >
+          <label htmlFor="age_group">Faixa etária</label>
+          <select name="age_group" id="age_group">
+            <option value="any">Todas</option>
+            <option value="adult">Adulto</option>
+            <option value="childish">Infantil</option>
+          </select>
+        </div>
+        
       </div>
     </div>
   )

@@ -12,11 +12,8 @@ function ProdPricing() {
 
   const formatingPrice = (e) => {
     let value = e.target.value;
-
-    // Remove qualquer caractere não numérico
     value = value.replace(/\D/g, '');
 
-    // Formata o valor para moeda BRL adicionando duas casas decimais
     const formattedPrice = new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL',
@@ -78,8 +75,8 @@ function ProdPricing() {
         <input type="text" id='stock' name='stock' className='text_align-center'/>
       </div>
       <div className="fd-group text_align">
-        <label htmlFor="currency_id">Moeda</label>
-        <select name="currency_id" id="currency_id" className='text_align-center'>
+        <label htmlFor="currency">Moeda</label>
+        <select name="currency" id="currency" className='text_align-center'>
           <option value="BRL">Real</option>
         </select>
       </div>

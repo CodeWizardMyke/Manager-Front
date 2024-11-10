@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './ProdCreateAttributes.css'
 import { MdOutlineContentPasteSearch } from "react-icons/md";
 import { MdCreate } from "react-icons/md";
 import fetchAxios from '../../../axios/config';
+import ProductCreateContext from '../../../context/ProductCreateContext';
 
 function ProdCreateCategory() {
+  const {setLoading} = useContext(ProductCreateContext);
+
   const [ createOrAdd, setCreateOrAdd] = useState(false);
   const [query, setQuery] = useState('');
   const [categoryList, setCategoryList] = useState([]);
@@ -20,7 +23,7 @@ function ProdCreateCategory() {
 
   const searchCategory = async () => {
     try {
-      
+      setLoading(true);
       const options = {
         query:query
       }
@@ -29,24 +32,29 @@ function ProdCreateCategory() {
 
       const arrLimited = response.data.rows.slice(0,5)
       setCategoryList(arrLimited)
+      setLoading(false);
       
     } catch (error) {
       console.log('error', error);
+      setLoading(false);
       alert('error',error.state);
     }
   }
 
   const createCategory = async () => {
-    try {
+      setLoading(true);
+      try {
       setMsgState('');
       const body = {
         category_name : query
       }
 
       const response = await fetchAxios.post('/category', body )
-
       setMsgState(response.data.msg)
+      setLoading(false);
+      
     } catch (error) {
+      setLoading(false);
       console.log('error', error);
       window.alert('error', error.state)
     }

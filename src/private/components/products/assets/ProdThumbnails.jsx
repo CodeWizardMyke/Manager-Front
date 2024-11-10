@@ -51,6 +51,10 @@ function ProdThumbnails() {
             </ul>
           </div>
           <div className="select_thumbnails">
+            <div className="check_image">
+              <label htmlFor="use_thumbnail">exibir imagens</label>
+              <input type="checkbox" name="use_thumbnail" id="use_thumbnail" defaultChecked />
+            </div>
             <span>Selecione suas imagems</span>
             {
               thumbnails.length < 6 ? (<button className='bt_add_thumbnail'>  <label htmlFor="file_thumbnails">Adicionar</label> </button>) : "Limite maximo atingido!"

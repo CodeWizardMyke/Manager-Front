@@ -38,7 +38,7 @@ function ProdMovie() {
         </div>
         <div className='movie_check_field'>
           <label htmlFor="movie_catalog">Exibir video no catálogo</label>
-          <input type="checkbox" name="movie_catalog" id="movie_catalog" defaultChecked />
+          <input type="checkbox" name="movie_catalog" id="movie_catalog"  />
         </div>
         <button className='bt btn-remove' onClick={removeMovie}>Remover vídeo</button>
       </div>
