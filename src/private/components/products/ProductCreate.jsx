@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import fetchAxios from '../../axios/config';
 import Loading from '../loading/Loading';
 
@@ -10,7 +10,11 @@ import ProdFieldRigth from './assets/ProdFieldRigth';
 import ProductCreateContext from '../../context/ProductCreateContext';
 
 function ProductCreate() {
-  const {loading, setLoading, thumbnails, advertisings, unformatPrice} = useContext(ProductCreateContext);
+  const {loading, setLoading, setThumbnails, setAdvertisings,thumbnails, advertisings, unformatPrice} = useContext(ProductCreateContext);
+  const [productCreateState, setProductCreateState] = useState(false);
+  const [productFailure,setProductFailure] = useState(false);
+  const [messageState, setMessageState ] = useState('');
+  const [oldErrors,setOldErrors] = useState([])
   
   async function handdlerForm(event){
     event.preventDefault();
@@ -34,24 +38,102 @@ function ProductCreate() {
     formData.set('product_cost', costPriceUnFormat);
 
     try {
-      const response =  await fetchAxios.post('product/crud/create',formData,{headers:{'Content-Type':'multipart/form-data'}});
-      console.log('response', response)
+      await fetchAxios.post('product/crud/create',formData,{headers:{'Content-Type':'multipart/form-data'}});
 
-      setLoading(false);
+      ProductCreated(event.target)
+
     } catch (error) {
-      console.log(error);
+      console.log('error', error)
+      functionProductFailure(event.target,error)
       setLoading(false);
     }
   }
+  
+  function ProductCreated(form) {
+    setProductCreateState(true)
+    form.reset();
+    setAdvertisings([])
+    setThumbnails([])
+    setLoading(false);
+  }
+
+  function functionProductFailure(form,error){
+    let errors = null;
+    if(error.response.data.errors){
+      errors = error.response.data.errors
+    }else{
+      if(error.response.data[0].path === 'thumbnails'){
+        let content_select_images = document.querySelector('.wrapper_thumbnails_list')
+        content_select_images.classList.add('field_error');
+        return false
+      }else{
+        window.alert('error inesperado');
+        return console.log('Error', error)
+      }
+    }
+    setProductFailure(true);
+
+    let content_select_images = document.querySelector('.wrapper_thumbnails_list')
+    content_select_images.classList.remove('field_error')
+
+    if(oldErrors.length){
+      oldErrors.map( element => {
+        const input = document.querySelector(`#${element.path}`);
+        input.classList.remove('field_error');
+        return input
+      })
+    }
+    
+    errors.map( element => {
+      const input = document.querySelector(`#${element.path}`);
+      input.classList.add('field_error');
+      return input
+    })
+    
+    if(errors.length){
+      setOldErrors(errors)
+    }
+  }
+
+  useEffect(()=> {
+
+    if(productCreateState){
+      document.querySelector('.content_text_module-action').classList.add('sucess_created')
+      setMessageState('Cadastrado com sucesso!');
+      setTimeout(() => {
+        setProductCreateState(false)
+        document.querySelector('.content_text_module-action').classList.remove('sucess_created')
+      }, 2000);
+    }else{
+      setMessageState('');
+    }
+
+    if(productFailure){
+      document.querySelector('.content_text_module-action').classList.add('failure_create')
+      setMessageState('Erro ao cadastrar produto!');
+      setTimeout(() => {
+        setProductFailure(false)
+        document.querySelector('.content_text_module-action').classList.remove('failure_create')
+      }, 2000);
+    }else{
+      setMessageState('');
+    }
+  },[productCreateState,setProductCreateState, productFailure, setProductFailure, setMessageState])
 
   return (
     <div className='module-content'>
       { loading && <Loading/> }
+ 
       <form 
+        id='FormProdCreate'
         onSubmit={handdlerForm}
       >
         <div className="wrapper-manager_prod">
-          <div className="content_text_module-action"><span>Cadastrio de novos produtos</span></div>
+          <div className="content_text_module-action">
+            {
+              messageState !== '' ? messageState : "Cadastro de novo produto!"
+            }
+          </div>
             <div className="manager_prod_top">
               <ProdThumbnails/>
               <ProdMovie/>

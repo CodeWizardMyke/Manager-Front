@@ -1,4 +1,4 @@
-import React, { useContext,useState } from 'react';
+import React, { useContext,useEffect,useState } from 'react';
 import './FormButtonsAndAdv.css';
 import { IoTrashBin } from 'react-icons/io5';
 import ProductCreateContext from '../../../context/ProductCreateContext';
@@ -27,13 +27,30 @@ function FormButtonsAndAdv() {
       setAdvertisings([]);
   }
 
+  useEffect(() => {
+    if(!advertisings.length){
+
+      document.querySelector('.advThumbnail').innerHTML = ""
+      
+    }else{
+      document.querySelector('.advThumbnail').innerHTML = ""
+      const image_container = document.querySelector('.advThumbnail')
+      let tagImg = document.createElement('img')
+      let getImgSelected = advertisings[index]
+      let imageCreated = URL.createObjectURL(getImgSelected)
+
+      tagImg.src = imageCreated;
+      tagImg.title = 'imagem atual selecionada!'
+
+      image_container.appendChild(tagImg)
+    }
+  },[advertisings,index])
+
   return (
     <div className='FormButtonsAndAdv'>
       <div className="advertisingProduct">
         <div className="advThumbnail">
-          {
-            index !== null ? <img src={URL.createObjectURL(advertisings[index])} alt="imagem selecionada" /> : "Nenhuma imagem selecionada!"
-          }
+
         </div>
         <div className="advThumbnailList"> 
           <div>

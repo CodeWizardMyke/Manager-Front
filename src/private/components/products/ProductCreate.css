@@ -10,6 +10,16 @@
   user-select: none;
 }
 
+.sucess_created{
+  background-color: #28A745;
+}
+.failure_create{
+  background-color: #DC3545;
+}
+.field_error{
+  border: 1px solid #DC3545 !important;
+}
+
 .manager_menu_utils{
   background-color: #D9D9D9;
   height: 35px;

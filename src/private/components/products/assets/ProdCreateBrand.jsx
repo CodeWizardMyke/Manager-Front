@@ -67,7 +67,7 @@ function ProdCreateBrand() {
         </div>
           {
             !createOrAdd && (
-              <select name='fk_brand_id'>
+              <select name='fk_brand_id' id='fk_brand_id'>
                <option>Selecione a Marca</option>
                 {
                   categoryList.map( (element) => {

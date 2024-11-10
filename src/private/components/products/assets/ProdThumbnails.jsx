@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './ProdThumbnails.css'
 import { IoTrashBin } from "react-icons/io5";
 import ProductCreateContext from '../../../context/ProductCreateContext';
@@ -24,16 +24,31 @@ function ProdThumbnails() {
     setIndexImageView(updatedImages.length > 0 ? Math.min(index, updatedImages.length - 1) : null);
     setThumbnails(updatedImages);
   }
+  
+  useEffect(() => {
+    if(!thumbnails.length){
+
+      document.querySelector('.thumbnail_mg').innerHTML = ""
+      
+    }else{
+      document.querySelector('.thumbnail_mg').innerHTML = ""
+      const image_container = document.querySelector('.thumbnail_mg')
+      let tagImg = document.createElement('img')
+      let getImgSelected = thumbnails[indexImageView]
+      let imageCreated = URL.createObjectURL(getImgSelected)
+
+      tagImg.src = imageCreated;
+      tagImg.title = 'imagem atual selecionada!'
+
+      image_container.appendChild(tagImg)
+    }
+  },[thumbnails,indexImageView])
 
   return (
     <div className='wrapper_prod_thumbnails'>
       <div className="thumbnail_view">
         <span>Imagem principal do produto</span>
-        <div className="thumbnail_mg">
-          {
-            indexImageView !== null && <img src={URL.createObjectURL( thumbnails[indexImageView] )} alt="Imagem autal selecionada" />
-          }
-        </div>
+        <div className="thumbnail_mg"></div>
       </div>
       <div className="wrapper_thumbnails_list">
           <div className="thumbnail_list">
@@ -50,7 +65,7 @@ function ProdThumbnails() {
               }
             </ul>
           </div>
-          <div className="select_thumbnails">
+          <div className="select_thumbnails" >
             <div className="check_image">
               <label htmlFor="use_thumbnail">exibir imagens</label>
               <input type="checkbox" name="use_thumbnail" id="use_thumbnail" defaultChecked />
