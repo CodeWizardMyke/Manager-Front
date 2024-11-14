@@ -96,7 +96,6 @@ function ProductCreate() {
   }
 
   useEffect(()=> {
-
     if(productCreateState){
       document.querySelector('.content_text_module-action').classList.add('sucess_created')
       setMessageState('Cadastrado com sucesso!');
