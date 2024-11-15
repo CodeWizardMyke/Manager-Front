@@ -5,12 +5,14 @@ const localToken = localStorage.getItem('token');
 
 const token = localToken ? localToken : sessionToken ;
 
+const headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Baerer ' + JSON.parse(token)
+}
+
 const fetchAxios =  axios.create({
   baseURL:'http://localhost:1515/api',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${JSON.parse(token)}`,
-  },
+  headers: headers,
 });
 
 export default fetchAxios;

@@ -54,9 +54,14 @@ function ProdCreateCategory() {
       setLoading(false);
       
     } catch (error) {
-      setLoading(false);
-      console.log('error', error);
-      window.alert('error', error.state)
+      const {response} = error
+      if(response && response.data && response.data.msg){
+        window.alert('Error' + ": " + error.response.status +  '\n' +  response.data.msg)
+        console.log(error);
+      }else{
+        window.alert('Error inesperado ocorreu! ' + '\n' + error.response.status0)
+      }
+      setLoading(false)
     }
   }
 

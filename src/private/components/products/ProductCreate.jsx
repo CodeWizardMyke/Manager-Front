@@ -78,9 +78,7 @@ function ProductCreate() {
 
     if(oldErrors.length){
       oldErrors.map( element => {
-        console.log(element)
         const input = document.querySelector(`#${element.path}`);
-
         if(input){
           input.classList.remove('field_error')
           return input 

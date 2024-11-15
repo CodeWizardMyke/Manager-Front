@@ -43,7 +43,7 @@ function ProdMovie() {
         <button className='bt btn-remove' onClick={removeMovie}>Remover vídeo</button>
       </div>
       <div className="wrapper_movie">
-
+        <iframe src={movieURL} frameBorder="0" allowFullScreen title='Vídeo do produto'></iframe>
       </div>
     </div>
   )

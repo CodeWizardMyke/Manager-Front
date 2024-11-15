@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './ProdCreateAttributes.css'
 import { MdOutlineContentPasteSearch } from "react-icons/md";
 import { MdCreate } from "react-icons/md";
@@ -51,9 +51,14 @@ function ProdCreateBrand() {
       setLoading(false)
       setMsgState(response.data.msg)
     } catch (error) {
+      const {response} = error
+      if(response && response.data && response.data.msg){
+        window.alert('Error' + ": " + error.response.status +  '\n' +  response.data.msg)
+        console.log(error);
+      }else{
+        window.alert('Error inesperado ocorreu! ' + '\n' + error.response.status0)
+      }
       setLoading(false)
-      console.log('error', error);
-      window.alert('error', error.state)
     }
   }
 
