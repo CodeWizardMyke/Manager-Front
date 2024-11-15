@@ -78,16 +78,26 @@ function ProductCreate() {
 
     if(oldErrors.length){
       oldErrors.map( element => {
+        console.log(element)
         const input = document.querySelector(`#${element.path}`);
-        input.classList.remove('field_error');
-        return input
+
+        if(input){
+          input.classList.remove('field_error')
+          return input 
+        }else{
+          return false
+        }
       })
     }
     
     errors.map( element => {
       const input = document.querySelector(`#${element.path}`);
-      input.classList.add('field_error');
-      return input
+      if(input){
+        input.classList.add('field_error')
+        return input
+      }else{
+        return false
+      }
     })
     
     if(errors.length){
@@ -96,7 +106,6 @@ function ProductCreate() {
   }
 
   useEffect(()=> {
-
     if(productCreateState){
       document.querySelector('.content_text_module-action').classList.add('sucess_created')
       setMessageState('Cadastrado com sucesso!');
