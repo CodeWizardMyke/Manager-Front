@@ -56,9 +56,9 @@ function ProdThumbnails({data}) {
           })}
         </div>
       </div>
-      <div className="wrapper_thumbnails_list">
+      <div className="wrapper_thumbnails_list"  id='thumbnails'>
         <div className="thumbnail_list">
-          <ul>
+          <ul >
             {thumbnails.map((image, index) => (
               <li key={'img_' + index}>
                 <div className="content_thumbnail_feature">
