@@ -2,8 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import './FormButtonsAndAdv.css';
 import { IoTrashBin } from 'react-icons/io5';
 import ProductCreateContext from '../../../context/ProductCreateContext';
+import fetchAxios from '../../../axios/config';
+const url_api = fetchAxios.defaults.baseURL;
+const url_public = url_api.split('/api')[0]
 
-function FormButtonsAndAdv() {
+function FormButtonsAndAdv({data}) {
   const { advertisings, setAdvertisings } = useContext(ProductCreateContext);
   const [index, setIndex] = useState(null);
 
@@ -23,21 +26,32 @@ function FormButtonsAndAdv() {
   }
 
   useEffect(() => {
-    if (advertisings.length > 0) {
-      setIndex(advertisings.length - 1); 
+    if(data){
+      const arrayImages = JSON.parse(data.thumbnails)
+
+
+      const arrayFilted = arrayImages.filter( element => element.isAdvertising !==0 )
+      const updatedImages = arrayFilted.map( element => url_public + element.locail)
+      setAdvertisings(updatedImages)
+
+      if(updatedImages.length > 0){
+        setIndex(1)
+      }
     }
-  }, [advertisings]); 
+
+  }, [data, setAdvertisings]);
 
   return (
     <div className='FormButtonsAndAdv'>
       <div className="advertisingProduct">
         <div className="advThumbnail">
-          {advertisings.length > 0 && index !== null && (
-            <img 
-              src={URL.createObjectURL(advertisings[index])} 
-              alt="imagem atual da propaganda" 
-            />
-          )}
+          {
+            advertisings.map((image,i) => {
+              return index === i ? (
+                <img key={`imagem_atual_ad-${index}`} src={typeof image === 'object' ? URL.createObjectURL(image) : image} alt="imagem atual selecionada" />
+              ) : null;
+            })
+          }
         </div>
         <div className="advThumbnailList">
           <div>
@@ -45,7 +59,7 @@ function FormButtonsAndAdv() {
               {advertisings.length > 0 && advertisings.map((image, index) => (
                 <li key={`listAdv_${index}`} className='wrapperAdvImage'>
                   <img
-                    src={URL.createObjectURL(image)}
+                   src={typeof image === 'object' ? URL.createObjectURL(image) : image} 
                     alt='imagem propaganda'
                     onClick={() => setIndex(index)}
                   />
@@ -70,13 +84,15 @@ function FormButtonsAndAdv() {
       <div className="FormButtons">
         <button type='button' className='bt bt-cancel'>Deletar</button>
         <button type='button' className='bt bt-primary'>Visualizar</button>
-        <button type='submit' className='bt bt-approve'>Cadastrar</button>
+        <button type='submit' className='bt bt-approve'>{data ? 'Atualizar' : 'Cadastrar'}</button>
         <div className="productState">
           <div>
             <span>Status do produto</span>
+            <p>{data ? data.product_state : ''}</p>
           </div>
           <div>
-            <span>última atualização</span>
+            <span>última atualização:</span>
+            <p> {data ? data.updatedAt : ''}</p>
           </div>
         </div>
       </div>

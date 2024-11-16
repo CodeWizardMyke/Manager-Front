@@ -21,17 +21,15 @@ function Products() {
           next: 'manager',
         },
       ])
+
+
   },[updateMenuOptions])
 
   return (
-    <>
-      {moduleClick.next === 'create' && (
-          <ProductCreateProvider>
-            <ProductCreate/>
-          </ProductCreateProvider>
-        )}
+    <ProductCreateProvider>
+      {moduleClick.next === 'create' && (<ProductCreate/>)}
       {moduleClick.next === 'manager' && <ProductManager/>}
-    </>
+    </ProductCreateProvider>
   )
 }
 

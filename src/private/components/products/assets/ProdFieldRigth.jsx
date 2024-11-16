@@ -5,16 +5,15 @@ import ProdCreateCategory from './ProdCreateCategory'
 import ProdPriccing from './ProdPricing'
 import FormButtonsAndAdv from './FormButtonsAndAdv'
 
-function ProdFieldRigth() {
-
+function ProdFieldRigth({data}) {
   return (
     <div className='prod_rigth_fields'>
       <div className="attributes_create">
-        <ProdCreateBrand/>
-        <ProdCreateCategory/>
+        <ProdCreateBrand data={data} />
+        <ProdCreateCategory data={data} />
       </div>
-      <ProdPriccing/>
-      <FormButtonsAndAdv/>
+      <ProdPriccing data={data} />
+      <FormButtonsAndAdv data={data} />
     </div>
   )
 }

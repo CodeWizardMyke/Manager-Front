@@ -5,13 +5,13 @@ import { MdCreate } from "react-icons/md";
 import fetchAxios from '../../../axios/config';
 import ProductCreateContext from '../../../context/ProductCreateContext';
 
-function ProdCreateBrand() {
+function ProdCreateBrand({data}) {
   const {setLoading} = useContext(ProductCreateContext);
-
   const [ createOrAdd, setCreateOrAdd] = useState(false);
   const [ query, setQuery] = useState('');
   const [ categoryList, setCategoryList] = useState([]);
   const [ msgState, setMsgState] = useState('');
+  const [ dataBrand, setDataBrand] = useState(false)
 
   function handdlerButton (){
     if(createOrAdd){
@@ -29,8 +29,9 @@ function ProdCreateBrand() {
 
       const arrLimited = response.data.rows.slice(0,5)
       setCategoryList(arrLimited)
+      setDataBrand(false);
       setLoading(false)
-      
+
     } catch (error) {
       console.log('error', error);
       setLoading(false)
@@ -49,18 +50,26 @@ function ProdCreateBrand() {
       const response = await fetchAxios.post('/brand', body )
 
       setLoading(false)
+      setDataBrand(false);
       setMsgState(response.data.msg)
     } catch (error) {
       const {response} = error
       if(response && response.data && response.data.msg){
-        window.alert('Error' + ": " + error.response.status +  '\n' +  response.data.msg)
+        window.alert('Error' , ": " , error.response.status ,  '\n' +  response.data.msg)
         console.log(error);
       }else{
-        window.alert('Error inesperado ocorreu! ' + '\n' + error.response.status0)
+        window.alert('Error inesperado ocorreu! ' , '\n' , error.response.status0)
       }
       setLoading(false)
     }
   }
+
+  useEffect(()=>{
+    if(data && data.Brand){
+      setDataBrand(true)
+    }
+  },[data,setDataBrand])
+
 
   return (
    <>
@@ -72,8 +81,10 @@ function ProdCreateBrand() {
         </div>
           {
             !createOrAdd && (
-              <select name='fk_brand_id' id='fk_brand_id'>
-               <option>Selecione a Marca</option>
+              <select name='fk_brand_id' id='fk_brand_id' >
+                {
+                  dataBrand ? <option value={data.Brand.brand_id} >{data.Brand.brand_name}</option> : <option>Selecione a Marca</option>
+                }
                 {
                   categoryList.map( (element) => {
                     return <option key={element.brand_id} value={element.brand_id} > {element.brand_name} </option> 

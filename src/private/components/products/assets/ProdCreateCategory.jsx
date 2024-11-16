@@ -1,20 +1,20 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './ProdCreateAttributes.css'
 import { MdOutlineContentPasteSearch } from "react-icons/md";
 import { MdCreate } from "react-icons/md";
 import fetchAxios from '../../../axios/config';
 import ProductCreateContext from '../../../context/ProductCreateContext';
 
-function ProdCreateCategory() {
+function ProdCreateCategory({data}) {
   const {setLoading} = useContext(ProductCreateContext);
-
-  const [ createOrAdd, setCreateOrAdd] = useState(false);
+  const [ createState, setcreateState] = useState(false);
   const [query, setQuery] = useState('');
   const [categoryList, setCategoryList] = useState([]);
   const [msgState,setMsgState] = useState('');
+  const [ dataCategory, setDataCategory] = useState(false);
 
   function handdlerButton (){
-    if(createOrAdd){
+    if(createState){
       createCategory();
     }else{
       searchCategory();
@@ -33,6 +33,7 @@ function ProdCreateCategory() {
       const arrLimited = response.data.rows.slice(0,5)
       setCategoryList(arrLimited)
       setLoading(false);
+      setDataCategory(false)
       
     } catch (error) {
       console.log('error', error);
@@ -50,33 +51,40 @@ function ProdCreateCategory() {
       }
 
       const response = await fetchAxios.post('/category', body )
+      setDataCategory(false)
       setMsgState(response.data.msg)
       setLoading(false);
       
     } catch (error) {
       const {response} = error
       if(response && response.data && response.data.msg){
-        window.alert('Error' + ": " + error.response.status +  '\n' +  response.data.msg)
+        window.alert('Error' , ": " , error.response.status ,  '\n' , response.data.msg)
         console.log(error);
       }else{
-        window.alert('Error inesperado ocorreu! ' + '\n' + error.response.status0)
+        window.alert('Error inesperado ocorreu! ' ,'\n' , error.response.status0)
       }
       setLoading(false)
     }
   }
 
+  useEffect(() => {
+    if(data && data.Category){
+      setDataCategory(true);
+    };
+  }, [data,setDataCategory])
+
   return (
    <>
     <div className='add_attribute'>
-        <label htmlFor='search_category' > { createOrAdd ? 'Criar' : 'Buscar'} uma categoria</label>
+        <label htmlFor='search_category' > { createState ? 'Criar' : 'Buscar'} uma categoria</label>
         <div className='c_buttons'>
           <input type="text" id='search_category' onChange={(e) => {setQuery(e.target.value)}} />
           <button type='button' className='btn_search' onClick={handdlerButton} ><MdOutlineContentPasteSearch/></button>
         </div>
           {
-            !createOrAdd && (
+            !createState && (
               <select name='fk_category_id' id='fk_category_id' >
-               <option>Selecione a categoria</option>
+                { dataCategory ? <option defaultValue={data.Category.category_id} >{data.Category.category_name}</option>  : <option>Selecione a categoria</option>}
                 {
                   categoryList.map( (element) => {
                     return <option key={element.category_id} value={element.category_id} > {element.category_name} </option> 
@@ -86,9 +94,9 @@ function ProdCreateCategory() {
             )
           }
           {
-            createOrAdd && (<span> {msgState ? msgState : 'nova categoria '} </span> )
+            createState && (<span> {msgState ? msgState : 'nova categoria '} </span> )
           }
-        <button type='button' className='btn_create' onClick={() => setCreateOrAdd(!createOrAdd) } ><MdCreate/></button>
+        <button type='button' className='btn_create' onClick={() => setcreateState(!createState) } ><MdCreate/></button>
     </div>
   </>
   )

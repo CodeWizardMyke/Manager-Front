@@ -2,12 +2,14 @@ import React, { useContext, useState, useEffect } from 'react'
 import './ProdThumbnails.css'
 import { IoTrashBin } from "react-icons/io5";
 import ProductCreateContext from '../../../context/ProductCreateContext';
+import fetchAxios from '../../../axios/config';
 
-function ProdThumbnails() {
+function ProdThumbnails({data}) {
   const { thumbnails, setThumbnails } = useContext(ProductCreateContext);
   const [indexImageView, setIndexImageView] = useState(null);
+  const url_api = fetchAxios.defaults.baseURL
+  const url_def = url_api.split('/api')[0];
 
-  // Handle image selection and update state
   function handleImagesSelect(e) {
     const selectedImages = Array.from(e.target.files);
 
@@ -25,10 +27,22 @@ function ProdThumbnails() {
   }
 
   useEffect(() => {
+    if(data){
+      const arrayImages = JSON.parse(data)
+
+      const arrayFilterd = arrayImages.filter(element => element.isAdvertising !==1)
+      const updatedImages = arrayFilterd.map( element => url_def + element.locail)
+
+      setThumbnails(updatedImages)
+      if(updatedImages.length > 0){
+        setIndexImageView(1)
+      }
+    }
+
     if (thumbnails.length > 0) {
       setIndexImageView(thumbnails.length - 1); 
     }
-  }, [thumbnails]); 
+  }, [data,setThumbnails,url_def,thumbnails.length]); 
 
   return (
     <div className='wrapper_prod_thumbnails'>
@@ -37,7 +51,7 @@ function ProdThumbnails() {
         <div className="thumbnail_mg">
           {thumbnails.map((image, index) => {
             return index === indexImageView ? (
-              <img key={`imagem_atual-${index}`} src={URL.createObjectURL(image)} alt="imagem atual selecionada" />
+              <img key={`imagem_atual-${index}`} src={typeof image === 'object' ? URL.createObjectURL(image) : image} alt="imagem atual selecionada" />
             ) : null;
           })}
         </div>
@@ -52,8 +66,8 @@ function ProdThumbnails() {
                     <IoTrashBin />
                   </button>
                   <img
-                    src={URL.createObjectURL(image)}
-                    alt={`imagem ${index + 1}`}
+                    src={typeof image === 'object' ? URL.createObjectURL(image) : image} 
+                    alt={`imagem ${index + 1}`} 
                     onClick={() => setIndexImageView(index)}
                   />
                 </div>

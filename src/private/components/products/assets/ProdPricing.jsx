@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useContext } from 'react';
 import ProductCreateContext from '../../../context/ProductCreateContext';
 
-function ProdPricing() {
+function ProdPricing({data}) {
   const {unformatPrice} = useContext(ProductCreateContext);
   const [productCost, setProductCost] = useState('');
   const [feelsTaxes, setFeelsTaxes ] = useState('');
@@ -43,6 +43,27 @@ function ProdPricing() {
     }
   }, [productCost, feelsTaxes, discounts, profitMargin, sellingPriceHandle]);
 
+  
+  const setDataPricing = useCallback(() => {
+    console.log('data', data);
+  
+    const cost = data.product_cost ? data.product_cost : 0;
+    const taxes = data.fees_and_taxes ? data.fees_and_taxes : 0;
+    const profit = data.profit_margin ? data.profit_margin : 0;
+  
+    setProductCost(cost);
+    setFeelsTaxes(taxes);
+    setProfitMargin(profit);
+  }, [data, setProductCost, setFeelsTaxes, setProfitMargin]);
+
+
+  useEffect(() => {
+    if(data){
+      setDataPricing()
+    }
+  },[data, setDataPricing])
+
+  
   return (
     <div className="attributes_pricing">
       <div className="fd-group">
@@ -52,27 +73,27 @@ function ProdPricing() {
           id='product_cost' 
           name='product_cost' 
           className='text_align-end' 
-          value={productCost}
+          defaultValue={ data ? data.profit_margin : productCost }
           onChange={productCoastHanddler} 
         />
       </div>
 
       <div className="fd-group">
         <label htmlFor="fees_and_taxes">Taxas/impostos %</label>
-        <input type="text" id='fees_and_taxes' name='fees_and_taxes' className='text_align-center' onChange={(e) => setFeelsTaxes(e.target.value)}  />
+        <input type="text" id='fees_and_taxes' name='fees_and_taxes' defaultValue={ data ? data.fees_and_taxes : 0 } className='text_align-center' onChange={(e) => setFeelsTaxes(e.target.value)}  />
       </div>
       
       <div className="fd-group">
         <label htmlFor="profit_margin">Margem/Lucro %</label>
-        <input type="text" id='profit_margin' name='profit_margin' className='text_align-center' onChange={(e) => setProfitMargin(e.target.value)} />
+        <input type="text" id='profit_margin' name='profit_margin' defaultValue={ data ? data.profit_margin : 0 } className='text_align-center' onChange={(e) => setProfitMargin(e.target.value)} />
       </div>
       <div className="fd-group ">
         <label htmlFor="discounts">Descontos %</label>
-        <input type="text" id='discounts' name='discounts' className='text_align-center' onChange={(e) => setDiscounts(e.target.value)}/>
+        <input type="text" id='discounts' name='discounts' defaultValue={ data ? data.discounts : 0 } className='text_align-center' onChange={(e) => setDiscounts(e.target.value)}/>
       </div>
       <div className="fd-group ">
         <label htmlFor="stock">Estoque</label>
-        <input type="text" id='stock' name='stock' className='text_align-center'/>
+        <input type="text" id='stock' name='stock' defaultValue={ data ? data.stock : 0 }  className='text_align-center'/>
       </div>
       <div className="fd-group text_align">
         <label htmlFor="currency">Moeda</label>

@@ -16,7 +16,7 @@ function ProductCreateProvider ({children}) {
     unformatPrice,
     prodDel,setProdDel,
     prodView,setProdView,
-    loading, setLoading
+    loading, setLoading,
   }
 
   function unformatPrice(formattedPrice) {

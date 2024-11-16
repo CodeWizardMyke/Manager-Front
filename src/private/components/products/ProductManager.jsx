@@ -5,14 +5,14 @@ import { BiShowAlt } from "react-icons/bi";
 
 import Pagination from '../assets/paginate/Paginate';
 import Loading from '../loading/Loading';
-import ProductCreate from './ProductCreate';
 import ToolsApp from '../assets/tools/ToolsApp';
 import ManagerContext from '../../context/ManagerContext';
+import ProductShowDetails from './ProductShowDetails';
 
 function ProductManager() {
   const [ loading, setLoading] = useState(false);
   const [ searchOpt, setSearchOpt ] = useState({query: '', searchType: ''});
-  const {pagination, setPagination} = useContext(ManagerContext);
+  const { pagination, setPagination} = useContext(ManagerContext);
 
   const [ data, setData] = useState([]);
   const [ prodItem, setProdItem ] = useState(null);
@@ -41,7 +41,7 @@ function ProductManager() {
 
   return (
     <>
-        { prodItem && <ProductCreate prodItemData={prodItem} setProdItemData={setProdItem} /> }
+        { prodItem && <ProductShowDetails data={prodItem} /> }
         { !prodItem && (
         <div className='module-content'>
           { loading && <Loading/> }

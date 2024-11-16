@@ -1,8 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import './ProdMovie.css'
 import ProductCreateContext from '../../../context/ProductCreateContext';
 
-function ProdMovie() {
+function ProdMovie({data}) {
   const {movieURL,setMovieURL} = useContext(ProductCreateContext);
 
   function removeMovie() {
@@ -28,6 +28,11 @@ function ProdMovie() {
     return url;
   }
 
+  useEffect(()=> {
+    if( data &&  data.movie_url !== ''){
+      setMovieURL(data.movie_url)
+    }
+  },[data,setMovieURL])
 
   return (
     <div className='wrapper_prod_movie'>

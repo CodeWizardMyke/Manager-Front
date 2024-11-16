@@ -10,12 +10,12 @@ import ProdFieldRigth from './assets/ProdFieldRigth';
 import ProductCreateContext from '../../context/ProductCreateContext';
 
 function ProductCreate() {
-  const {loading, setLoading, setThumbnails, setAdvertisings,thumbnails, advertisings, unformatPrice} = useContext(ProductCreateContext);
+  const {loading, setLoading,thumbnails, setThumbnails, setAdvertisings,setMovieURL, advertisings, unformatPrice} = useContext(ProductCreateContext);
   const [productCreateState, setProductCreateState] = useState(false);
   const [productFailure,setProductFailure] = useState(false);
   const [messageState, setMessageState ] = useState('');
   const [oldErrors,setOldErrors] = useState([])
-  
+
   async function handdlerForm(event){
     event.preventDefault();
     setLoading(true);
@@ -52,9 +52,6 @@ function ProductCreate() {
   function ProductCreated(form) {
     setProductCreateState(true)
     form.reset();
-    setAdvertisings([])
-    setThumbnails([])
-    setLoading(false);
   }
 
   function functionProductFailure(form,error){
@@ -104,6 +101,12 @@ function ProductCreate() {
   }
 
   useEffect(()=> {
+    setMovieURL('');
+    setThumbnails([]);
+    setAdvertisings([]);
+  },[setMovieURL,setThumbnails,setAdvertisings])
+
+  useEffect(()=> {
     if(productCreateState){
       document.querySelector('.content_text_module-action').classList.add('sucess_created')
       setMessageState('Cadastrado com sucesso!');
@@ -113,6 +116,7 @@ function ProductCreate() {
       }, 2000);
     }else{
       setMessageState('');
+
     }
 
     if(productFailure){
