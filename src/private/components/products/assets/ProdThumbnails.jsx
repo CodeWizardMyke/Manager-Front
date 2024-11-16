@@ -10,6 +10,7 @@ function ProdThumbnails({data}) {
   const url_api = fetchAxios.defaults.baseURL
   const url_def = url_api.split('/api')[0];
 
+  // Handle image selection and update state
   function handleImagesSelect(e) {
     const selectedImages = Array.from(e.target.files);
 
