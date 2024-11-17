@@ -8,6 +8,7 @@ import ProdMovie from './assets/ProdMovie,';
 import ProdFieldsLeft from './assets/ProdFieldsLeft';
 import ProdFieldRigth from './assets/ProdFieldRigth';
 import ProductCreateContext from '../../context/ProductCreateContext';
+import { useCallback } from 'react';
 
 function ProductCreate() {
   
@@ -15,12 +16,16 @@ function ProductCreate() {
   const [messageState, setMessageState ] = useState('');
   const [oldErrors,setOldErrors] = useState([])
 
-  //clean data is exists
-  useEffect(()=> {
+  const cleaningData = useCallback( (event) => {
+    setAdvertisings([])
+    setThumbnails([])
     setMovieURL('');
-    setThumbnails([]);
-    setAdvertisings([]);
-  },[setMovieURL,setThumbnails,setAdvertisings])
+    if(event){
+      event.target.reset();
+    }
+  },[setAdvertisings,setThumbnails,setMovieURL] )
+
+  useEffect( ()=> cleaningData() ,[cleaningData] )
 
   async function handdlerForm(event){
     setLoading(true);
@@ -28,6 +33,8 @@ function ProductCreate() {
     
     const formData = new FormData(event.target);
     let arrImages = [...thumbnails, ...advertisings]
+    formData.set('thumbnail_length', thumbnails.length);
+    formData.set('advertising_length', advertisings.length);
 
     arrImages.forEach((file) => { formData.append('thumbnails', file) });
     formData.set('product_cost',  unformatPrice(formData.get('product_cost')));
@@ -36,6 +43,7 @@ function ProductCreate() {
       await fetchAxios.post('product/crud/create',formData,{headers:{'Content-Type':'multipart/form-data'}});
       setLoading(false);
 
+      cleaningData(event);
       messageFeedbackState('Cadastrado com sucesso!','sucess_created' );
     } catch (error) {
       console.log('error', error)
@@ -43,6 +51,8 @@ function ProductCreate() {
       setLoading(false);
     }
   }
+
+
 
   function functionProductFailure(error){
     let data = error.response.data;

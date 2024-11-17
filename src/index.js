@@ -17,7 +17,7 @@ import Home from './private/pages/Home';
 
 const router = createBrowserRouter([
   {
-    path:'/main.manager',
+    path:'/',
     element:<Manager/>,
     children:[
       {path:'/main.manager/',element:<Home/>},
