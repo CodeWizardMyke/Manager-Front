@@ -8,6 +8,7 @@ function ProductCreateProvider ({children}) {
   const [prodDel,setProdDel] = useState(false);
   const [prodView,setProdView] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [thumbnails_removed, set_thumbnails_removed] = useState([]);
 
   const value ={
     thumbnails,setThumbnails,
@@ -17,6 +18,7 @@ function ProductCreateProvider ({children}) {
     prodDel,setProdDel,
     prodView,setProdView,
     loading, setLoading,
+    thumbnails_removed, set_thumbnails_removed
   }
 
   function unformatPrice(formattedPrice) {

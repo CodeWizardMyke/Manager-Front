@@ -84,7 +84,7 @@ function ProdCreateCategory({data}) {
           {
             !createState && (
               <select name='fk_category_id' id='fk_category_id' >
-                { dataCategory ? <option defaultValue={data.Category.category_id} >{data.Category.category_name}</option>  : <option>Selecione a categoria</option>}
+                { dataCategory ? <option value={data.Category.category_id} >{data.Category.category_name}</option>  : <option>Selecione a categoria</option>}
                 {
                   categoryList.map( (element) => {
                     return <option key={element.category_id} value={element.category_id} > {element.category_name} </option> 

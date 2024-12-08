@@ -45,8 +45,6 @@ function ProdPricing({data}) {
 
   
   const setDataPricing = useCallback(() => {
-    console.log('data', data);
-  
     const cost = data.product_cost ? data.product_cost : 0;
     const taxes = data.fees_and_taxes ? data.fees_and_taxes : 0;
     const profit = data.profit_margin ? data.profit_margin : 0;

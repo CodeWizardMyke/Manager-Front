@@ -3,42 +3,43 @@ import './FormButtonsAndAdv.css';
 import { IoTrashBin } from 'react-icons/io5';
 import ProductCreateContext from '../../../context/ProductCreateContext';
 import fetchAxios from '../../../axios/config';
-const url_api = fetchAxios.defaults.baseURL;
-const url_public = url_api.split('/api')[0]
+const url_api = fetchAxios.defaults.baseURL.split('/api')[0];
 
 function FormButtonsAndAdv({data}) {
-  const { advertisings, setAdvertisings } = useContext(ProductCreateContext);
+  const { advertisings, setAdvertisings, set_thumbnails_removed} = useContext(ProductCreateContext);
   const [index, setIndex] = useState(null);
 
   function handlerImagesAdv(e) {
     let nextImage = Array.from(e.target.files);
-    setAdvertisings((prevImage) => [...prevImage, ...nextImage]);
+    setAdvertisings((prevImage) => [...prevImage, ...nextImage.map( (file) => ( {file,type:1,path:null, fk_product_id:data.product_id} ) ) ]);
   }
 
-  function removeImageAdv(index) {
+  function removeImageAdv(element, index) {
     setAdvertisings((prevImages) => prevImages.filter((_, i) => i !== index));
+    
+    if(!element.file){
+      set_thumbnails_removed((item => [...item,element]))
+    }
     setIndex( null ); 
   }
 
   function removeAllImagesAdv() {
     setIndex(null);
+    advertisings.map((element) => {
+      if(!element.file){
+       return set_thumbnails_removed((item => [...item,element]))
+      }
+      return null;
+    })
     setAdvertisings([]);
   }
 
   useEffect(() => {
     if(data){
-      const arrayImages = JSON.parse(data.thumbnails)
-
-
-      const arrayFilted = arrayImages.filter( element => element.isAdvertising !==0 )
-      const updatedImages = arrayFilted.map( element => url_public + element.locail)
-      setAdvertisings(updatedImages)
-
-      if(updatedImages.length > 0){
-        setIndex(1)
-      }
+      const {productThumbnails} = data;
+      const arrayFilted = productThumbnails.filter( thumbnails => thumbnails.type === 1 )
+      setAdvertisings(arrayFilted);
     }
-
   }, [data, setAdvertisings]);
 
   return (
@@ -46,24 +47,38 @@ function FormButtonsAndAdv({data}) {
       <div className="advertisingProduct">
         <div className="advThumbnail">
           {
-            advertisings.map((image,i) => {
-              return index === i ? (
-                <img key={`imagem_atual_ad-${index}`} src={typeof image === 'object' ? URL.createObjectURL(image) : image} alt="imagem atual selecionada" />
-              ) : null;
-            })
-          }
+            advertisings.map((image,i) =>
+            (
+              image.thumbnail_id === index ?
+              (
+                <img 
+                  src={
+                    image.file instanceof File ? URL.createObjectURL(image.file) : url_api + image.path
+                  } 
+                  alt="imagem de propaganda" 
+                  key={'advertising_show_image'+i+image.thumbnail_id}
+                />
+              )
+              : null
+            )
+          )}
         </div>
         <div className="advThumbnailList">
           <div>
             <ul>
               {advertisings.length > 0 && advertisings.map((image, index) => (
-                <li key={`listAdv_${index}`} className='wrapperAdvImage'>
+                <li 
+                  key={`advertising_list_${ index }`} 
+                  className='wrapperAdvImage'
+                >
                   <img
-                   src={typeof image === 'object' ? URL.createObjectURL(image) : image} 
+                    src={ 
+                      image.file instanceof File ? URL.createObjectURL(image.file) : url_api+ image.path
+                    } 
                     alt='imagem propaganda'
                     onClick={() => setIndex(index)}
                   />
-                  <button type='button' className='btn_remove_img' onClick={() => removeImageAdv(index)}>
+                  <button type='button' className='btn_remove_img' onClick={() => removeImageAdv(image,index)}>
                     <IoTrashBin />
                   </button>
                 </li>
