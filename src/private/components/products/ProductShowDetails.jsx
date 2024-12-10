@@ -8,7 +8,7 @@ import ProdMovie from './assets/ProdMovie,'
 import ProdThumbnails from './assets/ProdThumbnails'
 import ProductCreateContext from '../../context/ProductCreateContext'
 
-function ProductShowDetails({data}) {
+function ProductShowDetails({data,updated}) {
   const {loading, setLoading,thumbnails, advertisings, thumbnails_removed,set_thumbnails_removed, unformatPrice} = useContext(ProductCreateContext);
   const [messageState,setMessageState] = useState('');
   const [oldErrors,setOldErrors] = useState([])
@@ -63,6 +63,7 @@ function ProductShowDetails({data}) {
     setMessageState(message);
     setTimeout(() => {
       document.querySelector('.content_text_module-action').classList.remove(cllassAdd)
+      updated()
     }, 2000);
     setMessageState('');
   }

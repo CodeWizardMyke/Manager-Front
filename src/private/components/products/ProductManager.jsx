@@ -39,9 +39,14 @@ function ProductManager() {
     }
   }; 
 
+  function updated(){
+    setData([])
+    setProdItem(null);
+  }
+
   return (
     <>
-        { prodItem && <ProductShowDetails data={prodItem} /> }
+        { prodItem && <ProductShowDetails data={prodItem} updated={updated} /> }
         { !prodItem && (
         <div className='module-content'>
           { loading && <Loading/> }

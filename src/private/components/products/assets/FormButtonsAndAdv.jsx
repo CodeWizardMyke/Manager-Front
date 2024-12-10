@@ -49,7 +49,7 @@ function FormButtonsAndAdv({data}) {
           {
             advertisings.map((image,i) =>
             (
-              image.thumbnail_id === index ?
+              i === index ?
               (
                 <img 
                   src={
