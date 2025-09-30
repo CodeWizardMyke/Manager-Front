@@ -2,8 +2,14 @@ import axios from "axios";
 
 const sessionToken = sessionStorage.getItem('token');
 const localToken = localStorage.getItem('token');
+let token = null;
 
-const token = localToken ? localToken : sessionToken ;
+if(localToken){
+  token = localToken;
+}
+else if(sessionToken){
+  token = sessionToken;
+}
 
 const headers = {
   'Content-Type': 'application/json',
