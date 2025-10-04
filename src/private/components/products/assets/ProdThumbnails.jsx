@@ -32,20 +32,22 @@ function ProdThumbnails({data}) {
   return (
     <div className='wrapper_prod_thumbnails'>
       <div className="thumbnail_view">
-        <span>selecione a imagem do produto</span>
+        <span> selecione a imagem do produto</span>
+        
         <div className="thumbnail_mg">
           {thumbnails.map((image) =>
             (
               image.thumbnail_id === indexImageView ? 
-              (
-                <img 
-                  key={`imagem_atual-${image.thumbnail_id}`} 
-                  src={ image.file instanceof File ? URL.createObjectURL(image.file) : url_api + image.path} 
-                  alt="imagem atual selecionada" 
-                />
-              )
-              : null
+                (
+                  <img 
+                    key={`imagem_atual-${image.thumbnail_id}`} 
+                    src={ image.file instanceof File ? URL.createObjectURL(image.file) : url_api + image.path} 
+                    alt="imagem atual selecionada" 
+                  />
+                )
+                : null
             ))}
+
         </div>
       </div>
       <div className="wrapper_thumbnails_list"  id='thumbnails'>

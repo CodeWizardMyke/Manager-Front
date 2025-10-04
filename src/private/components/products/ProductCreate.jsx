@@ -9,6 +9,7 @@ import ProdFieldsLeft from './assets/ProdFieldsLeft';
 import ProdFieldRigth from './assets/ProdFieldRigth';
 import ProductCreateContext from '../../context/ProductCreateContext';
 import { useCallback } from 'react';
+import ImagesLayout from './fragments/images_layout/ImagesLayout';
 
 function ProductCreate() {
   
@@ -88,7 +89,9 @@ function ProductCreate() {
             }
           </div>
             <div className="manager_prod_top">
-              <ProdThumbnails/>
+              <>
+                < ImagesLayout />
+              </>
               <ProdMovie/>
             </div>
             <div className="manager_prod_bottom">
