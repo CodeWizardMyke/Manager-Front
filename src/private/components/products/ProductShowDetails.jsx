@@ -4,7 +4,7 @@ import fetchAxios from '../../axios/config';
 
 import ProdFieldsLeft from './assets/ProdFieldsLeft'
 import ProdFieldRigth from './assets/ProdFieldRigth'
-import ProdMovie from './assets/ProdMovie,'
+import ProdMovie from './fragments/movies_layout/ProdMovie'
 import ProdThumbnails from './assets/ProdThumbnails'
 import ProductCreateContext from '../../context/ProductCreateContext'
 

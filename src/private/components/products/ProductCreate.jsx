@@ -3,12 +3,12 @@ import fetchAxios from '../../axios/config';
 import Loading from '../loading/Loading';
 
 import './ProductCreate.css'
-import ProdMovie from './assets/ProdMovie,';
 import ProdFieldsLeft from './assets/ProdFieldsLeft';
 import ProdFieldRigth from './assets/ProdFieldRigth';
 import ProductCreateContext from '../../context/ProductCreateContext';
 import { useCallback } from 'react';
 import ImagesLayout from './fragments/images_layout/ImagesLayout';
+import ProdMovie from './fragments/movies_layout/ProdMovie';
 
 function ProductCreate() {
   

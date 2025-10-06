@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import './ProdMovie.css'
-import ProductCreateContext from '../../../context/ProductCreateContext';
+import ProductCreateContext from '../../../../context/ProductCreateContext';
+import { BiSolidMoviePlay } from "react-icons/bi";
 
 function ProdMovie({data}) {
   const {movieURL,setMovieURL} = useContext(ProductCreateContext);
@@ -35,20 +36,35 @@ function ProdMovie({data}) {
   },[data,setMovieURL])
 
   return (
-    <div className='wrapper_prod_movie'>
-      <div className="prod_movie_settings">
-        <div className="movie_url_field">
-          <label htmlFor="movie_url">URL do vídeo</label>
-          <textarea name="movie_url" id="movie_url" cols={27} rows={7} onChange={handleMovieURL} ></textarea>
+    <div className='movie_container'>
+      <div className="setMovie">
+
+        <div className="movie_url">
+
+          <label htmlFor="movie_url">Endereço virutal do vídeo</label>
+          <input type="url" name="movie_url" id="movie_url" placeholder='https://exemplo.com/video'  onChange={handleMovieURL}/>
+
         </div>
+
         <div className='movie_check_field'>
-          <label htmlFor="movie_catalog">Exibir video no catálogo</label>
-          <input type="checkbox" name="movie_catalog" id="movie_catalog"  />
+
+          <div className='content_check'>
+            <label htmlFor="movie_catalog">Exibir video</label>
+            <input type="checkbox" name="movie_catalog" id="movie_catalog"  />
+          </div>
+          <button type='button' className='bt btn-remove' onClick={removeMovie}>Remover vídeo</button>
+
         </div>
-        <button className='bt btn-remove' onClick={removeMovie}>Remover vídeo</button>
+
+
       </div>
-      <div className="wrapper_movie">
-        <iframe src={movieURL} frameBorder="0" allowFullScreen title='Vídeo do produto'></iframe>
+      <div className="movie_preview">
+        {
+          !movieURL && <BiSolidMoviePlay/>
+        }
+        {
+          movieURL && <iframe src={movieURL} frameBorder="0" allowFullScreen title='Vídeo do produto'></iframe>
+        }
       </div>
     </div>
   )
