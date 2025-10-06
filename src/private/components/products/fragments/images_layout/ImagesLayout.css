@@ -11,6 +11,36 @@
   align-items: center;
   width: 100%;
   justify-content: space-between;
+  transition:  all 300ms ease-in;
+}
+.ImageLayoutSideL.open{
+  max-width: 250px;
+  border-right: 1px solid #5f5f5f;
+}
+.ImageLayoutSideL.closed{
+  max-width: 30px;
+  border-right: none;
+}
+
+.toggleImageList{
+  display: none;
+  background-color: transparent;
+  border: none;
+  height: 25px;
+  width: 25px;
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  cursor: pointer;
+}
+.toggleImageList svg{
+  width: 100%;
+  height: 100%;
+  color: #5f5f5f;
+}
+.toggleImageList:hover svg{
+  filter: brightness(0.8);
+  transform: rotate(180deg);
 }
 
 .CurrentImage{
@@ -26,7 +56,7 @@
 }
 
 .PhotoVideoICN{
-  background-color: #4A4A4A;
+  background-color: #4a4a4a9f;
   border-radius: 10px;
   height: 100%;
   display: flex;
@@ -125,9 +155,24 @@
   cursor: pointer;
   color: #DC3545;
 }
-
 .ImageList li:hover{
   transform: scale(1.05);
+}
+.DarkList{
+  background-color: #4a4a4a9f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+.DarkList svg{
+  height: 25px;
+  width: 25px;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  color: #f5f5f5;
+  position: inherit;
 }
 
 @media  screen and (max-width:642px) {
@@ -148,5 +193,10 @@
   .CurrentImage{
     width: 100%;
     min-width: 100%;
+  }
+}
+@media screen and (max-width:430px){
+  .toggleImageList{
+    display: block;
   }
 }

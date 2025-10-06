@@ -3,7 +3,6 @@ import fetchAxios from '../../axios/config';
 import Loading from '../loading/Loading';
 
 import './ProductCreate.css'
-import ProdThumbnails from './assets/ProdThumbnails';
 import ProdMovie from './assets/ProdMovie,';
 import ProdFieldsLeft from './assets/ProdFieldsLeft';
 import ProdFieldRigth from './assets/ProdFieldRigth';
@@ -89,9 +88,7 @@ function ProductCreate() {
             }
           </div>
             <div className="manager_prod_top">
-              <>
-                < ImagesLayout />
-              </>
+              <ImagesLayout/>
               <ProdMovie/>
             </div>
             <div className="manager_prod_bottom">
