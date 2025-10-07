@@ -3,7 +3,7 @@ import './ProdFieldRigth.css'
 import ProdCreateBrand from './ProdCreateBrand'
 import ProdCreateCategory from './ProdCreateCategory'
 import ProdPriccing from './ProdPricing'
-import FormButtonsAndAdv from './FormButtonsAndAdv'
+import AdvertisingLayout from '../fragments/advertising_layout/AdvertisingLayout'
 
 function ProdFieldRigth({data}) {
   return (
@@ -13,7 +13,7 @@ function ProdFieldRigth({data}) {
         <ProdCreateCategory data={data} />
       </div>
       <ProdPriccing data={data} />
-      <FormButtonsAndAdv data={data} />
+      <AdvertisingLayout/>
     </div>
   )
 }

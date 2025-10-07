@@ -99,7 +99,7 @@ function FormButtonsAndAdv({data}) {
       <div className="FormButtons">
         <button type='button' className='bt bt-cancel'>Deletar</button>
         <button type='button' className='bt bt-primary'>Visualizar</button>
-        <button type='submit' className='bt bt-approve'>{data ? 'Atualizar' : 'Cadastrar'}</button>
+        <button type='submit' className='bt bt-approve'>{ data ? 'Atualizar' : 'Cadastrar' }</button>
         <div className="productState">
           <div>
             <span>Status do produto</span>
