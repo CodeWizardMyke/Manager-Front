@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import EmployeeAuth from './private/EmployeeAuth';
 import './index.css'
 
 import { createBrowserRouter, RouterProvider} from 'react-router-dom'
@@ -14,25 +13,26 @@ import Dashboard from './private/pages/Dashboard';
 import Config from './private/pages/Config';
 import Admin from './private/pages/Admin';
 import Home from './private/pages/Home';
+import UserAuth from './private/UserAuth';
 
 const router = createBrowserRouter([
   {
     path:'/',
     element:<Manager/>,
     children:[
-      {path:'/main.manager/',element:<Home/>},
-      {path:'/main.manager/products', element:<Products/>},
-      {path:'/main.manager/cart',     element:<Cart/>},
-      {path:'/main.manager/clients',  element:<Clients/>},
-      {path:'/main.manager/employee',element:<Employee/>},
-      {path:'/main.manager/dashboard',element:<Dashboard/>},
-      {path:'/main.manager/config',element:<Config/>},
-      {path:'/main.manager/admin',element:<Admin/>},
+      {path:'/main',element:<Home/>},
+      {path:'/products', element:<Products/>},
+      {path:'/cart',     element:<Cart/>},
+      {path:'/clients',  element:<Clients/>},
+      {path:'/employee',element:<Employee/>},
+      {path:'/dashboard',element:<Dashboard/>},
+      {path:'/config',element:<Config/>},
+      {path:'/admin',element:<Admin/>},
     ]
   },
   {
-    path:'/auth.manager',
-    element:<EmployeeAuth/>
+    path:'/auth',
+    element:<UserAuth/>
   }
 ]);
 

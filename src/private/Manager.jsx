@@ -8,7 +8,6 @@ import './style/PrivateComponents.css'
 import { useState } from 'react';
 
 function Manager() {
-
   const [toggleSideMenu,setToggleSideMenu] = useState(true)
 
   return (
@@ -16,11 +15,13 @@ function Manager() {
       <Provider>
         <div className='wrapper-app'>
           { toggleSideMenu && <SideMenu/> }
-          <div className='wrapper-rigth'>
-            <div className={`arrow_content ${toggleSideMenu ? '' :'arrowRotate'}`}
-             onClick={() => setToggleSideMenu(!toggleSideMenu) } 
-            ><MdDoubleArrow/></div>
-            <Outlet/>
+          <div className='wrapper-rigth '>
+            <div className='dark-bgm '>
+              <div className={`arrow_content ${toggleSideMenu ? '' :'arrowRotate'}`}
+                onClick={() => setToggleSideMenu(!toggleSideMenu) }><MdDoubleArrow/>
+              </div>
+              <Outlet/>
+            </div>
           </div>
         </div>
         <BottomBar/>

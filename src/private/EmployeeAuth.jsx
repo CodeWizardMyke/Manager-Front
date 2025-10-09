@@ -16,7 +16,7 @@ function AppPrivate() {
   useEffect(()=>{
     const userOn = localStorage.getItem('token');
     if(userOn){
-      navigate('/main.manager')
+      navigate('/main')
     }
   },[navigate])
   

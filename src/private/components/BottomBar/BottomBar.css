@@ -56,13 +56,13 @@
 
 .BottomBar{
   height: 100px;
+  user-select: none;
   display: flex;  
   justify-content: space-between;
   position: fixed;
   bottom: 0;
   background-color: #ffff;
   width: 100%;
-  max-width: 1440px;
 }
 
 .bb-left{
@@ -72,9 +72,9 @@
   justify-content: space-between;
 }
 .bb-left_top{
-  background-color: #F8F9FA;
+  background-color: #FFFF;
   height: 65px;
-  width: 290px;
+  width: 300px;
   border-bottom: 2px solid #4A4A4A;
   display: flex;
   align-items: end;
@@ -125,6 +125,15 @@
     display: none;
   }
 }
+@media screen and (max-width:790px) {
+  .bb-left{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
 @media screen and ( max-width: 1000px){
   .bb-left{
     display: none;

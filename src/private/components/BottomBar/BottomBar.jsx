@@ -16,19 +16,19 @@ function BottomBar() {
 
   function goToHome(){
     updateMenuOptions([])
-    navigate('/main.manager');
+    navigate('/main');
   }
 
   function goToAdmin(){
-    navigate('/main.manager/admin');
+    navigate('/main/');
   }
 
   function goToDashboard(){
-    navigate('/main.manager/dashboard');
+    navigate('/main/');
   }
 
   function goToConfig(){
-    navigate('/main.manager/config');
+    navigate('/main/');
   }
 
   function logout(){
@@ -37,7 +37,7 @@ function BottomBar() {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('employee');
 
-    navigate('/auth.manager');
+    navigate('/auth');
   }
 
   return (

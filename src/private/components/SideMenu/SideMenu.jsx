@@ -1,97 +1,46 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
-import ManagerContext from '../../context/ManagerContext';
-import { FaProductHunt } from "react-icons/fa";
-import { TbShoppingCartStar } from "react-icons/tb";
-import { FaPeopleGroup } from "react-icons/fa6";
-import { FiUsers } from "react-icons/fi";
-
 import './SideMenu.css';
 
 function SideMenu() {
+  const [toggleMenu, setToggleMenu] = useState('');
   const navigate = useNavigate();
-  const {menuOptions, setModuleClick,} = useContext(ManagerContext);
-  let activerHandder = {current:'null'};
 
-  if(menuOptions.length){
-    activerHandder = menuOptions[0];
-  }
-
-  function goToProducts(){
-    navigate('/main.manager/products');
-  };
-  function goToCart(){
-    navigate('/main.manager/cart');
-  };
-  function goToClients(){
-    navigate('/main.manager/clients');
-  };
-  function goToEmployee(){
-    navigate('/main.manager/employee');
-  };
-
-  function handdlerNavigateDinamic(option) {
-    setModuleClick(option);
+  function handdleToggleMenu ( opt ){    
+    if( opt === toggleMenu){ setToggleMenu(''); }
+    else{  setToggleMenu(opt); }
   }
 
   return (
     <div className='mainMenu'>
-      <div className="wrapper-main_menu">
-        <div className={menuOptions.length ? "smt-active" : "" }>
-          {menuOptions.length > 0  && (
-            <>
-              <h4>{menuOptions[0].title}</h4>
-              <div className='wsm-buttons'> 
-                {   
-                    menuOptions.map((option, index)=> (
-                      <button 
-                      key={'buttonMenu-'+index}
-                      id={'buttonMenu_'+index}
-                      onClick={()=>{handdlerNavigateDinamic(option)}}
-                    >{option.text}</button>
-                  ))
-                }
-              </div>
-            </>
-          )}
-        </div>
-        <div className="side-menu-bottom">
-          <h4>Módulos</h4>
-          <div className="wsm-buttons">
-            <button 
-              type="button"
-              className={activerHandder.current === 'products' ? "wsm-btn-active" : ""}
-              onClick={goToProducts}
-            >
-              <span>Produtos</span>
-              <FaProductHunt/>
-            </button>
-            <button 
-              type="button"
-              className={activerHandder.current === 'cart' ? "wsm-btn-active" : ""}
-              onClick={goToCart}            
-            >
-              <span>Carinho</span>
-              <TbShoppingCartStar/>
-            </button>
-            <button 
-              type="button"
-              className={activerHandder.current === 'clients' ? "wsm-btn-active" : ""}
-              onClick={goToClients}
-            >
-              <span>Clientes</span>
-              <FaPeopleGroup/>
-            </button>
-            <button 
-              type="button"
-              className={activerHandder.current === 'employee' ? "wsm-btn-active" : ""}
-              onClick={goToEmployee}
-            >
-              <span>Funcionários</span>
-              <FiUsers/>
-            </button>
-          </div>
-        </div>
+      <div className="side-menu-bottom">
+        <div className="side-menu-label">Modulos</div>
+        <ul>
+          <li>
+            <div className="btn-dropdown">
+              <button type='button' onClick={() => handdleToggleMenu('products')} ><span>Produtos</span></button>
+            </div>
+            <div className={ `dropdown-menu ${toggleMenu === 'products' ? 'show' : ''}` }>
+              <ul>
+                <li onClick={() => navigate('products')}><button type='button'>Buscar</button></li>
+                <li onClick={() => navigate('')}><button type='button'>Cadasto</button></li>
+                <li onClick={() => navigate('')}><button type='button'>Atualizar</button></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div className="btn-dropdown">
+              <button type='button' onClick={() => handdleToggleMenu('clients')} ><span>Clientes</span></button>
+            </div>
+            <div className={ `dropdown-menu ${toggleMenu === 'clients' ? 'show' : ''}` }>
+              <ul>
+                <li onClick={() => navigate('clients')}><button type='button'>Buscar</button></li>
+                <li onClick={() => navigate('')}><button type='button'>Cadasto</button></li>
+                <li onClick={() => navigate('')}><button type='button'> Compras</button></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   )
