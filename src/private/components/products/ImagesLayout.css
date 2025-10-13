@@ -1,7 +1,7 @@
 .ImagesLayout{
   display: flex;
   flex-grow: 1;
-  max-width: 500px;
+  max-width: 450px;
   margin-right: 15px;
   height: 280px;
   position: relative;
@@ -13,7 +13,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 200px;
+  max-width: 175px;
   justify-content: space-between;
   transition:  all 300ms ease-in;
 }
@@ -48,10 +48,9 @@
   filter: brightness(0.8);
   transform: rotate(180deg);
 }
-
 .CurrentImage{
   width: 50%;
-  min-width: 250px;
+  min-width: 200px;
   height: 100%;
 }
 .CurrentImage img{
@@ -184,6 +183,7 @@
 @media  screen and (max-width:642px) {
   .ImagesLayout{
     min-width: 100%;
+    padding: 10px;
   }
   .ImageLayoutSideL{
     background-color: #4a4a4a7c;
@@ -200,8 +200,6 @@
     width: 100%;
     min-width: 100%;
   }
-}
-@media screen and (max-width:430px){
   .toggleImageList{
     display: block;
   }

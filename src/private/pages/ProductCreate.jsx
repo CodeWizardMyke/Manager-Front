@@ -4,9 +4,8 @@ import MovieLayout from '../components/products/MovieLayout'
 import TopBar from '../components/TopBar/TopBar'
 
 import '../style/module.css'
-import ProdFieldRigth from '../components/products/ProdFieldRigth';
 import ProdCreateBrand from '../components/products/ProdCreateBrand';
-import ProdCreateCategory from '../components/products/ProdCreateCategory';
+import ProdCreateCategorys from '../components/products/ProdCreateCategorys';
 
 function ProductCreate() {
   const [togleText, setTogleText] = useState('cadastrar produto');
@@ -20,6 +19,7 @@ function ProductCreate() {
       </div>
       <div className="content-bottom-module">
         <ProdCreateBrand data={'data'} />
+        <ProdCreateCategorys data={'data'} />
       </div>
     </main>
   )

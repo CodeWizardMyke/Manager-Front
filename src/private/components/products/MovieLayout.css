@@ -77,8 +77,9 @@
 
 @media  screen and (max-width:1268px ) {
   .movie_container{
-    max-width: 70%;
-    height: 300px;
+    max-width: 500px;
+    padding: 10px;
+    height: 330px;
   }
   .movie_url{
     margin-bottom: 15px;
@@ -88,7 +89,7 @@
 @media  screen and (max-width:740px ) {
   .movie_container{
     max-width: 95%;
-    height: 300px;
+    height: 450px;
   }
   .movie_url{
     margin-bottom: 15px;

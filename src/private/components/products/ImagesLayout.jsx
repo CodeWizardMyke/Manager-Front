@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import './ImagesLayout.css'
 import { MdAddCircleOutline } from "react-icons/md";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { IoMdImages } from "react-icons/io";
 import { FaToggleOn } from "react-icons/fa";
+
+import './ImagesLayout.css';
 
 function ImagesLayout() {
   const  [images, setImages] = useState([]);

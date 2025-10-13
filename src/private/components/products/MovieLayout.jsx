@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import './MovieLayout.css'
+import React, { useEffect, useState } from 'react';
 import { BiSolidMoviePlay } from "react-icons/bi";
+
+import './MovieLayout.css';
 
 function MovieLayout({data}) {
   const [movieURL,setMovieURL] = useState('')

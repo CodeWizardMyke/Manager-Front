@@ -7,7 +7,7 @@ import './ProdCreateAttributes.css'
 
 import Axios from '../../axios/config';
 
-function ProdCreateBrand() {
+function ProdCreateCategorys() {
   const [create, setcreate] = useState(true);
   const [reqResponse, setReqResponse] = useState('');
   const [query, setQuery] = useState('');
@@ -25,7 +25,7 @@ function ProdCreateBrand() {
     try {
       if(query === ''){ return setReqResponse('Campo vazio') }
 
-      const response = await Axios.post('/brand', {brand_name:query})
+      const response = await Axios.post('/category', {category_name:query})
       if (response.status === 201){
         setReqResponse('Criado com sucesso')
       }else{
@@ -43,7 +43,7 @@ function ProdCreateBrand() {
   const searchAttribute = async () => {
     try {
       if(query === ''){ return setReqResponse('Campo vazio') }
-      const getData = await Axios.get('/brand', { headers : {query:query}} )
+      const getData = await Axios.get('/category', { headers : {query:query}} )
       if (getData.status === 200){
         setReqResponse('Encontrado com sucesso')
         const arrLimited = getData.data.rows
@@ -66,15 +66,15 @@ function ProdCreateBrand() {
 
   return (
     <div className='search_container'>
-        <div className="label_input">Gerenciador de marcas</div>
+        <div className="label_input">Gerenciador de Categorias</div>
         <div className="input_select">
-          <input type="text" placeholder={query!== "" ? query : "Nenhuma Marca..."}   disabled />
+          <input type="text" placeholder={query!== "" ? query : "Nenhuma categoria..."}   disabled />
           {
             reqResponse !== '' && <span className="req_response">{reqResponse}</span>
           }
         </div>
         <div className='input_search'>
-          <input type="text" placeholder={ create ? 'Criar Marca' : 'Buscar Marca' } onChange={ e => setQuery(e.target.value)} />
+          <input type="text" placeholder={ create ? 'Criar Categoria' : 'Buscar Categoria' } onChange={ e => setQuery(e.target.value)} />
           {
             create ? 
             <button type='button' className='btn_search' onClick={() => createAttribute()} ><MdAdd/></button>
@@ -104,4 +104,4 @@ function ProdCreateBrand() {
 }
 
 
-export default ProdCreateBrand
+export default ProdCreateCategorys

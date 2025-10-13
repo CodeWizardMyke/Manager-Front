@@ -7,6 +7,8 @@
   width: 220px;
   padding: 5px;
   border-radius: 5px;
+  position: relative;
+  margin: 5px;
 }
 .input_select{
   position: relative;
@@ -97,4 +99,10 @@
 }
 .SearchResult ul li:hover{
   background-color: #f0f0f0;
+}
+.label_input{
+  position: absolute;
+  top: -10px; right: 0;
+  z-index: 1;
+  color: #363636;
 }
