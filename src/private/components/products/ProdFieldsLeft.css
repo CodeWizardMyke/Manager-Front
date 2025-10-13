@@ -1,0 +1,79 @@
+.prod_left_fields {
+  height: 100%;
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.bottom_left_fields{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
+.content_textArea {
+  width: 100%;
+  text-align: end;
+}
+.content_textArea textarea {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  min-height: 200px;
+  padding: 8px;
+  resize: none; 
+  background-color: #F6F6F6;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: 1px solid transparent;
+}
+.content_textArea textarea:hover{
+  outline: 1px solid #4A90E2;
+}
+.w50{
+  width: 45%;
+}
+.fd-group{
+  position: relative;
+  margin: 15px 0;
+  min-width: 120px;
+}
+.fd-group label{
+  position: absolute;
+  top: -18px;
+  right:  0;
+}
+.fd-group input {
+  width: 100%;
+  border: 1px solid #dddd;
+  outline: 1px solid transparent;
+  border-radius: 5px;
+  height: 25px;
+  background-color: #F6F6F6;
+  transition: all 200ms;
+}
+.fd-group input:hover {
+  outline: 1px solid #4A90E2;
+}
+.fd-group select{
+  min-width: 120px ;
+  height: 25px;
+  padding-left: 5px;
+  border-radius: 5px;
+  border: solid 1px #dddd;
+  transform: all 200ms;
+}
+.fd-group select:hover{
+  border-color: #4A90E2;
+}
+
+@media screen and (min-width: 1200px) {
+  .prod_left_fields{
+    max-width: 49%;
+  }
+}

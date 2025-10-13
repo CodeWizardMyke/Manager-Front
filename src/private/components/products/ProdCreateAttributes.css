@@ -1,0 +1,100 @@
+.search_container{
+  background-color: #dddd;
+  display: flex;
+  flex-direction: column;
+  height: max-content;
+  min-height: 100px;
+  width: 220px;
+  padding: 5px;
+  border-radius: 5px;
+}
+.input_select{
+  position: relative;
+}
+.req_response{
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+  background-color: orange;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.input_select input{
+  width: 100%;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+.input_search{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.input_search input{
+  width: 70%;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin: 5px 0;
+}
+.input_search button{
+  width: 25%;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  background-color: #28a745;
+  color: #fff;
+  cursor: pointer;
+}
+.input_search button:hover{
+  background-color: #218838;
+}
+.input_search button svg{
+  vertical-align: middle;
+  height: 25px;
+  width: 25px;
+}
+.create button{
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  height: 30px;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18pt;
+}
+.create button:hover{
+  background-color: #0069d9;
+}
+
+.SearchResult{
+  padding: 5px;
+}
+.SearchResult ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.SearchResult ul li{
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.SearchResult ul li:hover{
+  background-color: #f0f0f0;
+}

@@ -240,8 +240,8 @@ body{
 .wrapper-rigth{
   flex-grow: 1;
   height: 100%;
-  padding-left: 2px;
   position: relative;
+  border-left: 1px solid #dddd;
   overflow: auto;
   background-size: cover;
   background-repeat: no-repeat;

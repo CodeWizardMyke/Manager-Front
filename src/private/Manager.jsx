@@ -4,7 +4,6 @@ import BottomBar from './components/BottomBar/BottomBar';
 import SideMenu from './components/SideMenu/SideMenu';
 import { MdDoubleArrow } from "react-icons/md";
 
-import './style/PrivateComponents.css'
 import { useState } from 'react';
 
 function Manager() {
@@ -15,11 +14,9 @@ function Manager() {
       <Provider>
         <div className='wrapper-app'>
           { toggleSideMenu && <SideMenu/> }
-          <div className='wrapper-rigth '>
-            <div className='dark-bgm '>
-              <div className={`arrow_content ${toggleSideMenu ? '' :'arrowRotate'}`}
-                onClick={() => setToggleSideMenu(!toggleSideMenu) }><MdDoubleArrow/>
-              </div>
+          <div className='wrapper-rigth'>
+            <div className='dark-bgm'>
+              <div className={`arrow_content ${toggleSideMenu ? '' :'arrowRotate'}`}  onClick={() => setToggleSideMenu(!toggleSideMenu) }><MdDoubleArrow/> </div>
               <Outlet/>
             </div>
           </div>
