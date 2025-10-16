@@ -12,6 +12,7 @@ function ProdCreateCategorys() {
   const [reqResponse, setReqResponse] = useState('');
   const [query, setQuery] = useState('');
   const [ attributeList, setAttributeList] = useState([]); // armazena a lista de atributos retornada pela api;
+  const [ itemId, setItemId] = useState(null);
 
   useEffect(()=>{
     if(reqResponse !== ''){
@@ -42,8 +43,9 @@ function ProdCreateCategorys() {
 
   const searchAttribute = async () => {
     try {
-      if(query === ''){ return setReqResponse('Campo vazio') }
+     // if(query === ''){ return setReqResponse('Campo vazio') }
       const getData = await Axios.get('/category', { headers : {query:query}} )
+      console.log('getData', getData)
       if (getData.status === 200){
         setReqResponse('Encontrado com sucesso')
         const arrLimited = getData.data.rows
@@ -61,20 +63,30 @@ function ProdCreateCategorys() {
 
   function handdlerSelectAttribute(element){
     setQuery(element)
+    setItemId(element.category_id)
     setAttributeList([])
+  }
+
+  function clearInputSearch() {
+    if(query){
+      setQuery('');
+      setItemId(null);
+      setAttributeList([]);
+    }
   }
 
   return (
     <div className='search_container'>
+        <input type="text" className='hidden' name='category_id' value={itemId} />
         <div className="label_input">Gerenciador de Categorias</div>
         <div className="input_select">
-          <input type="text" placeholder={query!== "" ? query : "Nenhuma categoria..."}   disabled />
+          <input type="text" placeholder={query!== "" ? query.category_name : "Nenhuma categoria..."}   disabled />
           {
             reqResponse !== '' && <span className="req_response">{reqResponse}</span>
           }
         </div>
         <div className='input_search'>
-          <input type="text" placeholder={ create ? 'Criar Categoria' : 'Buscar Categoria' } onChange={ e => setQuery(e.target.value)} />
+          <input type="text" placeholder={ create ? 'Criar Categoria' : 'Buscar Categoria' } onChange={ e => setQuery(e.target.value)} onClick={() => clearInputSearch()} />
           {
             create ? 
             <button type='button' className='btn_search' onClick={() => createAttribute()} ><MdAdd/></button>
@@ -94,7 +106,7 @@ function ProdCreateCategorys() {
           <ul>
             {
               attributeList.map( (element) => {
-                return <li key={element.brand_id} onClick={() => handdlerSelectAttribute(element.brand_name)} > {element.brand_name} </li> 
+                return <li key={element.category_id} onClick={() => handdlerSelectAttribute(element)} > {element.category_name} </li> 
               })
             }
           </ul>

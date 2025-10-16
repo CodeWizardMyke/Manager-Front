@@ -1,15 +1,18 @@
 import React from 'react'
 import './ProdFieldRigth.css'
 import ProdCreateBrand from './ProdCreateBrand'
-import ProdCreateCategory from './ProdCreateCategory'
-import ProdPriccing from './ProdPricing'
-import AdvertisingLayout from './AdvertisingLayout'
+import ProdCreateCategorys from './ProdCreateCategorys'
 
 function ProdFieldRigth({data}) {
   return (
     <div className='prod_rigth_fields'>
       <div className="attributes_create">
-
+        <ProdCreateBrand data={'data'} />
+        <ProdCreateCategorys data={'data'} />
+        <div className="prodPrice">
+          <label htmlFor="price">Price</label>
+          <input type="number" name='price' id='price' placeholder='0.00' />
+        </div>
       </div>
     </div>
   )

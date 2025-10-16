@@ -1,0 +1,96 @@
+.ProdPrice{
+  flex-grow: 1;
+  min-height: 150px;
+  position: relative;
+  margin-top: 5px;
+  padding: 10px;
+}
+.ProdPriceLabel {
+  position: absolute;
+  right: 0;
+  top: -16px;
+}
+.price-inputs{
+  min-height: 150px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+  justify-content: center; 
+  align-content: center; 
+}
+
+.input-group{
+  display: flex;
+  margin:  5px auto;
+  min-width: 175px;
+  width: 100%;
+  height: 35px;
+  padding: 5px;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #8d8d8d;
+}
+.input-group label{
+  position: absolute;
+  top: -15px;
+  color: #353535;
+  left: 5px;
+  font-size: 12pt;
+  padding: 0 3px;
+}
+.input-group input{
+  flex-grow: 1;
+  border: none;
+  background-color: #ccc;
+  padding: 0 5px;
+  height: 100%;
+  max-width: 150px;
+  border-radius: 5px;
+  font-size: 14pt;
+}
+.input-group select {
+  height: 100%;
+  width: 140px;
+  margin-left: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: #ccc;
+  color: #353535;
+  padding: 0 5px;
+  font-size: 12pt;
+  cursor: pointer;
+}
+.input-group   select option {
+  padding: 5px;
+}
+
+.formated-value{
+  border-radius: 5px;
+  padding: 5px;
+  max-width: 120px;
+  width: 100%;
+  position: relative;
+}
+.formated-value span{
+  position: absolute;
+  top: -15px;
+  color: #353535;
+  left: 5px;
+  font-size: 12pt;
+  padding: 0 3px;
+}
+.formated-value input {
+  height: 100%;
+  width: 100%;
+  text-align: end;
+}
+
+.final-price{
+  font-size: 18pt;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+  width: 100%;
+  border: none;
+}

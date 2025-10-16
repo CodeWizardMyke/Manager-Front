@@ -4,11 +4,13 @@
   flex-direction: column;
   height: max-content;
   min-height: 100px;
-  width: 220px;
+  min-width: 220px;
+  width: 49%;
   padding: 5px;
   border-radius: 5px;
   position: relative;
-  margin: 5px;
+  margin: 5px auto;
+  border: 1px solid #999999;
 }
 .input_select{
   position: relative;
@@ -102,7 +104,14 @@
 }
 .label_input{
   position: absolute;
-  top: -10px; right: 0;
+  top: -15px; right: 0;
   z-index: 1;
   color: #363636;
+}
+
+@media screen and (max-width: 600px) {
+  .search_container{
+    width: 90%;
+  }
+  
 }

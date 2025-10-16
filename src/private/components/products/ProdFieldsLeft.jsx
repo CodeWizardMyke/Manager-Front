@@ -10,12 +10,11 @@ function ProdFieldsLeft({data}) {
       </div>
       <div className="bottom_left_fields">
         <div className="fd-group w50" >
-          <label htmlFor="title">Título de Vendas</label>
-          <input type="text" name='title' id='title' defaultValue={data? data.title : ''} />
+          <input type="text" placeholder='Título de Vendas' name='title' id='title' defaultValue={data? data.title : ''} />
         </div>
         <div className="fd-group w50" >
-          <label htmlFor="official_store_name">Título Oficial do Produto</label>
-          <input type="text" name='official_store_name' id='official_store_name' defaultValue={data? data.official_store_name : ''}/>
+          <label htmlFor="official_store_name"></label>
+          <input type="text" placeholder='Título Oficial do Produto' name='official_store_name' id='official_store_name' defaultValue={data? data.official_store_name : ''}/>
         </div>
         <div className="fd-group" >
           <label htmlFor="gtin">Código do Produto</label>

@@ -11,6 +11,7 @@ function ProdCreateBrand() {
   const [create, setcreate] = useState(true);
   const [reqResponse, setReqResponse] = useState('');
   const [query, setQuery] = useState('');
+  const [ itemId, setItemId] = useState(null);
   const [ attributeList, setAttributeList] = useState([]); // armazena a lista de atributos retornada pela api;
 
   useEffect(()=>{
@@ -42,7 +43,7 @@ function ProdCreateBrand() {
 
   const searchAttribute = async () => {
     try {
-      if(query === ''){ return setReqResponse('Campo vazio') }
+      //if(query === ''){ return setReqResponse('Campo vazio') }
       const getData = await Axios.get('/brand', { headers : {query:query}} )
       if (getData.status === 200){
         setReqResponse('Encontrado com sucesso')
@@ -60,21 +61,31 @@ function ProdCreateBrand() {
   }
 
   function handdlerSelectAttribute(element){
-    setQuery(element)
+    setQuery(element.brand_name);
+    setItemId(element.brand_id);
     setAttributeList([])
+  }
+
+  function clearInputSearch() {
+    if(query){
+      setQuery('');
+      setItemId(null);
+      setAttributeList([]);
+    }
   }
 
   return (
     <div className='search_container'>
+        <input type="text" className='hidden' name='brand_id' value={itemId} />
         <div className="label_input">Gerenciador de marcas</div>
         <div className="input_select">
-          <input type="text" placeholder={query!== "" ? query : "Nenhuma Marca..."}   disabled />
+          <input type="text"  placeholder={query!== "" ? query : "Nenhuma Marca..."}   disabled />
           {
             reqResponse !== '' && <span className="req_response">{reqResponse}</span>
           }
         </div>
         <div className='input_search'>
-          <input type="text" placeholder={ create ? 'Criar Marca' : 'Buscar Marca' } onChange={ e => setQuery(e.target.value)} />
+          <input type="text" placeholder={ create ? 'Criar Marca' : 'Buscar Marca' } onChange={ e => setQuery(e.target.value)} onClick={() => clearInputSearch()} />
           {
             create ? 
             <button type='button' className='btn_search' onClick={() => createAttribute()} ><MdAdd/></button>
@@ -94,7 +105,7 @@ function ProdCreateBrand() {
           <ul>
             {
               attributeList.map( (element) => {
-                return <li key={element.brand_id} onClick={() => handdlerSelectAttribute(element.brand_name)} > {element.brand_name} </li> 
+                return <li key={element.brand_id} onClick={() => handdlerSelectAttribute(element)} > {element.brand_name} </li> 
               })
             }
           </ul>
