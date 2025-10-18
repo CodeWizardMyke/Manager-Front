@@ -7,6 +7,8 @@ import '../style/module.css'
 import ProdCreateBrand from '../components/products/ProdCreateBrand';
 import ProdCreateCategorys from '../components/products/ProdCreateCategorys';
 import ProdPrice from '../components/products/ProdPrice';
+import AdvertisingLayout from '../components/products/AdvertisingLayout';
+import ProdCreateDescription from '../components/products/ProdCreateDescription';
 
 function ProductCreate() {
   const [togleText, setTogleText] = useState('cadastrar produto');
@@ -20,12 +22,13 @@ function ProductCreate() {
       </div>
       <div className="content-bottom-module">
         <div className="rightContent">
-          ss
+          <ProdCreateDescription/>
         </div>
         <div className="leftContent">
           <ProdCreateBrand/>
           <ProdCreateCategorys/>
           <ProdPrice/>
+          <AdvertisingLayout/>
         </div>
       </div>
     </main>

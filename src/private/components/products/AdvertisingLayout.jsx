@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import './AdvertisingLayout.css';
 import { IoTrashBin } from 'react-icons/io5';
+import { FaRegTrashAlt } from "react-icons/fa";
+
+import './AdvertisingLayout.css';
 
 function AdvertisingLayout() {
  const  [images, setImages] = useState([]);
@@ -70,7 +72,7 @@ function AdvertisingLayout() {
               )}
             </ul>
           </div>
-          <button type='button' className="advRemoveThumbnails" onClick={() => clearImages()}>Remover Imagens</button>
+          <button type='button' className="advRemoveThumbnails" onClick={() => clearImages()}> <FaRegTrashAlt/> </button>
         </div>
       </div>
       <div className="FormButtons">

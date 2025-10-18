@@ -1,0 +1,64 @@
+.ProdCreateDescription{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+.bottom-content_pc{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  gap: 5px;
+  grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+  padding: 5px;
+  margin-top: 25px;
+  justify-items: flex-end;
+}
+
+.bottom-content_pc div{
+  background-color: aliceblue;
+  width: 100%;
+  height: 40px;
+  position: relative;
+}
+.bottom-content_pc label{
+  position: absolute;
+  top: -15px;
+  opacity: 70%;
+  left: 5px;
+}
+.bottom-content_pc input{
+  background-color: #fff;
+  height: 35px;
+  width:100%;
+  border-radius: 5px;
+  padding-left: 5px;
+}
+.bottom-content_pc select{
+  height: 35px;
+  width: 100%;
+  border-radius: 5px;
+  padding-left: 5px;
+  cursor: pointer;
+}
+
+.ProdCreateDescription .txt-area{
+  width: 100%;
+  position: relative;
+}
+.ProdCreateDescription .txt-area label{
+  position: absolute;
+  top: -15px;
+  left: 5px;
+  opacity: 70%;
+}
+.ProdCreateDescription .txt-area textarea{
+  width: 100%;
+  min-height: 100px;
+  max-height: 200px;
+  resize: vertical;
+  border-radius: 5px;
+  padding: 5px;
+}

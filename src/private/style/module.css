@@ -21,7 +21,7 @@
   justify-content: space-evenly;
   width: 100%;
   flex-wrap: wrap;
-  padding: 5px;
+  padding: 15px 10px;
 }
 .prod_rigth_fields{
   flex-grow: 1;
@@ -51,8 +51,8 @@
 }
 .rightContent, .leftContent{
   margin: 10px 0;
-  background-color: #e9e9e9;
   padding: 5px;
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: start;
@@ -61,12 +61,12 @@
 
 .rightContent{
   min-height: 300px;
-  min-width: 275px;
+  max-width: 49%;
   margin-right: 5px;
   flex-grow: 1;
 }
 .leftContent{
-  min-width: 45%;
+  max-width: 49%;
   min-height: 300px;
 }
 
