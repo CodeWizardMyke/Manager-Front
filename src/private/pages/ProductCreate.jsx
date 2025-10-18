@@ -4,6 +4,7 @@ import MovieLayout from '../components/products/MovieLayout'
 import TopBar from '../components/TopBar/TopBar'
 
 import '../style/module.css'
+
 import ProdCreateBrand from '../components/products/ProdCreateBrand';
 import ProdCreateCategorys from '../components/products/ProdCreateCategorys';
 import ProdPrice from '../components/products/ProdPrice';

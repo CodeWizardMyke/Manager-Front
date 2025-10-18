@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { MdAddCircleOutline } from "react-icons/md";
-import { FaRegTrashAlt } from "react-icons/fa";
 import { IoMdImages } from "react-icons/io";
 import { FaToggleOn } from "react-icons/fa";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { IoTrashBin } from 'react-icons/io5';
 
 import './ImagesLayout.css';
 
@@ -34,6 +35,11 @@ function ImagesLayout() {
     }
   }
 
+  function checkImageIndex(element){
+    let eChecked = element instanceof File ? URL.createObjectURL(element) : null;
+    return eChecked;
+  }
+
   return (
     <div className='ImagesLayout'>
 
@@ -46,7 +52,7 @@ function ImagesLayout() {
       <div className="CurrentImage">
         {images.length > 0  && <img 
           src={
-            images[indexCurrentImage] instanceof File ? URL.createObjectURL(images[indexCurrentImage]) : null
+            checkImageIndex(images[indexCurrentImage])
           }  /*URL.createObjectURL só serve para o front end para exibição da imagem , já que o back-end não vai aceitar como imagem, porque ele precisa dos bytes do File */
           alt="Imagem atual selecionada" 
         />}
@@ -69,7 +75,7 @@ function ImagesLayout() {
                           }  /*URL.createObjectURL só serve para o front end para exibição da imagem , já que o back-end não vai aceitar como imagem, porque ele precisa dos bytes do File */
                           alt={`Imagem ${index}`} 
                         />
-                        <button type='button' className='RemoveImage' onClick={ (event) => removeImage(event,index) }><FaRegTrashAlt/></button>
+                        <button type='button' className='RemoveImage' onClick={ (event) => removeImage(event,index) }><IoTrashBin/></button>
                       </li>
                     )
                   ) }

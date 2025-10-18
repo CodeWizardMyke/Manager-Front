@@ -113,5 +113,10 @@
   .search_container{
     width: 90%;
   }
-  
+}
+
+@media screen and (max-width: 400px){
+  .search_container{
+    min-width: 140px;
+  }
 }

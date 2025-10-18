@@ -12,7 +12,7 @@ function ProdCreateCategorys() {
   const [reqResponse, setReqResponse] = useState('');
   const [query, setQuery] = useState('');
   const [ attributeList, setAttributeList] = useState([]); // armazena a lista de atributos retornada pela api;
-  const [ itemId, setItemId] = useState(null);
+  const [ itemId, setItemId] = useState('');
 
   useEffect(()=>{
     if(reqResponse !== ''){
@@ -77,7 +77,7 @@ function ProdCreateCategorys() {
 
   return (
     <div className='search_container'>
-        <input type="text" className='hidden' name='category_id' value={itemId} />
+        <input type="text" className='hidden' name='category_id' value={itemId} readOnly />
         <div className="label_input">Gerenciador de Categorias</div>
         <div className="input_select">
           <input type="text" placeholder={query!== "" ? query.category_name : "Nenhuma categoria..."}   disabled />
@@ -105,9 +105,9 @@ function ProdCreateCategorys() {
         <div className="SearchResult">
           <ul>
             {
-              attributeList.map( (element) => {
-                return <li key={element.category_id} onClick={() => handdlerSelectAttribute(element)} > {element.category_name} </li> 
-              })
+              attributeList.map( (element) => (
+               <li key={element.category_id} onClick={() => handdlerSelectAttribute(element)} > {element.category_name} </li> 
+              ))
             }
           </ul>
         </div>

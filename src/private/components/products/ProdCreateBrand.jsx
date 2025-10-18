@@ -11,7 +11,7 @@ function ProdCreateBrand() {
   const [create, setcreate] = useState(true);
   const [reqResponse, setReqResponse] = useState('');
   const [query, setQuery] = useState('');
-  const [ itemId, setItemId] = useState(null);
+  const [ itemId, setItemId] = useState('');
   const [ attributeList, setAttributeList] = useState([]); // armazena a lista de atributos retornada pela api;
 
   useEffect(()=>{
@@ -76,7 +76,7 @@ function ProdCreateBrand() {
 
   return (
     <div className='search_container'>
-        <input type="text" className='hidden' name='brand_id' value={itemId} />
+        <input type="text" className='hidden' name='brand_id' value={itemId} readOnly />
         <div className="label_input">Gerenciador de marcas</div>
         <div className="input_select">
           <input type="text"  placeholder={query!== "" ? query : "Nenhuma Marca..."}   disabled />
@@ -104,9 +104,9 @@ function ProdCreateBrand() {
         <div className="SearchResult">
           <ul>
             {
-              attributeList.map( (element) => {
-                return <li key={element.brand_id} onClick={() => handdlerSelectAttribute(element)} > {element.brand_name} </li> 
-              })
+              attributeList.map( (element) => (
+                <li key={element.brand_id} onClick={() => handdlerSelectAttribute(element)} > {element.brand_name} </li> 
+              ))
             }
           </ul>
         </div>

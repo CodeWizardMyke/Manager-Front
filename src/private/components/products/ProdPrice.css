@@ -61,7 +61,7 @@
   font-size: 12pt;
   cursor: pointer;
 }
-.input-group   select option {
+.input-group select option {
   padding: 5px;
 }
 
@@ -80,6 +80,7 @@
   font-size: 12pt;
   padding: 0 3px;
 }
+
 .formated-value input {
   height: 100%;
   width: 100%;
@@ -93,4 +94,36 @@
   margin-top: 10px;
   width: 100%;
   border: none;
+}
+
+@media screen and (max-width: 468px) {
+  .ProdPrice{ padding: 0; }
+  .price-inputs{
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+  }
+  .input-group{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    height: max-content;
+  }
+  .input-group input, .input-group select{
+    min-width: 100% ;
+    height: 35px;
+  }
+
+  .formated-value{
+    min-width: 100%;
+    margin-top: 25px;
+    padding: 0;
+  }
+  .formated-value input{
+    width: 100%;
+  }
+  .input-group div{
+    width: 100%;
+  }
 }

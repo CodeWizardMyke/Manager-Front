@@ -62,3 +62,12 @@
   border-radius: 5px;
   padding: 5px;
 }
+
+@media screen and (max-width: 768px) {
+  .bottom-content_pc{
+    grid-template-columns: 1fr;
+  }
+  .bottom-content_pc{
+    width: 100%;
+  }
+}

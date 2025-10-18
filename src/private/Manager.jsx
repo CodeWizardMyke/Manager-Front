@@ -15,10 +15,8 @@ function Manager() {
         <div className='wrapper-app'>
           { toggleSideMenu && <SideMenu/> }
           <div className='wrapper-rigth'>
-            <div className='dark-bgm'>
-              <div className={`arrow_content ${toggleSideMenu ? '' :'arrowRotate'}`}  onClick={() => setToggleSideMenu(!toggleSideMenu) }><MdDoubleArrow/> </div>
-              <Outlet/>
-            </div>
+            <div className={`arrow_content ${toggleSideMenu ? '' :'arrowRotate'}`}  onClick={() => setToggleSideMenu(!toggleSideMenu) }><MdDoubleArrow/> </div>
+            <Outlet/>
           </div>
         </div>
         <BottomBar/>

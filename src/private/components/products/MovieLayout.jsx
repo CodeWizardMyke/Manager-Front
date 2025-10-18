@@ -3,7 +3,7 @@ import { BiSolidMoviePlay } from "react-icons/bi";
 
 import './MovieLayout.css';
 
-function MovieLayout({data}) {
+function MovieLayout() {
   const [movieURL,setMovieURL] = useState('')
 
   function removeMovie() {
@@ -28,12 +28,6 @@ function MovieLayout({data}) {
     // Retorna a URL inalterada se "watch?v=" não estiver presente
     return url;
   }
-
-  useEffect(()=> {
-    if( data &&  data.movie_url !== ''){
-      setMovieURL(data.movie_url)
-    }
-  },[data,setMovieURL])
 
   return (
     <div className='movie_container'>

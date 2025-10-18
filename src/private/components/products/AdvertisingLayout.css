@@ -1,187 +1,195 @@
-.FormButtonsAndAdv{
-  height: 200px;
+.ContentAdvertisingLayout{
+  min-height: 200px;
   width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
+  margin:  0 auto;
   display: flex;
   justify-content: space-evenly;
-}
-.FormButtons{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-}
-.productState span{
-  margin-right: 5px;
-}
-
-.advertisingProduct{
-  width: 350px;
-  display: flex;
   flex-wrap: wrap;
 }
-.advThumbnail{
-  background-color: #dddd;
-  margin-right: 5px;
-  width: 180px;
-  height: 200px;
-  background-color: transparent;
-  text-align: center;
-  border: 2px solid #dddd;
-  border-radius: 5px;
-}
-.advThumbnailList li{
-  border: 2px solid #dddd;
-  border-radius: 5px;
-  width: 120px;
-  transition: all 200ms;
-  cursor: pointer;
-  transition: all 200ms;
-}
-.advThumbnailList img{
-  width: 100%;
+
+.AdvertisingContainer{
+  flex-grow: 1;
   height: 100%;
-  object-fit: cover;
-  border-radius: 5px;
-}
-.advThumbnailList li:hover{
-  border-color: #4A90E2;
-  transition: all 200ms;
-}
-
-.advThumbnail img{
-  height: 100%;
-  max-width: 100%;
-  object-fit: cover;
-  border-radius: 5px;
-}
-
-.advThumbnailList ul{
-  list-style: none;
-}
-.advRemoveThumbnails{
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  font-weight: 600;
-  background-color: #DC3545;
-  color: #f5f5f5;
-  cursor: pointer;
-}
-.advRemoveThumbnails:hover{
-  color: #4A4A4A;
-}
-
-.wrapperAdvImage{
-  height: 80px;
-  width: 100px;
-  margin: 5px 0;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   position: relative;
 }
-.wrapperAdvImage img{
-  max-height: 100%;
-  cursor: pointer;
-}
-
-
-.btn_remove_img{
-  position: absolute;
-  right: 0;
-  top: 0;
-  font-size: 14pt;
-  border: none;
-  background-color: transparent;
-  color: #4A4A4A;
-  cursor: pointer;
-  transition: all 200ms; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px;
+.advThumbnail{
+  margin-right: 5px;
+  min-width: 300px;
+  height: 250px;
+  text-align: center;
+  border-radius: 5px;
+  position: relative;
   border-radius: 10px;
+  background-color: #4a4a4a9f;
 }
-.btn_remove_img:hover{
-  color: #DC3545;
-  transform: scale(1.2);
-  top: 10px;
+.advThumbnail img{
+  height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #4A4A4A;
 }
 
-.advThumbnailList{
+.advImagesList{
+  user-select: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  width: 150px;
-  height: 175px;
+  justify-content: space-between;
+  height: 250px;
+  min-width: 150px;
+  padding: 5px;
+  border-radius: 10px;
 }
-.advThumbnailList input{
-  display: none;
-}
-.advThumbnailList label{
-  height: 100%;
+.advImagesList ul{ 
+  list-style: none;
   width: 100%;
-  border-radius: 5px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.advImagesList li {
+  height: 45%;
+  width: 100%;
+  position: relative;
   cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 300ms ease;
+  border-radius: 10px;
+}
+
+.advImagesList li:hover{
+  border-color: #2e74c4;
+}
+.advImagesList li img{
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.advImagesList button{
+  width: 35px;
+  height: 35px;
+  background-color: transparent;
+  color: #4A4A4A;
+  font-size: 14pt;
+  border: none;
+  cursor: pointer;
+  top: 0px;
+  position: absolute;
+  right: 0;
+  transition: all 300ms ease;
+}
+.advImagesList button:hover{
+  transform: scale(1.2);
+  color: #DC3545;
+}
+.content-buttons-adv{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  justify-content: space-between;
+}
+.content-buttons-adv label{
+  width: 45px ;
+  height: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #dddd;
-  font-size: 24pt;
-  font-weight: 600;
-  color: #ffff;
-  transition: all 200ms;
+  border-radius: 5px;
+  color: #f5f5f5;
 }
-.advThumbnailList label:hover{
-  background-color: #f5f5f5;
-  color: #4A90E2;
+.content-buttons-adv label:hover{
+  cursor: pointer;
+  opacity: 70%;
+}
+.content-buttons-adv .Add{
+  background-color: #198754;
+}
+.content-buttons-adv .Clear{
+  background-color: #DC3545;
 }
 
+
+.FormButtons{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  min-height: 250px;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  flex-grow: 1;
+}
 .FormButtons button{
-  margin-top: 5px;
+  border: none;
+  border-radius: 5px;
+  color: #f5f5f5;
+  cursor: pointer;
+  margin: 15px;
+  transition: all 300ms ease;
 }
 
-@media screen and (max-width: 1450px) {
-  .advertisingProduct{
-    position: relative;
-  }
-  .advThumbnailList{
-    width: 80px;
-    align-items: center;
-  }
-  
-  .advThumbnailList li{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80px;
-    height: 45px;
 
+.toggleList{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+@media screen and (max-width: 1440px){
+  .advThumbnail{
+    min-width: 250px;
+    height: 200px;
   }
-
+  .advImagesList{
+    min-width: 120px;
+    height: 200px;
+  }
+}
+@media screen and (max-width: 1150px){
+  .advImagesList{
+    min-width: 120px;
+    height: 200px;
+    position: absolute;
+    right: 0;
+  }
+  .AdvertisingContainer{
+    justify-content: start;
+  }
 }
 
-@media screen and (max-width: 580px) {
-  .FormButtonsAndAdv{
-    flex-direction: column;
-    height: auto;
-    border-top: 1px solid #4A4A4A;
-    padding-top: 5px;
-    align-items: center;
+@media screen and (max-width: 768px){
+ .advImagesList{
+  background-color: #4a4a4a98;
+ }
+}
+
+@media screen and (max-width: 480px){
+  .advThumbnail{
+    min-width: 200px;
+    height: 150px;
   }
-  .FormButtons{
-    margin-top: 15px;
+  .advImagesList{
+    min-width: 100px;
+    height: 150px;
   }
-  .advertisingProduct{
-    width: 100%;
-    align-items: center;
-    justify-content: center;
+}
+
+@media screen and (max-width: 400px){
+  .advThumbnail{
+    min-width: 150px;
+    height: 120px;
   }
-  .advRemoveThumbnails{
-    right: 15px;
-    left: auto;
+  .advImagesList{
+    min-width: 80px;
+    height: 120px;
   }
 }
