@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { IoSearchCircleOutline } from "react-icons/io5";
 import { MdAdd } from "react-icons/md";
@@ -14,6 +14,8 @@ function ProdCreateBrand() {
   const [ itemId, setItemId] = useState('');
   const [ attributeList, setAttributeList] = useState([]); // armazena a lista de atributos retornada pela api;
 
+  const containerRef = useRef(null); // 🔹 referência principal
+
   useEffect(()=>{
     if(reqResponse !== ''){
       setTimeout(() => {
@@ -21,6 +23,17 @@ function ProdCreateBrand() {
       }, 1000);
     }
   },[reqResponse])
+
+  
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        setAttributeList([]); // fecha lista
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const createAttribute = async () => {
     try {
@@ -73,9 +86,14 @@ function ProdCreateBrand() {
       setAttributeList([]);
     }
   }
+  
+  // implementação do useRef para detectar cliques fora do componente
+  // adicionado no elemento pai do componente search_container ref={containerRef}
+  // o useEffect adiciona um event listener para cliques fora do componente
+  // quando um clique fora é detectado, a lista de atributos é fechada
 
   return (
-    <div className='search_container'>
+    <div className='search_container' ref={containerRef}>
         <input type="text" className='hidden' name='brand_id' value={itemId} readOnly />
         <div className="label_input">Gerenciador de marcas</div>
         <div className="input_select">
@@ -105,8 +123,13 @@ function ProdCreateBrand() {
           <ul>
             {
               attributeList.map( (element) => (
-                <li key={element.brand_id} onClick={() => handdlerSelectAttribute(element)} > {element.brand_name} </li> 
-              ))
+                <li 
+                    key={element.brand_id} 
+                    onClick={() => handdlerSelectAttribute(element)} 
+                  > 
+                  {element.brand_name} 
+                </li> 
+                ))
             }
           </ul>
         </div>

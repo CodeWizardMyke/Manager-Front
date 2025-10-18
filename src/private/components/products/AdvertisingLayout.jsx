@@ -59,7 +59,7 @@ function AdvertisingLayout() {
         </div>
           {
             toggleListAdv && (
-              <div className="advImagesList">
+            <div className="advImagesList">
               <ul>
                 { images.length === 0 && <li className="PhotoVideoICN"> <IoMdImages/> </li> }
                 { images.length > 0 &&

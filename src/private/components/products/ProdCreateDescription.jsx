@@ -6,7 +6,7 @@ function ProdCreateDescription() {
     <div className='ProdCreateDescription'>
       <div className='txt-area'>
         <label htmlFor="discribe">Descrição do Produto</label>
-        <textarea name="discribe" cols={40} id="discribe" placeholder='Descreva mais sobre o produto...' ></textarea>
+        <textarea name="discribe" cols={60} id="discribe" placeholder='Descreva mais sobre o produto...' ></textarea>
       </div>
       <div className="bottom-content_pc">
         <div>
