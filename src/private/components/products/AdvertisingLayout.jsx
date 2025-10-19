@@ -8,15 +8,19 @@ import './AdvertisingLayout.css';
 import { MdAddCircleOutline } from "react-icons/md";
 import { IoMdImages } from "react-icons/io";
 
-function AdvertisingLayout() {
+function AdvertisingLayout({imagesChenged}) {
   const  [images, setImages] = useState([]);
   const [indexCurrentImage, setIndexCurrentImage] = useState(0);
   const [toggleListAdv, setToggleListAdv] = useState(true);
 
-  function pushImage(element){
-    let CurrentFiles = Array.from(element.target.files);
 
-    setImages( ( oldImages) => [ ...oldImages, ...CurrentFiles.map( files => files ) ] )
+  function pushImage(e){
+    let files = Array.from(e.target.files);
+    setImages(old => {
+      const updated = [...old, ...files];
+      imagesChenged(updated);
+      return updated;
+    });
   }
 
   function clearImages(){
@@ -44,6 +48,8 @@ function AdvertisingLayout() {
 
   return (
     <div className='ContentAdvertisingLayout'>
+      <input type="number" value={images.length}  name='advertising_length' className='hidden'/>
+
       <div className="AdvertisingContainer">
         <button 
           type='button'
@@ -56,6 +62,7 @@ function AdvertisingLayout() {
              <img src={ checkImageIndex(images[indexCurrentImage]) } alt="Imagem promoçional do produto" />
             ) : <div className="PhotoVideoICN"> <IoMdImages/> </div>
           }
+          <div className='image-caption'>Propaganda do produto.</div>
         </div>
           {
             toggleListAdv && (

@@ -93,7 +93,7 @@ function ProdCreateCategorys() {
 
   return (
     <div className='search_container' ref={containerRef}>
-      <input type="text" className='hidden' name='category_id' value={itemId} readOnly />
+      <input type="text" className='hidden' name='fk_category_id' value={itemId} readOnly />
       <div className="label_input">Gerenciador de Categorias</div>
 
       <div className="input_select">

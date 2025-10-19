@@ -52,12 +52,17 @@
   width: 50%;
   min-width: 200px;
   height: 100%;
+  position: relative;
 }
 .CurrentImage img{
   width: 100%;
   height: 100%;
   object-fit: cover; /* cover mantém proporção e preenche (corta se necessário) */
   object-position: center; /* opcional: ajuste do corte (center, top, etc.) */
+}
+.CurrentImage:hover .image-caption{
+ opacity: 100;
+ text-align: center;
 }
 
 .PhotoVideoICN{

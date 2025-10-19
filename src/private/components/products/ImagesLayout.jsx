@@ -7,18 +7,23 @@ import { IoTrashBin } from 'react-icons/io5';
 
 import './ImagesLayout.css';
 
-function ImagesLayout() {
+function ImagesLayout({imagesChenged}) {
   const  [images, setImages] = useState([]);
   const [indexCurrentImage, setIndexCurrentImage] = useState(0);
   const [toggleList, setToggleList] = useState(true);
 
-  function pushImage(element){
-    let CurrentFiles = Array.from(element.target.files);
-    setImages( ( oldImages) => [ ...oldImages, ...CurrentFiles.map( files => files ) ] )
+  function pushImage(e){
+    let files = Array.from(e.target.files);
+    setImages(old => {
+      const updated = [...old, ...files];
+      imagesChenged(updated); // envia as imagens pro pai
+      return updated;
+    });
   }
 
   function clearImages(){
     setImages([]);
+    imagesChenged([])
     setIndexCurrentImage(0);
   }
 
@@ -42,6 +47,7 @@ function ImagesLayout() {
 
   return (
     <div className='ImagesLayout'>
+      <input type="number" value={images.length}  name='thumbnail_length' className='hidden'/>
 
       <button 
         type='button'
@@ -50,6 +56,7 @@ function ImagesLayout() {
         ><FaToggleOn/></button>
 
       <div className="CurrentImage">
+        <span className='image-caption'> Imagem do produto.</span>
         {images.length > 0  && <img 
           src={
             checkImageIndex(images[indexCurrentImage])

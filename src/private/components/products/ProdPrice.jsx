@@ -61,7 +61,6 @@ function ProdPrice() {
     setFinalPrice(discounted || 0);
   }, [pCost, pFees, pMargin, pDiscount]);
 
-
   return (
     <div className="ProdPrice">
       <div className="price-inputs">
@@ -231,7 +230,7 @@ function ProdPrice() {
           <input
             type="number"
             className="hidden"
-            name="final_price"
+            name="selling_price"
             value={finalPrice}
             readOnly
           />

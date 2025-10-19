@@ -34,6 +34,12 @@
   border: 1px solid #4A4A4A;
 }
 
+
+.advThumbnail:hover .image-caption{
+  opacity: 1;
+  transition: all 300ms ease;
+}
+
 .advImagesList{
   user-select: none;
   display: flex;
