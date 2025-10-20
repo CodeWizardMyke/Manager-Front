@@ -8,7 +8,7 @@ import './AdvertisingLayout.css';
 import { MdAddCircleOutline } from "react-icons/md";
 import { IoMdImages } from "react-icons/io";
 
-function AdvertisingLayout({imagesChenged}) {
+function AdvertisingLayout({imagesChenged, setViewProduct, viewProduct}) {
   const  [images, setImages] = useState([]);
   const [indexCurrentImage, setIndexCurrentImage] = useState(0);
   const [toggleListAdv, setToggleListAdv] = useState(true);
@@ -109,7 +109,7 @@ function AdvertisingLayout({imagesChenged}) {
 
       <div className="FormButtons">
         <button type='button' className='bt bt-cancel'>Deletar</button>
-        <button type='button' className='bt bt-primary'>Visualizar</button>
+        <button type='button' className='bt bt-primary' onClick={()=> setViewProduct(!viewProduct)}>Visualizar</button>
         <button type='submit' className='bt bt-approve'>Cadastrar</button>
       </div>
 

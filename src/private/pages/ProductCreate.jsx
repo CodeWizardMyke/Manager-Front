@@ -12,10 +12,13 @@ import ProdPrice from '../components/products/ProdPrice';
 import AdvertisingLayout from '../components/products/AdvertisingLayout';
 import ProdCreateDescription from '../components/products/ProdCreateDescription';
 import Loading from '../components/loading/Loading';
+import ViewProductLayout from '../components/products/ViewProductLayout';
 
 function ProductCreate() {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [viewProduct, setViewProduct] = useState(true);
+  const [getDataForm, setGetDataForm] = useState({});
 
   function onSubmitForm (e){
     e.preventDefault();
@@ -50,27 +53,40 @@ function ProductCreate() {
     }
   };
 
+  function handderSetDataForm (e) {
+    console.log('e', e)
+    setGetDataForm(e.target);
+  }
+
   return (
     <main className="container-fluid">
-      { loading && <Loading /> }
-      <form className="product-create-form" onSubmit={onSubmitForm}>
-        <TopBar text={'Cadastro de produto'}/>
-        <div className="content-top-module">
-          <ImagesLayout imagesChenged={setImages}/>
-          <MovieLayout/>
-        </div>
-        <div className="content-bottom-module">
-          <div className="rightContent">
-            <ProdCreateDescription/>
+        <form id='FormCreateProduct'  className={`product-create-form ${viewProduct ? "hidden" : ""}`} onSubmit={onSubmitForm} onChange={(e) => handderSetDataForm(e)}>
+          { loading && <Loading /> }
+          <TopBar text={'Cadastro de produto'}/>
+          <div className="content-top-module">
+            <ImagesLayout imagesChenged={setImages}/>
+            <MovieLayout/>
           </div>
-          <div className="leftContent">
-            <ProdCreateBrand/>
-            <ProdCreateCategorys/>
-            <ProdPrice/>
-            <AdvertisingLayout imagesChenged={setImages} />
+          <div className="content-bottom-module">
+            <div className="rightContent">
+              <ProdCreateDescription/>
+            </div>
+            <div className="leftContent">
+              <ProdCreateBrand/>
+              <ProdCreateCategorys/>
+              <ProdPrice/>
+              <AdvertisingLayout imagesChenged={setImages} setViewProduct={setViewProduct} />
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+        {
+          viewProduct && 
+          <ViewProductLayout 
+            setViewProduct={setViewProduct} 
+            viewProduct={viewProduct}
+            images={images}
+          />
+        }
     </main>
   )
 }
