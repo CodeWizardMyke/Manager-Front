@@ -15,9 +15,12 @@ import Loading from '../components/loading/Loading';
 import ViewProductLayout from '../components/products/ViewProductLayout';
 
 function ProductCreate() {
-  const [images, setImages] = useState([]);
+  
+  const [thumbnails, setThumbnails]  = useState([]);
+  const [advertising, setAdvertising] = useState([]);
+
   const [loading, setLoading] = useState(false);
-  const [viewProduct, setViewProduct] = useState(true);
+  const [viewProduct, setViewProduct] = useState(false);
   const [getDataForm, setGetDataForm] = useState({});
 
   function onSubmitForm (e){
@@ -26,7 +29,11 @@ function ProductCreate() {
     const bodyData = new FormData(e.target);
 
     // Anexa as imagens do estado manualmente:
-    images.forEach((file, i) => {
+    thumbnails.forEach((file, i) => {
+      bodyData.append('thumbnails', file);
+    });
+
+    advertising.forEach((file, i) => {
       bodyData.append('thumbnails', file);
     });
 
@@ -54,7 +61,6 @@ function ProductCreate() {
   };
 
   function handderSetDataForm (e) {
-    console.log('e', e)
     setGetDataForm(e.target);
   }
 
@@ -64,7 +70,7 @@ function ProductCreate() {
           { loading && <Loading /> }
           <TopBar text={'Cadastro de produto'}/>
           <div className="content-top-module">
-            <ImagesLayout imagesChenged={setImages}/>
+            <ImagesLayout imagesChenged={setThumbnails}/>
             <MovieLayout/>
           </div>
           <div className="content-bottom-module">
@@ -75,7 +81,7 @@ function ProductCreate() {
               <ProdCreateBrand/>
               <ProdCreateCategorys/>
               <ProdPrice/>
-              <AdvertisingLayout imagesChenged={setImages} setViewProduct={setViewProduct} />
+              <AdvertisingLayout imagesChenged={setAdvertising} setViewProduct={setViewProduct} />
             </div>
           </div>
         </form>
@@ -84,7 +90,8 @@ function ProductCreate() {
           <ViewProductLayout 
             setViewProduct={setViewProduct} 
             viewProduct={viewProduct}
-            images={images}
+            images={thumbnails}
+            advertising={advertising}
           />
         }
     </main>

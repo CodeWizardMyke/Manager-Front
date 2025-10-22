@@ -95,6 +95,7 @@ function ProdCreateBrand() {
   return (
     <div className='search_container' ref={containerRef}>
         <input type="text" className='hidden' name='fk_brand_id' value={itemId} readOnly />
+        <input type="text" className='hidden' name='brand_name' value={query} readOnly />
         <div className="label_input">Gerenciador de marcas</div>
         <div className="input_select">
           <input type="text"  placeholder={query!== "" ? query : "Nenhuma Marca..."}   disabled />

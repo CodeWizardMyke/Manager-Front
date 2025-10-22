@@ -72,7 +72,7 @@ function ProdCreateCategorys() {
   };
 
   function handdlerSelectAttribute(element) {
-    setQuery(element);
+    setQuery(element.category_name);
     setItemId(element.category_id);
     setAttributeList([]);
   }
@@ -93,13 +93,14 @@ function ProdCreateCategorys() {
 
   return (
     <div className='search_container' ref={containerRef}>
-      <input type="text" className='hidden' name='fk_category_id' value={itemId} readOnly />
+        <input type="text" className='hidden' name='category_name' value={query} readOnly />
+        <input type="text" className='hidden' name='fk_category_id' value={itemId} readOnly />
       <div className="label_input">Gerenciador de Categorias</div>
 
       <div className="input_select">
         <input
           type="text"
-          placeholder={query !== "" ? query.category_name : "Nenhuma categoria..."}
+          placeholder={query !== "" ? query : "Nenhuma categoria..."}
           disabled
         />
         {reqResponse !== '' && <span className="req_response">{reqResponse}</span>}

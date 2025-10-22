@@ -2,7 +2,9 @@
   background-color: #2661af;
   color: white;
   display: flex; align-items: center; justify-content: center;
-  height: 45px;
+  min-height: 45px;
   font-weight: 600;
   font-size: 16pt;
+  text-align: center;
+  padding: 5px 15px;
 }
