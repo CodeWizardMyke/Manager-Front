@@ -23,7 +23,7 @@ function SideMenu() {
             <div className={ `dropdown-menu ${toggleMenu === 'products' ? 'show' : ''}` }>
               <ul>
                 <li onClick={() => navigate('products')}><button type='button'>Cadastro</button></li>
-                <li onClick={() => navigate('')}><button type='button'>Buscar</button></li>
+                <li onClick={() => navigate('products/search')}><button type='button'>Buscar</button></li>
                 <li onClick={() => navigate('')}><button type='button'>Atualizar</button></li>
               </ul>
             </div>

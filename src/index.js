@@ -14,6 +14,7 @@ import Admin from './private/pages/Admin';
 import Home from './private/pages/Home';
 import UserAuth from './private/UserAuth';
 import ProductCreate from './private/pages/ProductCreate';
+import ProductSearch from './private/pages/ProductSearch';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
     children:[
       {path:'/main',element:<Home/>},
       {path:'/products', element:<ProductCreate/>},
+      {path:'/products/search', element:<ProductSearch/>},
       {path:'/cart',     element:<Cart/>},
       {path:'/clients',  element:<Clients/>},
       {path:'/employee',element:<Employee/>},

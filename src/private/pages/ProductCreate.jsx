@@ -90,8 +90,8 @@ function ProductCreate() {
           <ViewProductLayout 
             setViewProduct={setViewProduct} 
             viewProduct={viewProduct}
-            images={thumbnails}
-            advertising={advertising}
+            cThumbnail={thumbnails}
+            cAdvertsising={advertising}
           />
         }
     </main>
