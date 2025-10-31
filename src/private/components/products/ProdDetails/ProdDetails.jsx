@@ -31,6 +31,7 @@ function ProdDetails({dataProduct}) {
   // Cálculo do preço final
   // -------------------------------
   useEffect(() => {
+    console.log('dataProduct', dataProduct)
 
     setPCost(dataProduct.product_cost || 0);
     setPFees(dataProduct.fees_and_taxes || 0);
@@ -53,7 +54,25 @@ function ProdDetails({dataProduct}) {
     setFinalPrice(discounted || 0);
   }, [pCost, pFees, pMargin, pDiscount, dataProduct]);
 
+  function getBrandName(){
+    if(dataProduct.brand_name){
+      return dataProduct.brand_name
+    }
+    if(dataProduct.brandProduct){
+      return dataProduct.brandProduct.brand_name
+    }
+    return'N/A';
+  }
 
+  function getCategoryName(){
+    if(dataProduct.category_name){
+      return dataProduct.category_name
+    }
+    if(dataProduct.categoryProduct){
+      return dataProduct.categoryProduct.category_name
+    }
+    return'N/A';
+  }
 
   return (
     <div className="productDetails">
@@ -61,8 +80,8 @@ function ProdDetails({dataProduct}) {
           <h2>{dataProduct.title}</h2>
         </div>
         <div className="details">
-          <p><strong>Categoria:</strong> {dataProduct.category_name}</p>
-          <p><strong>Marca:</strong> {dataProduct.brand_name}</p>
+          <p><strong>Categoria:</strong> {getCategoryName()}</p>
+          <p><strong>Marca:</strong> {getBrandName()}</p>
           <p><strong>Formato do produto:</strong> {dataProduct.product_shape} </p>
           <p><strong>Aroma:</strong> {dataProduct.additional} </p>
           <p><strong>Volume:</strong> {dataProduct.NET_VOLUM} </p>

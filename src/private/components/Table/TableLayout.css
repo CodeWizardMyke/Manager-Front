@@ -1,0 +1,34 @@
+.contentTable {
+  width: 100%;
+  flex-grow: 1;
+  padding: 5px;
+}
+.contentTable table{
+  width: 100%;
+}
+
+.tableSearch thead{
+  background-color: aliceblue;
+}
+
+.tableSearch thead tr{
+   height: 35px;
+}
+
+.tableSearch tbody tr{
+  text-align: center;
+  cursor: pointer;
+  transition: all 200ms ease-in;
+  color: #4A4A4A;
+}
+.tableSearch tbody tr:nth-child(odd){
+  background-color: #ddd;
+}
+.tableSearch tbody tr:hover{
+  background-color: #0056B3;
+  color: #ddd;
+}
+
+.tableSearch tbody td{
+  padding: 5px;
+}
