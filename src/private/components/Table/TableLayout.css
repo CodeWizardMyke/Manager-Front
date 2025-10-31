@@ -7,28 +7,69 @@
   width: 100%;
 }
 
-.tableSearch thead{
+.contentTable thead{
   background-color: aliceblue;
 }
 
-.tableSearch thead tr{
+.contentTable thead tr{
    height: 35px;
 }
 
-.tableSearch tbody tr{
+.contentTable tbody tr{
   text-align: center;
   cursor: pointer;
   transition: all 200ms ease-in;
   color: #4A4A4A;
 }
-.tableSearch tbody tr:nth-child(odd){
+.contentTable tbody tr:nth-child(odd){
   background-color: #ddd;
 }
-.tableSearch tbody tr:hover{
+.contentTable tbody tr:hover{
   background-color: #0056B3;
   color: #ddd;
 }
 
-.tableSearch tbody td{
+.contentTable tbody td{
   padding: 5px;
+}
+
+
+.tablePagination{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.tablePagination .lengthListBtn{
+  position: absolute;
+  right: 0;
+}
+.lengthListBtn select{
+  height: 25px;
+  width: 55px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  background-color: #0056B3;
+  color: #ffff;
+  text-align: center;
+  cursor: pointer;
+}
+.lengthListBtn section:hover{
+  background-color: #0057b3d3;
+}
+
+.wrapperBtns button{
+  border: none;
+  outline: none;
+  margin: 5px;
+  height: 25px;
+  width: 75px;
+  background-color: #0056B3;
+  color: #ffff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.wrapperBtns button:hover{
+  background-color: #0057b3d3;
 }

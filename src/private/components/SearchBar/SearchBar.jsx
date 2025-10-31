@@ -1,12 +1,11 @@
 import React from 'react'
 import './SearchBar.css';
-import { RiFileSearchLine } from "react-icons/ri";
 
 function SearchBar({
       query, setQuery, 
       searchBy, setSearchBy,
       filterBy, setFilterBy,
-      sendRequest,optionSelect
+      optionSelect
     }) 
 {
   const opt = optionSelect || [
@@ -19,10 +18,6 @@ function SearchBar({
       <div className="FieldsContainer">
         <div>
           <input type="text" placeholder='Buscar...' defaultValue={ query ? query : ""} onChange={e => setQuery(e.target.value)}/>
-          <button 
-            type='button'
-            onClick={ sendRequest }
-          ><RiFileSearchLine/></button>
         </div>
         <div>
           <select id="filter" defaultValue={searchBy ? searchBy : "title"} onChange={ e => setSearchBy(e.target.value) } >
@@ -37,7 +32,6 @@ function SearchBar({
       <div className="FieldsContainer">
         <div>
           <input type="text" placeholder='Filtrar...' />
-          <button><RiFileSearchLine/></button>
         </div>
         <div>
           <select name="filter" id="filter">

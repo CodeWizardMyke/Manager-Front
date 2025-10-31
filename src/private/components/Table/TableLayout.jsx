@@ -6,7 +6,9 @@ function getData(element, item ){
 
   if(typeof value === "number") return value;
 
-  if(typeof value === "string") return value.slice(0, 45);
+  if(typeof value === "string"){
+    return value.slice(0, item.maxLength);
+  }
 
   if(value && typeof value === "object"){
     const stringValues = Object.values(value).find( v => typeof v === "string");
@@ -15,7 +17,14 @@ function getData(element, item ){
   return "-"
 }
 
-function TableLayout({data, settings, clickItem}) {
+function TableLayout({
+    data, 
+    settings, 
+    clickItem,
+    page, setPage,
+    size, setSize,
+    count
+  }){
   
   const processedData = useMemo(() => {
     return data.map(row => 
@@ -23,9 +32,22 @@ function TableLayout({data, settings, clickItem}) {
     );
   }, [data, settings]);
 
+  function previusPage(){
+    if(page >1){
+      setPage(page - 1);
+    }
+  }
+
+  function nexPage(){
+    const maxPages =   count / size
+    if(page < maxPages){
+      setPage(page + 1)
+    }
+  }
+
   return (
     <div className="contentTable">
-      <table className='tableSearch'>
+      <table>
         <thead>
           <tr>
             {
@@ -36,16 +58,39 @@ function TableLayout({data, settings, clickItem}) {
         <tbody>
           {processedData.map((row, rowIndex) => (
             <tr 
-              key={`${row}${rowIndex}`}
+              key={`row-${rowIndex}`}
               onClick={() => clickItem(data[rowIndex])}
             >
               {row.map((cell, colIndex) => (
-                <td key={`${cell}${colIndex}`}>{cell}</td>
+                <td key={`cell-${colIndex}`}>{cell}</td>
               ))}
             </tr>
           ))}
         </tbody>
       </table>
+      <div className="tablePagination">
+        <div className="wrapperBtns">
+          <button 
+            type="button"
+            onClick={previusPage}
+          > Voltar </button>
+          <button 
+            type="button"
+            onClick={nexPage}
+          > Avançar </button>
+        </div>
+          <div className="lengthListBtn">
+            <select 
+              onChange={e => setSize(e.target.value) }
+              value={size}
+            >
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+      </div>
     </div>
   )
 }
