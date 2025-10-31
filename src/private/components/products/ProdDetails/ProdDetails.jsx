@@ -31,7 +31,6 @@ function ProdDetails({dataProduct}) {
   // Cálculo do preço final
   // -------------------------------
   useEffect(() => {
-    console.log('dataProduct', dataProduct)
 
     setPCost(dataProduct.product_cost || 0);
     setPFees(dataProduct.fees_and_taxes || 0);

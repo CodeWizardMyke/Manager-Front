@@ -44,7 +44,6 @@ function ProductManager() {
       const response = await fetchAxios.get(httpURL, { headers: { query : query } });
       setData(response.data.rows);
 
-      console.log('response', response.data.rows)
     } catch (error) {
       console.log(error);
     }
