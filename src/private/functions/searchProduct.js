@@ -3,7 +3,7 @@ import fetchAxios from "../axios/config";
 export default async function searchProduc({searchBy, query, size, page }) {
   try {
     let httpURL = "";
-
+    console.log('axios', fetchAxios.defaults)
     
     if(searchBy ){ httpURL = `/product/search/${searchBy}`; };
     if(!searchBy || searchBy === "" || searchBy === "default"){ httpURL = '/product/crud/read'; };

@@ -1,18 +1,18 @@
 import { useState } from 'react';
-import ImagesLayout from '../components/products/ImagesLayout'
-import MovieLayout from '../components/products/MovieLayout'
-import TopBar from '../components/TopBar/TopBar'
 
 import fetchAxios from '../axios/config';
 import '../style/module.css'
 
-import ProdCreateBrand from '../components/products/ProdCreateBrand';
-import ProdCreateCategorys from '../components/products/ProdCreateCategorys';
-import ProdPrice from '../components/products/ProdPrice';
-import AdvertisingLayout from '../components/products/AdvertisingLayout';
-import ProdCreateDescription from '../components/products/ProdCreateDescription';
-import Loading from '../components/loading/Loading';
+import ImagesLayout from '../components/products/thumbnails/ImagesLayout'
+import MovieLayout from '../components/products//thumbnails/MovieLayout'
+import TopBar from '../components/TopBar/TopBar'
+import ProdCreateBrand from '../components/products/insert_brand_categorys/ProdCreateBrand';
+import ProdCreateCategorys from '../components/products/insert_brand_categorys/ProdCreateCategorys';
+import ProdPrice from '../components/products/pricing/ProdPrice';
+import AdvertisingLayout from '../components/products/thumbnails/AdvertisingLayout';
+import ProdCreateDescription from '../components/products/common_attributes/CommonAttributes';
 import ViewProductLayout from '../components/products/ViewProductLayout';
+import Loading from '../components/loading/Loading';
 
 function ProductCreate() {
   

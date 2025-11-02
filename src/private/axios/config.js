@@ -5,11 +5,11 @@ const localToken = localStorage.getItem('token');
 
 let token = null;
 
-if(localToken){
-  token = localToken;
-}
-if(sessionToken){
+if(localToken === null){
   token = sessionToken;
+}
+if(sessionToken === null){
+  token = localToken;
 }
 
 const headers = {

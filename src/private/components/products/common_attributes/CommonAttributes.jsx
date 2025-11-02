@@ -1,7 +1,7 @@
 import React from 'react'
-import './ProdCreateDescription.css';
+import './CommonAttributes.css';
 
-function ProdCreateDescription() {
+function CommonAttributes() {
   return (
     <div className='ProdCreateDescription'>
       <div className='txt-area'>
@@ -70,4 +70,4 @@ function ProdCreateDescription() {
   )
 }
 
-export default ProdCreateDescription
+export default CommonAttributes

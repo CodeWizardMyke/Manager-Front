@@ -46,7 +46,8 @@ function TableLayout({
   }
 
   return (
-    <div className="contentTable">
+    <>
+        <div className="contentTable">
       <table>
         <thead>
           <tr>
@@ -68,30 +69,31 @@ function TableLayout({
           ))}
         </tbody>
       </table>
-      <div className="tablePagination">
-        <div className="wrapperBtns">
-          <button 
-            type="button"
-            onClick={previusPage}
-          > Voltar </button>
-          <button 
-            type="button"
-            onClick={nexPage}
-          > Avançar </button>
-        </div>
-          <div className="lengthListBtn">
-            <select 
-              onChange={e => setSize(e.target.value) }
-              value={size}
-            >
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select>
-          </div>
+    </div>
+    <div className="tablePagination">
+    <div className="wrapperBtns">
+      <button 
+        type="button"
+        onClick={previusPage}
+      > Voltar </button>
+      <button 
+        type="button"
+        onClick={nexPage}
+      > Avançar </button>
+    </div>
+      <div className="lengthListBtn">
+        <select 
+          onChange={e => setSize(e.target.value) }
+          value={size}
+        >
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
       </div>
     </div>
+    </>
   )
 }
 

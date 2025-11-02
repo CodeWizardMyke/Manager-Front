@@ -2,10 +2,9 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { IoSearchCircleOutline } from "react-icons/io5";
 import { MdAdd } from "react-icons/md";
+import './insert_brand_categorys.css';
 
-import './ProdCreateAttributes.css'
-
-import Axios from '../../axios/config';
+import Axios from '../../../axios/config';
 
 function ProdCreateBrand() {
   const [create, setcreate] = useState(true);
