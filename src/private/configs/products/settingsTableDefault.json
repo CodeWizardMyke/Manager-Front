@@ -1,0 +1,6 @@
+[
+  { "value": "product_id", "label": "ID" },
+  { "value": "title", "label": "TITULO", "maxLength": 45 },
+  { "value": "categoryProduct", "label": "CATEGORIA" },
+  { "value": "brandProduct", "label": "MARCA" }
+]

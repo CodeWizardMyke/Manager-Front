@@ -3,9 +3,7 @@ import ProductManager from '../components/products/ProductManager'
 
 function ProductSearch() {
   return (
-    <div>
       <ProductManager/>
-    </div>
   )
 }
 

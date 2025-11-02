@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { ImClearFormatting } from "react-icons/im";
-
 import "./SearchBar.css";
 
 function SearchBar({
@@ -8,49 +7,49 @@ function SearchBar({
   searchBy, setSearchBy,
   filterBy, setFilterBy,
   optionSelect,
-  data, setData
+  data,
+  setFilteredData
 }) {
   const [dataOriginal, setDataOriginal] = useState([]);
   const [filterValue, setFilterValue] = useState(""); // controla o input de filtro
 
-  // salva o backup apenas uma vez
+  // fallback para optionSelect vazio
+  const safeOptions = optionSelect || {
+    search: [{ value: "default", label: "Default" }],
+    filter: [{ value: "default", label: "Default" }],
+  };
+
+  // sempre que o data muda (por nova busca, página, etc), atualiza os dados originais e os filtrados
   useEffect(() => {
-    if (data && data.length && dataOriginal.length === 0) {
+    if (data && data.length) {
       setDataOriginal(data);
+      setFilteredData(data);
     }
+  }, [data, setFilteredData]);
 
-  }, [data, dataOriginal.length]);
-
-  const optionsSearch = optionSelect.search || [
-    { value: "default", label: "default" },
-  ];
-  const optionsFilter = optionSelect.filter || [
-    { value: "default", label: "default" },
-  ];
-
-  // 🔍 aplica o filtro
+  // aplica o filtro localmente
   function filterData(term) {
     const searchTerm = term.toLowerCase().trim();
-    setFilterValue(term); // atualiza o estado do input
+    setFilterValue(term);
 
     if (searchTerm === "") {
-      setData(dataOriginal);
+      setFilteredData(dataOriginal);
       return;
     }
 
     const filtered = dataOriginal.filter(item => {
       const field = item[filterBy];
-      return field && field.toLowerCase().includes(searchTerm);
+      return field && field.toString().toLowerCase().includes(searchTerm);
     });
 
-    setData(filtered);
+    setFilteredData(filtered);
   }
 
-  //  limpa tudo, inclusive o input
+  // limpa o filtro e campo de busca
   function clearFilter() {
-    setData(dataOriginal);
+    setFilteredData(dataOriginal);
     setQuery("");
-    setFilterValue(""); // limpa o input de filtro
+    setFilterValue("");
   }
 
   return (
@@ -59,8 +58,8 @@ function SearchBar({
         <div>
           <input
             type="text"
-            placeholder="Buscar..."
-            value={query || ""}
+            placeholder="Buscar produto..."
+            value={query}
             onChange={e => setQuery(e.target.value)}
           />
         </div>
@@ -70,7 +69,7 @@ function SearchBar({
             value={searchBy}
             onChange={e => setSearchBy(e.target.value)}
           >
-            {optionsSearch.map(option => (
+            {safeOptions.search.map(option => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
@@ -84,7 +83,7 @@ function SearchBar({
           <input
             id="inputFilter"
             type="text"
-            placeholder="Filtrar..."
+            placeholder="Filtrar resultados..."
             value={filterValue}
             onChange={e => filterData(e.target.value)}
           />
@@ -100,7 +99,7 @@ function SearchBar({
             value={filterBy}
             onChange={e => setFilterBy(e.target.value)}
           >
-            {optionsFilter.map(option => (
+            {safeOptions.filter.map(option => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>

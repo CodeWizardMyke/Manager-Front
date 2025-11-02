@@ -24,7 +24,7 @@ function SideMenu() {
               <ul>
                 <li onClick={() => navigate('products')}><button type='button'>Cadastro</button></li>
                 <li onClick={() => navigate('products/search')}><button type='button'>Buscar</button></li>
-                <li onClick={() => navigate('')}><button type='button'>Atualizar</button></li>
+                <li onClick={() => navigate('products/update')}><button type='button'>Atualizar</button></li>
               </ul>
             </div>
           </li>

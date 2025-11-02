@@ -1,109 +1,79 @@
-import React, {  useCallback, useEffect, useState } from 'react'
-import fetchAxios from '../../axios/config';
+import React, { useCallback, useEffect, useState } from 'react';
 import ViewProductLayout from './ViewProductLayout';
 import TableLayout from '../Table/TableLayout';
 import SearchBar from '../SearchBar/SearchBar';
 
+import optionSelect from '../../configs/products/settingsSearchFields.json';
+import tableFields from '../../configs/products/settingsTableDefault.json';
+import searchProduc from '../../functions/searchProduct';
+
 function ProductManager() {
-  const [ data, setData] = useState([]);
-  const [ query, setQuery ] = useState('');
-  const [ searchBy, setSearchBy] = useState("default");
-  const [ filterBy, setFilterBy] = useState("title");
-  const [ size, setSize] = useState(10);
-  const [ page, setPage] = useState(0);
-  const [ count, setCount] = useState(0);
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
-  const [ product, setProduct ] = useState(true);
-  const [ toggleView, setToggleView ] = useState(false);
+  const [query, setQuery] = useState('');
+  const [searchBy, setSearchBy] = useState('default');
+  const [filterBy, setFilterBy] = useState('title');
+  const [size, setSize] = useState(10);
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(0);
 
-  const sendRequest = useCallback(
-    async ()  => {
-      try {
+  const [product, setProduct] = useState(null);
+  const [toggleView, setToggleView] = useState(false);
 
-        let httpURL = "";
+  const sendRequest = useCallback(async () => {
+    const response = await searchProduc({ searchBy, query, size, page });
+    if (response.error) return console.error(response);
 
-        if(searchBy === "default"){
-          httpURL = httpURL+ "/product/crud/read";
-        }
-        if(searchBy !== "default" && query === ""){
-          httpURL = httpURL+ "/product/crud/read";
-        }
-        if(searchBy !== "default" && query !== ""){
-          httpURL = httpURL+ "/product/search/"+ searchBy;
-        }
-        
-        const headers = {
-          query : query, 
-          size:size, 
-          page:page
-        }
-  
-        const response = await fetchAxios.get(httpURL, { headers:headers });
-        
-        setCount(response.data.count)
-        setData(response.data.rows);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    [size,page,query,searchBy],
-  )
+    setCount(response.data.count);
+    setData(response.data.rows);
+  }, [searchBy, query, size, page]);
 
   useEffect(() => {
-    sendRequest()      
+    sendRequest();
   }, [sendRequest]);
-  
-  function clickItem(data){
-    setProduct(data)
-    setToggleView(true)
-  }
+
+  const clickItem = (item) => {
+    setProduct(item);
+    setToggleView(true);
+  };
 
   return (
-    <main className='container-fluid'>
-      {
-        toggleView ? toggleView && <ViewProductLayout data={product} setViewProduct={setToggleView} viewProduct={toggleView} />
-        : 
+    <main className="container-fluid">
+      {toggleView ? (
+        <ViewProductLayout
+          data={product}
+          setViewProduct={setToggleView}
+          viewProduct={toggleView}
+        />
+      ) : (
         <div className="ContentSearch">
-          < SearchBar 
+          <SearchBar
             optionSelect={optionSelect}
-            query={query} setQuery={setQuery}
-            filterBy={filterBy} setFilterBy={setFilterBy}
-            searchBy={searchBy} setSearchBy={setSearchBy}
-            data={data} setData={setData}
-          />
-          < TableLayout 
+            query={query}
+            setQuery={setQuery}
+            searchBy={searchBy}
+            setSearchBy={setSearchBy}
+            filterBy={filterBy}
+            setFilterBy={setFilterBy}
             data={data}
-            settings={tableFields} 
-            clickItem={clickItem} 
-            page={page} setPage={setPage}
-            size={size} setSize={setSize}
+            setFilteredData={setFilteredData}
+          />
+
+          <TableLayout
+            data={filteredData} // agora exibe os dados filtrados
+            settings={tableFields}
+            clickItem={clickItem}
+            page={page}
+            setPage={setPage}
+            size={size}
+            setSize={setSize}
             count={count}
           />
         </div>
-      }
+      )}
     </main>
-  )
+  );
 }
 
-
-const optionSelect = {
-  search:[
-    { value: "default", label: "Todos" },
-    { value: "title", label: "TITULO" },
-    { value: "product_id", label: "ID" },
-  ],
-  filter:[
-    { value: "title", label: "TITULO" },
-  ]
-}
-  
-
-const tableFields = [
-  { value: "product_id", label: "ID" },
-  { value: "title", label: "TITULO", maxLength: 45 },
-  { value: "categoryProduct", label: "CATEGORIA" },
-  { value: "brandProduct", label: "MARCA" },
-];
-
-
-export default ProductManager
+export default ProductManager;
