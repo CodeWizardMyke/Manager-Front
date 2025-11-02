@@ -8,7 +8,7 @@ function ProductManager() {
   const [ data, setData] = useState([]);
   const [ query, setQuery ] = useState('');
   const [ searchBy, setSearchBy] = useState("default");
-  const [ filterBy, setFilterBy] = useState("");
+  const [ filterBy, setFilterBy] = useState("title");
   const [ size, setSize] = useState(10);
   const [ page, setPage] = useState(0);
   const [ count, setCount] = useState(0);
@@ -69,9 +69,10 @@ function ProductManager() {
             query={query} setQuery={setQuery}
             filterBy={filterBy} setFilterBy={setFilterBy}
             searchBy={searchBy} setSearchBy={setSearchBy}
+            data={data} setData={setData}
           />
           < TableLayout 
-            data={data} 
+            data={data}
             settings={tableFields} 
             clickItem={clickItem} 
             page={page} setPage={setPage}
@@ -85,11 +86,17 @@ function ProductManager() {
 }
 
 
-const optionSelect = [
-  { value: "default", label: "Todos" },
-  { value: "title", label: "TITULO" },
-  { value: "id", label: "ID" },
-];
+const optionSelect = {
+  search:[
+    { value: "default", label: "Todos" },
+    { value: "title", label: "TITULO" },
+    { value: "product_id", label: "ID" },
+  ],
+  filter:[
+    { value: "title", label: "TITULO" },
+  ]
+}
+  
 
 const tableFields = [
   { value: "product_id", label: "ID" },
