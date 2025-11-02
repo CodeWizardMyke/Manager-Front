@@ -1,37 +1,41 @@
 .SearchBar{
-  background-color: #ccc;
-  min-height: 150px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
   padding: 10px;
 }
 .FieldsContainer{
-  border: 1px solid #999;
+  border: 1px solid #ccc;
   padding: 15px 5px;
   border-radius: 5px;
   margin: 5px;
+  max-width: 600px; width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .FieldsContainer button{
   border: none;
-  background-color: #dddd;
+  background-color: #0056B3;
   cursor: pointer;
-  color: #363636;
+  color: #fff;
   width: 25px;
   border-radius: 5px;
   height: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 5px;
+  margin: 5px;
 }
 .FieldsContainer button svg{
   width: 20px;
   height: 20px;
 }
 .FieldsContainer button:hover{
-  background-color: #cccc;
+  background-color: #0057b3c2;
 }
 
 .FieldsContainer input{
@@ -50,7 +54,7 @@
   gap: 2px;
 }
 .FieldsContainer select{
-  width: 100%;
+  min-width: 120px;
   margin: 5px 0;
   text-align: center;
   height: 25px;
