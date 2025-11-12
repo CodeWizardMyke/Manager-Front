@@ -7,6 +7,7 @@ import settingsTableDefault from '../configs/products/settingsTableDefault.json'
 import TableLayout from '../components/Table/TableLayout.jsx';
 import SearchBar from '../components/SearchBar/SearchBar.jsx';
 import TopBar from '../components/TopBar/TopBar.jsx';
+import ProductSetData from './ProductSetData.jsx';
 
 function ProductUpdate() {
   const [data,setData] = useState([]);
@@ -21,7 +22,6 @@ function ProductUpdate() {
 
 
   const [dataItem,setDataItem] = useState(null);
-  const [toogleview, setToggleView] = useState(false);
 
   const sendRequest = useCallback(async () => {
     const response = await searchProduc({ searchBy, query, size, page });
@@ -37,17 +37,15 @@ function ProductUpdate() {
 
   function clickedItem(item){
     setDataItem(item);
-    setToggleView(true);
   }
 
   return (
     <main className="container-fluid">
       {
-        toogleview ? (<>
-          atualizar produto: {dataItem.title}
-          {console.log('dataItem', dataItem)}
-        </>): 
-        <div className="ContentSearch">
+        dataItem && <ProductSetData DataContent={dataItem} setDataContent={setDataItem}/>
+      }
+      {
+        <div className={`ContentSearch ${dataItem ? "hidden" : ""}`}>
           <TopBar text={'Atualizar produto'} /> 
           <SearchBar  // search bar vai ser responsavel por tratar tanto data quando filtredData 
             optionSelect={settingsSearchFields}

@@ -6,10 +6,10 @@ import './insert_brand_categorys.css';
 
 import Axios from '../../../axios/config';
 
-function ProdCreateBrand() {
-  const [create, setcreate] = useState(true);
-  const [reqResponse, setReqResponse] = useState('');
-  const [query, setQuery] = useState('');
+function ProdCreateBrand({DataContent}) {
+  const [ create, setcreate] = useState(true);
+  const [ reqResponse, setReqResponse] = useState('');
+  const [ query, setQuery] = useState('Nenhuma marca Selecionada!');
   const [ itemId, setItemId] = useState('');
   const [ attributeList, setAttributeList] = useState([]); // armazena a lista de atributos retornada pela api;
 
@@ -23,7 +23,6 @@ function ProdCreateBrand() {
     }
   },[reqResponse])
 
-  
   useEffect(() => {
     function handleClickOutside(event) {
       if (containerRef.current && !containerRef.current.contains(event.target)) {
@@ -85,7 +84,6 @@ function ProdCreateBrand() {
       setAttributeList([]);
     }
   }
-  
   // implementação do useRef para detectar cliques fora do componente
   // adicionado no elemento pai do componente search_container ref={containerRef}
   // o useEffect adiciona um event listener para cliques fora do componente
@@ -97,7 +95,7 @@ function ProdCreateBrand() {
         <input type="text" className='hidden' name='brand_name' value={query} readOnly />
         <div className="label_input">Gerenciador de marcas</div>
         <div className="input_select">
-          <input type="text"  placeholder={query!== "" ? query : "Nenhuma Marca..."}   disabled />
+          <input type="text"  placeholder={DataContent ? `Marca: ${DataContent.brandProduct.brand_name}` : query }   disabled />
           {
             reqResponse !== '' && <span className="req_response">{reqResponse}</span>
           }

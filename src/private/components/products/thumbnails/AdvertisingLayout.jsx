@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoTrashBin } from 'react-icons/io5';
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FaToggleOn } from "react-icons/fa";
@@ -7,11 +7,29 @@ import './AdvertisingLayout.css';
 
 import { MdAddCircleOutline } from "react-icons/md";
 import { IoMdImages } from "react-icons/io";
+import fetchAxios from '../../../axios/config';
 
-function AdvertisingLayout({imagesChenged, setViewProduct, viewProduct}) {
-  const  [images, setImages] = useState([]);
+function AdvertisingLayout({imagesChenged, setViewProduct, viewProduct, DataContent}) {
+  const [images, setImages] = useState([]);
   const [indexCurrentImage, setIndexCurrentImage] = useState(0);
   const [toggleListAdv, setToggleListAdv] = useState(true);
+
+  useEffect(() => {
+    if(DataContent){
+      const arrImages = [];
+      const BaseUrl = fetchAxios.defaults.baseURL.split("/api")[0]
+      
+      //separar thumbnail para usar nesse componente
+      DataContent.thumbnails.forEach(e => {
+        if(e.type ===1 && e.path){
+         return arrImages.push(`${BaseUrl}${e.path}`);
+        }; 
+        return null;
+      } );
+
+      setImages(arrImages)
+    }
+  }, [DataContent]);
 
 
   function pushImage(e){
@@ -42,10 +60,17 @@ function AdvertisingLayout({imagesChenged, setViewProduct, viewProduct}) {
   }
 
   function checkImageIndex(element){
-    let eChecked = element instanceof File ? URL.createObjectURL(element) : null;
-    return eChecked;
-  }
+    
+    if( element instanceof File ){
+      return URL.createObjectURL(element);
+    }
 
+    if( typeof element === "string"){
+      return element;
+    }
+
+    return null;
+  }
   return (
     <div className='ContentAdvertisingLayout'>
       <input type="number" value={images.length}  name='advertising_length' className='hidden'/>

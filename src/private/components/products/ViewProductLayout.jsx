@@ -6,7 +6,7 @@ import Carrousel from './carrousel/Carrousel';
 import ProdDetails from './ProdDetails/ProdDetails';
 import fetchAxios from '../../axios/config';
 
-function ViewProductLayout({data, setViewProduct, viewProduct, cThumbnail = [], cAdvertsising = [] }) {
+function ViewProductLayout({data, setViewProduct, viewProduct, cThumbnail = [], cAdvertsising = [], DataContent }) {
   const [ dataExsists, setDataExists ] = useState(false);
   const [dataProduct, setDataProduct] = useState({});
   const [thumbnails, setThumbnails] = useState([]);
@@ -20,6 +20,7 @@ function ViewProductLayout({data, setViewProduct, viewProduct, cThumbnail = [], 
       return;
     }
 
+    // pega os dados que estao sendo inseridos pelo usuario no formulário
     const body =  document.getElementById("FormCreateProduct");
     if (!body) return;
     
@@ -28,17 +29,17 @@ function ViewProductLayout({data, setViewProduct, viewProduct, cThumbnail = [], 
     const formData = new FormData(body);
     const productData = Object.fromEntries(formData.entries());
     setDataProduct(productData);
-  }, [dataExsists]);
+  }, [dataExsists,DataContent]);
 
   function imageLocalURL(Thumbnail, Advertsising) {
     let arrThumbnails =[]
     let arrAdvertisings =[]
 
     if(Thumbnail){
-      Thumbnail.map( element => arrThumbnails.push( URL.createObjectURL(element) ) )
+      //Thumbnail.map( element => arrThumbnails.push( URL.createObjectURL(element) ) )
     }
     if(Advertsising){
-      Advertsising.map( element => arrAdvertisings.push( URL.createObjectURL(element) ) )
+     // Advertsising.map( element => arrAdvertisings.push( URL.createObjectURL(element) ) )
     }
     setAdvertisings(arrAdvertisings)
     setThumbnails(arrThumbnails)
@@ -64,7 +65,6 @@ function ViewProductLayout({data, setViewProduct, viewProduct, cThumbnail = [], 
       setThumbnails(arrThumbnails)
     }
   }
-
 
   return (
     <main className="ViewProductLayout">

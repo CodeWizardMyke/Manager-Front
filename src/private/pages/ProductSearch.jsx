@@ -5,8 +5,9 @@ import ViewProductLayout from '../components/products/ViewProductLayout';
 import TableLayout from '../components/Table/TableLayout';
 import optionSelect from '../configs/products/settingsSearchFields.json';
 import tableFields from '../configs/products/settingsTableDefault.json';
-import searchProduc from '../functions/searchProduct';
 import TopBar from '../components/TopBar/TopBar';
+
+import searchProduc from '../functions/searchProduct';
 
 function ProductSearch() {
   const [data, setData] = useState([]);
@@ -15,7 +16,7 @@ function ProductSearch() {
   const [query, setQuery] = useState('');
   const [searchBy, setSearchBy] = useState('default');
   const [filterBy, setFilterBy] = useState('title');
-  
+
   const [size, setSize] = useState(10);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);

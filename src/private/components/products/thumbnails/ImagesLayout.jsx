@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdAddCircleOutline } from "react-icons/md";
 import { IoMdImages } from "react-icons/io";
 import { FaToggleOn } from "react-icons/fa";
@@ -6,11 +6,30 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { IoTrashBin } from 'react-icons/io5';
 
 import './ImagesLayout.css';
+import fetchAxios from '../../../axios/config';
 
-function ImagesLayout({imagesChenged}) {
-  const  [images, setImages] = useState([]);
+function ImagesLayout({imagesChenged, DataContent}) {
+  const [images, setImages] = useState([]);
   const [indexCurrentImage, setIndexCurrentImage] = useState(0);
   const [toggleList, setToggleList] = useState(true);
+
+  // popular o aray atual com as imagens retornada da api
+  useEffect(() => {
+    if(DataContent){
+      const arrImages = [];
+      const BaseUrl = fetchAxios.defaults.baseURL.split("/api")[0]
+      
+      //separar thumbnail para usar nesse componente
+      DataContent.thumbnails.forEach(e => {
+        if(e.type ===0 && e.path){
+         return arrImages.push(`${BaseUrl}${e.path}`);
+        }; 
+        return null;
+      } );
+
+      setImages(arrImages)
+    }
+  }, [DataContent]);
 
   function pushImage(e){
     let files = Array.from(e.target.files);
@@ -27,6 +46,7 @@ function ImagesLayout({imagesChenged}) {
     setIndexCurrentImage(0);
   }
 
+
   function removeImage(event,index){
     event.stopPropagation(); // interrompe a propagação de um evento no DOM, impedindo que ele seja executado em elementos apais do elemento onde foi disparado.
     let newImages = images.filter( ( img, i ) => i !== index); //filtra todas as imagens que o índice for diferente do índice que eu quero remover
@@ -41,8 +61,16 @@ function ImagesLayout({imagesChenged}) {
   }
 
   function checkImageIndex(element){
-    let eChecked = element instanceof File ? URL.createObjectURL(element) : null;
-    return eChecked;
+    
+    if( element instanceof File ){
+      return URL.createObjectURL(element);
+    }
+
+    if( typeof element === "string"){
+      return element;
+    }
+
+    return null;
   }
 
   return (
@@ -77,9 +105,7 @@ function ImagesLayout({imagesChenged}) {
                     (item,index) => (
                       <li key={index} onClick={ () => setIndexCurrentImage(index) }>
                         <img 
-                          src={
-                            item instanceof File ? URL.createObjectURL(item) : null
-                          }  /*URL.createObjectURL só serve para o front end para exibição da imagem , já que o back-end não vai aceitar como imagem, porque ele precisa dos bytes do File */
+                          src={ checkImageIndex(item) }
                           alt={`Imagem ${index}`} 
                         />
                         <button type='button' className='RemoveImage' onClick={ (event) => removeImage(event,index) }><IoTrashBin/></button>

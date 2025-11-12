@@ -1,243 +1,107 @@
 import React, { useState, useEffect } from 'react';
 import './ProdPrice.css';
 
-function ProdPrice() {
+import {
+  applyPercentagesDecreases,
+  applyPercentagesIncreases,
+  formatForParcentage,
+  defaultPriceFormat,
+  formatPrice,
+} from './PricingProduct';
+import InputGroupPrice from './InputGroupPrice';
+
+function ProdPrice({DataContent}) {
   const [pCost, setPCost] = useState('');
   const [pFees, setPFees] = useState('');
   const [pMargin, setPMargin] = useState('');
   const [pDiscount, setPDiscount] = useState('');
   const [pStock, setPStock] = useState('');
   const [finalPrice, setFinalPrice] = useState(0);
+  
+// Valores intermediários (em tempo real)
+const feesValue = applyPercentagesIncreases(pCost, pFees);
+const marginValue = applyPercentagesIncreases(feesValue, pMargin);
+const discountValue = applyPercentagesDecreases(marginValue, pDiscount);
 
-  // -------------------------------
-  // Funções utilitárias
-  // -------------------------------
-  function formatedPrice(val) {
-    const formated = val.replace(/[^\d]/g, '');
-    return (formated / 100).toLocaleString('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-    });
-  }
+useEffect(() => {
+  setFinalPrice(discountValue);
+}, [pCost, pFees, pMargin, pDiscount, discountValue]);
 
-  function parsePrice(val) {
-    if (!val) return 0;
-    const clean = val.replace(/[^\d]/g, '');
-    return Number(clean) / 100;
-  }
+return (
+  <div className="ProdPrice">
+    <div className="price-inputs">
+      {/* PREÇO DE CUSTO */}
+      <InputGroupPrice
+        textLabel="Preço de custo:"
+        data={pCost}
+        setData={setPCost}
+        inputName="product_cost"
+        formatedData={formatPrice(pCost)}
+      />
 
-  function formatedPercentage(val) {
-    const num = parseFloat(val);
-    if (isNaN(num) || num < 0) return '0%';
-    if (num > 100) return '100%';
-    return `${num}%`;
-  }
+      {/* TAXAS / IMPOSTOS */}
+      <InputGroupPrice
+        textLabel="Taxas / Impostos (%):"
+        data={pFees}
+        setData={setPFees}
+        inputName="fees_and_taxes"
+        formatedData={formatPrice(feesValue)}
+      />
 
-  function parsePercentage(val) {
-    const num = parseFloat(val);
-    if (isNaN(num)) return 0;
-    if (num < 0) return 0;
-    if (num > 100) return 100;
-    return num;
-  }
+      {/* MARGEM DE LUCRO */}
+      <InputGroupPrice
+        textLabel="Margem / Lucro (%):"
+        data={pMargin}
+        setData={setPMargin}
+        inputName="profit_margin"
+        formatedData={formatPrice(marginValue)}
+      />
 
-  // -------------------------------
-  // Cálculo do preço final
-  // -------------------------------
-  useEffect(() => {
-    const cost = parsePrice(pCost);
-    const fees = parsePercentage(pFees);
-    const margin = parsePercentage(pMargin);
-    const discount = parsePercentage(pDiscount);
+      {/* DESCONTO */}
+      <InputGroupPrice
+        textLabel="Descontos (%):"
+        data={pDiscount}
+        setData={setPDiscount}
+        inputName="discounts"
+        formatedData={formatPrice(discountValue)}
+      />
 
-    // -------------------------------
-    // custo + taxas + margem - desconto
-    // -------------------------------
-
-    const taxed = cost + (cost * fees) / 100;
-    const profit = taxed + (taxed * margin) / 100;
-    const discounted = profit - (profit * discount) / 100;
-
-    setFinalPrice(discounted || 0);
-  }, [pCost, pFees, pMargin, pDiscount]);
-
-  return (
-    <div className="ProdPrice">
-      <div className="price-inputs">
-
-        {/* PREÇO DE CUSTO */}
-        <div className="input-group">
-          <label htmlFor="product_cost">Preço custo:</label>
-          <input
-            type="text"
-            id="product_cost"
-            placeholder="0,00"
-            onChange={(e) => setPCost(formatedPrice(e.target.value))}
-          />
-          <div className="formated-value">
-            <span> Valor atribuído </span>
-            <input type="text" disabled value={pCost} placeholder="R$ 0,00" />
-          </div>
-          <input
-            type="number"
-            className="hidden"
-            name="product_cost"
-            value={parsePrice(pCost)}
-            readOnly
-          />
-        </div>
-
-        {/* TAXAS / IMPOSTOS */}
-        <div className="input-group">
-          <label htmlFor="fees_and_taxes">Taxas/impostos (%):</label>
-          <input
-            type="number"
-            id="fees_and_taxes"
-            placeholder="0"
-            step="1"
-            min="0"
-            max="100"
-            onChange={(e) => setPFees(e.target.value)}
-          />
-          <div className="formated-value">
-            <span> Valor atribuído </span>
-            <input
-              type="text"
-              disabled
-              value={formatedPercentage(pFees)}
-              placeholder="0%"
-            />
-          </div>
-          <input
-            type="number"
-            className="hidden"
-            name="fees_and_taxes"
-            value={parsePercentage(pFees)}
-            readOnly
-          />
-        </div>
-
-        {/* MARGEM DE LUCRO */}
-        <div className="input-group">
-          <label htmlFor="profit_margin">Margem/Lucro (%):</label>
-          <input
-            type="number"
-            id="profit_margin"
-            placeholder="0"
-            step="1"
-            min="0"
-            max="100"
-            onChange={(e) => setPMargin(e.target.value)}
-          />
-          <div className="formated-value">
-            <span> Valor atribuído </span>
-            <input
-              type="text"
-              disabled
-              value={formatedPercentage(pMargin)}
-              placeholder="0%"
-            />
-          </div>
-          <input
-            type="number"
-            className="hidden"
-            name="profit_margin"
-            value={parsePercentage(pMargin)}
-            readOnly
-          />
-        </div>
-
-        {/* DESCONTO */}
-        <div className="input-group">
-          <label htmlFor="discounts">Desconto (%):</label>
-          <input
-            type="number"
-            id="discounts"
-            placeholder="0"
-            step="1"
-            min="0"
-            max="100"
-            onChange={(e) => setPDiscount(e.target.value)}
-          />
-          <div className="formated-value">
-            <span> Valor atribuído </span>
-            <input
-              type="text"
-              disabled
-              value={formatedPercentage(pDiscount)}
-              placeholder="0%"
-            />
-          </div>
-          <input
-            type="number"
-            className="hidden"
-            name="discounts"
-            value={parsePercentage(pDiscount)}
-            readOnly
-          />
-        </div>
-
-        {/* MOEDA */}
-        <div className="input-group">
-          <label htmlFor="currency">Moeda</label>
-          <select name="currency" id="currency" className="text_align-center">
-            <option value="BRL">Real (BRL)</option>
-          </select>
-          <div className="formated-value">
-            <span> Valor atribuído </span>
-            <input type="text" disabled placeholder="BRL" />
-          </div>
-        </div>
-
-        {/* ESTOQUE */}
-        <div className="input-group">
-          <label htmlFor="stock">Estoque:</label>
-          <input
-            type="number"
-            id="stock"
-            placeholder="0"
-            step="1"
-            min="0"
-            max="100000"
-            onChange={(e) => setPStock(e.target.value)}
-          />
-          <div className="formated-value">
-            <span> Valor atribuído </span>
-            <input type="text" disabled value={pStock} placeholder="0" />
-          </div>
-          <input
-            type="number"
-            className="hidden"
-            name="stock"
-            value={pStock || 0}
-            readOnly
-          />
-        </div>
-
-        {/* PREÇO FINAL */}
-        <div className="input-group final-price">
-          <label htmlFor="final-price">Preço Final:</label>
-          <input
-            type="text"
-            id="final-price"
-            value={finalPrice.toLocaleString('pt-BR', {
-              style: 'currency',
-              currency: 'BRL',
-            })}
-            disabled
-            readOnly
-          />
-          <input
-            type="number"
-            className="hidden"
-            name="selling_price"
-            value={finalPrice}
-            readOnly
-          />
+      {/* MOEDA */}
+      <div className="input-group">
+        <label htmlFor="currency">Moeda</label>
+        <select
+          name="currency"
+          id="currency"
+          className="text_align-center"
+          defaultValue={DataContent ? DataContent.currency : 'BRL'}
+        >
+          <option value="BRL">Real (BRL)</option>
+        </select>
+        <div className="formated-value">
+          <span>Valor atribuído</span>
+          <input type="text" disabled placeholder="BRL" />
         </div>
       </div>
+
+      {/* ESTOQUE */}
+      <InputGroupPrice
+        textLabel="Estoque:"
+        data={pStock}
+        setData={setPStock}
+        inputName="stock"
+        formatedData={pStock}
+      />
+
+      {/* PREÇO FINAL */}
+      <InputGroupPrice
+        textLabel="Preço Final:"
+        data={finalPrice}
+        inputName="selling_price"
+        formatedData={formatPrice(finalPrice)}
+      />
     </div>
-  );
+  </div>
+);
 }
 
 export default ProdPrice;

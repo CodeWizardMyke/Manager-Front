@@ -7,10 +7,10 @@ import './insert_brand_categorys.css';
 
 import Axios from '../../../axios/config';
 
-function ProdCreateCategorys() {
+function ProdCreateCategorys({DataContent}) {
   const [create, setcreate] = useState(true);
   const [reqResponse, setReqResponse] = useState('');
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState('Nenhuma categoria selecionada!');
   const [attributeList, setAttributeList] = useState([]); 
   const [itemId, setItemId] = useState('');
 
@@ -100,7 +100,7 @@ function ProdCreateCategorys() {
       <div className="input_select">
         <input
           type="text"
-          placeholder={query !== "" ? query : "Nenhuma categoria..."}
+          placeholder={DataContent ? `Categoria: ${DataContent.categoryProduct.category_name}` : query }
           disabled
         />
         {reqResponse !== '' && <span className="req_response">{reqResponse}</span>}
