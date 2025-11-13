@@ -35,17 +35,8 @@ function ViewProductLayout({data, setViewProduct, viewProduct, cThumbnail = [], 
     let arrThumbnails =[]
     let arrAdvertisings =[]
 
-    if(Thumbnail){
-      //Thumbnail.map( element => arrThumbnails.push( URL.createObjectURL(element) ) )
-    }
-    if(Advertsising){
-     // Advertsising.map( element => arrAdvertisings.push( URL.createObjectURL(element) ) )
-    }
     setAdvertisings(arrAdvertisings)
     setThumbnails(arrThumbnails)
-      
-    console.log('advertisings', advertisings)
-    console.log('thumbnails', thumbnails)
   }
 
   function generateImageURLs() {

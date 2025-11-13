@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './productDetails.css'
 
-import {
-
-  formatPrice,
-} from '../pricing/PricingProduct';
+import { formatPrice } from '../pricing/PricingProduct';
 
 function ProdDetails({dataProduct}) {
   const pCost = dataProduct.product_cost ? dataProduct.product_cost : 0;

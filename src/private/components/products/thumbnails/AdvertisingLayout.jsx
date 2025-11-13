@@ -73,7 +73,7 @@ function AdvertisingLayout({imagesChenged, setViewProduct, viewProduct, DataCont
   }
   return (
     <div className='ContentAdvertisingLayout'>
-      <input type="number" value={images.length}  name='advertising_length' className='hidden'/>
+      <input type="number" defaultValue={images.length}  name='advertising_length' className='hidden'/>
 
       <div className="AdvertisingContainer">
         <button 

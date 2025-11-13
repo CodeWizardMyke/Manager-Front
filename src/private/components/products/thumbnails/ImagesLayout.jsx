@@ -75,7 +75,7 @@ function ImagesLayout({imagesChenged, DataContent}) {
 
   return (
     <div className='ImagesLayout'>
-      <input type="number" value={images.length}  name='thumbnail_length' className='hidden'/>
+      <input type="number" defaultValue={images.length}  name='thumbnail_length' className='hidden'/>
 
       <button 
         type='button'

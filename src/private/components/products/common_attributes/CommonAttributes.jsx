@@ -11,7 +11,7 @@ function CommonAttributes({DataContent}) {
           cols={60}  
           name="discribe" 
           id="discribe" 
-          value={ DataContent ? DataContent.discribe : ""}  
+          defaultValue={ DataContent ? DataContent.discribe : ""}  
           placeholder='Descreva mais sobre o produto...'
         />
       </div>
