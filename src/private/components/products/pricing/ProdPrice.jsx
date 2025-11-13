@@ -24,7 +24,12 @@ const marginValue = applyPercentagesIncreases(feesValue, pMargin);
 const discountValue = applyPercentagesDecreases(marginValue, pDiscount);
 
 useEffect(() => {
-  setFinalPrice(discountValue);
+  if(discountValue > 0){
+    setFinalPrice(discountValue);
+  }else{
+    setFinalPrice(pCost)
+  }
+
 }, [pCost, pFees, pMargin, pDiscount, discountValue]);
 
 return (
@@ -78,7 +83,7 @@ return (
           <option value="BRL">Real (BRL)</option>
         </select>
         <div className="formated-value">
-          <span>Valor atribuído</span>
+          <span>Valor definido</span>
           <input type="text" disabled placeholder="BRL" />
         </div>
       </div>

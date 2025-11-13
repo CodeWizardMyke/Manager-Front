@@ -49,20 +49,20 @@ export function applyPercentagesIncreases( value, percent){
   return result
 };
 
-export function applyPercentagesDecreases( value, percent){
-  if (!percent || isNaN(percent)) return value;
+export function applyPercentagesDecreases(value, percent) {
+  if (value == null || percent == null) return 0;
 
-  let nVal = Number(value);
-  let npec = Number(percent);
+  let nVal = parseFloat(value);
+  let nPerc = parseFloat(percent);
 
-  if(npec > 100){
-    npec =100
-  }
-  if(npec < 0 ){
-    npec = 0;
-  }
-  
-  let result = nVal - (nVal * npec) / 100;
+  if (isNaN(nVal) || isNaN(nPerc)) return 0;
 
-  return result;
-};
+  // Se o valor for muito alto, provavelmente seja centavos entao divida por 100
+  if (nVal > 1000) nVal = nVal / 100;
+
+  nPerc = Math.max(0, Math.min(100, nPerc));
+
+  const result = nVal - (nVal * nPerc) / 100;
+
+  return parseFloat(result.toFixed(2));
+}

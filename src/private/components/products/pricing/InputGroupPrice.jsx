@@ -28,11 +28,11 @@ function InputGroupPrice({
 
       {/* Campo apenas informativo (formatado) */}
       <div className="formated-value">
-        <span>Valor atribuído</span>
+        <span>Valor definido</span>
         <input
           type="text"
           value={formatedData || ""}
-          placeholder="R$: 0"
+          placeholder={inputName === "stock" ? 0 : "R$: 0"}
           readOnly
         />
       </div>
