@@ -4,8 +4,6 @@ import './ProdPrice.css';
 import {
   applyPercentagesDecreases,
   applyPercentagesIncreases,
-  formatForParcentage,
-  defaultPriceFormat,
   formatPrice,
 } from './PricingProduct';
 import InputGroupPrice from './InputGroupPrice';

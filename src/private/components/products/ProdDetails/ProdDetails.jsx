@@ -1,58 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import './productDetails.css'
 
+import {
+
+  formatPrice,
+} from '../pricing/PricingProduct';
+
 function ProdDetails({dataProduct}) {
-  const [pCost, setPCost] = useState('');
-  const [pFees, setPFees] = useState('');
-  const [pMargin, setPMargin] = useState('');
-  const [pDiscount, setPDiscount] = useState('');
-  const [finalPrice, setFinalPrice] = useState(0);
-
-  // -------------------------------
-  // Funções utilitárias
-  // -------------------------------
-
-  function parsePrice(val) {
-    if (!val) return 0;
-    const clean = val.replace(/[^\d]/g, '');
-    return Number(clean) / 100;
-  }
-
-
-  function parsePercentage(val) {
-    const num = parseFloat(val);
-    if (isNaN(num)) return 0;
-    if (num < 0) return 0;
-    if (num > 100) return 100;
-    return num;
-  }
-
-  // -------------------------------
-  // Cálculo do preço final
-  // -------------------------------
-  useEffect(() => {
-
-    setPCost(dataProduct.product_cost || 0);
-    setPFees(dataProduct.fees_and_taxes || 0);
-    setPMargin(dataProduct.profit_margin || 0);
-    setPDiscount(dataProduct.discounts || 0);
-
-    const cost = parsePrice(pCost);
-    const fees = parsePercentage(pFees);
-    const margin = parsePercentage(pMargin);
-    const discount = parsePercentage(pDiscount);
-
-    // -------------------------------
-    // custo + taxas + margem - desconto
-    // -------------------------------
-
-    const taxed = cost + (cost * fees) / 100;
-    const profit = taxed + (taxed * margin) / 100;
-    const discounted = profit - (profit * discount) / 100;
-
-    setFinalPrice(discounted || 0);
-  }, [pCost, pFees, pMargin, pDiscount, dataProduct]);
-
+  const pCost = dataProduct.product_cost ? dataProduct.product_cost : 0;
+  const finalPrice = dataProduct.selling_price ? dataProduct.selling_price : 0;
+  
   function getBrandName(){
     if(dataProduct.brand_name){
       return dataProduct.brand_name
@@ -87,13 +44,13 @@ function ProdDetails({dataProduct}) {
           <p><strong>Faixa etaria:</strong> {dataProduct.age_group} </p>
         </div>
         <div className="price">
-          <p className='selling_p'><strong> R$: {finalPrice.toFixed(2)}</strong></p>
-          <p className='original_p'><strong>de:</strong>{pCost}</p>
+          <p className='selling_p'><strong>{formatPrice(finalPrice)}</strong></p>
+          <p className='original_p'><strong>de:</strong>{formatPrice(pCost)}</p>
           <p><strong>Quantidade em estoque:</strong> {dataProduct.stock}</p>
         </div>
         <div className="buyNow">
           <div className='pay_p'>
-            <p>R$: {finalPrice.toFixed(2)} </p>
+            <p>{formatPrice(finalPrice)} </p>
             <input type="number" placeholder='Calcular cep' min={0} />
           </div>
           <div className="delivery">
