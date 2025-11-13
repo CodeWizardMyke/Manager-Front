@@ -57,9 +57,6 @@ export function applyPercentagesDecreases(value, percent) {
 
   if (isNaN(nVal) || isNaN(nPerc)) return 0;
 
-  // Se o valor for muito alto, provavelmente seja centavos entao divida por 100
-  if (nVal > 1000) nVal = nVal / 100;
-
   nPerc = Math.max(0, Math.min(100, nPerc));
 
   const result = nVal - (nVal * nPerc) / 100;
