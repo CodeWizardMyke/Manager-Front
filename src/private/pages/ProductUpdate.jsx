@@ -20,7 +20,6 @@ function ProductUpdate() {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
 
-
   const [dataItem,setDataItem] = useState(null);
 
   const sendRequest = useCallback(async () => {

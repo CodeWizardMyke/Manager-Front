@@ -9,12 +9,14 @@ import {
 import InputGroupPrice from './InputGroupPrice';
 
 function ProdPrice({DataContent}) {
-  const [pCost, setPCost] = useState('');
-  const [pFees, setPFees] = useState('');
-  const [pMargin, setPMargin] = useState('');
-  const [pDiscount, setPDiscount] = useState('');
-  const [pStock, setPStock] = useState('');
-  const [finalPrice, setFinalPrice] = useState(0);
+
+  console.log('DataContent', DataContent)
+  const [pCost, setPCost] = useState(DataContent ? DataContent.product_cost : '');
+  const [pFees, setPFees] = useState(DataContent ? DataContent.fees_and_taxes : '');
+  const [pMargin, setPMargin] = useState(DataContent ? DataContent.profit_margin : '');
+  const [pDiscount, setPDiscount] = useState(DataContent ? DataContent.discounts : '');
+  const [pStock, setPStock] = useState(DataContent ? DataContent.stock : '');
+  const [finalPrice, setFinalPrice] = useState(DataContent ? DataContent.selling_price : 0);
   
 // Valores intermediários (em tempo real)
 const feesValue = applyPercentagesIncreases(pCost, pFees);
