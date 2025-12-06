@@ -8,11 +8,12 @@ import './insert_brand_categorys.css';
 import Axios from '../../../axios/config';
 
 function ProdCreateCategorys({DataContent}) {
+  const category_id = DataContent ? DataContent.fk_category_id : null;
   const [create, setcreate] = useState(true);
   const [reqResponse, setReqResponse] = useState('');
   const [query, setQuery] = useState('Nenhuma categoria selecionada!');
   const [attributeList, setAttributeList] = useState([]); 
-  const [itemId, setItemId] = useState('');
+  const [itemId, setItemId] = useState(category_id);
 
   const containerRef = useRef(null); // 🔹 referência principal
 

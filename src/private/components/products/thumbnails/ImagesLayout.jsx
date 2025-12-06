@@ -8,7 +8,7 @@ import { IoTrashBin } from 'react-icons/io5';
 import './ImagesLayout.css';
 import fetchAxios from '../../../axios/config';
 
-function ImagesLayout({imagesChenged, DataContent}) {
+function ImagesLayout({ DataContent, setImagesRemovedFromApi}) {
   const [images, setImages] = useState([]);
   const [indexCurrentImage, setIndexCurrentImage] = useState(0);
   const [toggleList, setToggleList] = useState(true);
@@ -21,8 +21,9 @@ function ImagesLayout({imagesChenged, DataContent}) {
       
       //separar thumbnail para usar nesse componente
       DataContent.thumbnails.forEach(e => {
-        if(e.type ===0 && e.path){
-         return arrImages.push(`${BaseUrl}${e.path}`);
+        if(e.type === 0 && e.path){
+          e.baseURL = BaseUrl;
+         return arrImages.push(e);
         }; 
         return null;
       } );
@@ -35,21 +36,28 @@ function ImagesLayout({imagesChenged, DataContent}) {
     let files = Array.from(e.target.files);
     setImages(old => {
       const updated = [...old, ...files];
-      imagesChenged(updated); // envia as imagens pro pai
       return updated;
     });
   }
 
   function clearImages(){
     setImages([]);
-    imagesChenged([])
     setIndexCurrentImage(0);
   }
 
 
   function removeImage(event,index){
     event.stopPropagation(); // interrompe a propagação de um evento no DOM, impedindo que ele seja executado em elementos apais do elemento onde foi disparado.
-    let newImages = images.filter( ( img, i ) => i !== index); //filtra todas as imagens que o índice for diferente do índice que eu quero remover
+    let newImages = images.filter( ( img, i ) => {
+      if(typeof img === "object" && img.thumbnail_id){
+        if(i == index){
+          setImagesRemovedFromApi( old => [ ...old, img.thumbnail_id] );
+        }
+        return i !== index;
+      }
+      return i !== index;
+
+    }); //filtra todas as imagens que o índice for diferente do índice que eu quero remover
     setImages(newImages);
 
     if(indexCurrentImage === index){
@@ -66,10 +74,10 @@ function ImagesLayout({imagesChenged, DataContent}) {
       return URL.createObjectURL(element);
     }
 
-    if( typeof element === "string"){
-      return element;
+    if( typeof element === "object"){
+      const getBaseUrl = element.baseURL ? element.baseURL + element.path : '';
+      return getBaseUrl;
     }
-
     return null;
   }
 
@@ -105,7 +113,7 @@ function ImagesLayout({imagesChenged, DataContent}) {
                     (item,index) => (
                       <li key={index} onClick={ () => setIndexCurrentImage(index) }>
                         <img 
-                          src={ checkImageIndex(item) }
+                          src={ checkImageIndex(item)}
                           alt={`Imagem ${index}`} 
                         />
                         <button type='button' className='RemoveImage' onClick={ (event) => removeImage(event,index) }><IoTrashBin/></button>

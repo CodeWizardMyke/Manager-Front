@@ -10,7 +10,6 @@ import InputGroupPrice from './InputGroupPrice';
 
 function ProdPrice({DataContent}) {
 
-  console.log('DataContent', DataContent)
   const [pCost, setPCost] = useState(DataContent ? DataContent.product_cost : '');
   const [pFees, setPFees] = useState(DataContent ? DataContent.fees_and_taxes : '');
   const [pMargin, setPMargin] = useState(DataContent ? DataContent.profit_margin : '');

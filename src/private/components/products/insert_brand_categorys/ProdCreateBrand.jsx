@@ -7,10 +7,12 @@ import './insert_brand_categorys.css';
 import Axios from '../../../axios/config';
 
 function ProdCreateBrand({DataContent}) {
+  const fk_brand_id = DataContent ? DataContent.fk_brand_id : null;
+
   const [ create, setcreate] = useState(true);
   const [ reqResponse, setReqResponse] = useState('');
   const [ query, setQuery] = useState('Nenhuma marca Selecionada!');
-  const [ itemId, setItemId] = useState('');
+  const [ itemId, setItemId] = useState(fk_brand_id);
   const [ attributeList, setAttributeList] = useState([]); // armazena a lista de atributos retornada pela api;
 
   const containerRef = useRef(null); // 🔹 referência principal

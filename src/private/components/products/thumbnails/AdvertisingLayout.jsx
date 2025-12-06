@@ -9,7 +9,7 @@ import { MdAddCircleOutline } from "react-icons/md";
 import { IoMdImages } from "react-icons/io";
 import fetchAxios from '../../../axios/config';
 
-function AdvertisingLayout({imagesChenged, setViewProduct, viewProduct, DataContent}) {
+function AdvertisingLayout({imagesChenged, setViewProduct, viewProduct, DataContent, updateProduct}) {
   const [images, setImages] = useState([]);
   const [indexCurrentImage, setIndexCurrentImage] = useState(0);
   const [toggleListAdv, setToggleListAdv] = useState(true);
@@ -21,8 +21,9 @@ function AdvertisingLayout({imagesChenged, setViewProduct, viewProduct, DataCont
       
       //separar thumbnail para usar nesse componente
       DataContent.thumbnails.forEach(e => {
-        if(e.type ===1 && e.path){
-         return arrImages.push(`${BaseUrl}${e.path}`);
+        if(e.type === 1 && e.path){
+          e.baseURL = BaseUrl;
+         return arrImages.push(e);
         }; 
         return null;
       } );
@@ -65,10 +66,10 @@ function AdvertisingLayout({imagesChenged, setViewProduct, viewProduct, DataCont
       return URL.createObjectURL(element);
     }
 
-    if( typeof element === "string"){
-      return element;
+    if( typeof element === "object"){
+      const getBaseUrl = element.baseURL ? element.baseURL + element.path : '';
+      return getBaseUrl;
     }
-
     return null;
   }
   return (
@@ -135,6 +136,11 @@ function AdvertisingLayout({imagesChenged, setViewProduct, viewProduct, DataCont
       <div className="FormButtons">
         <button type='button' className='bt bt-cancel'>Deletar</button>
         <button type='button' className='bt bt-primary' onClick={()=> setViewProduct(!viewProduct)}>Visualizar</button>
+        <button 
+          type='button'
+          className='bt bt-orange'
+          onClick={updateProduct}
+        >Atualizar</button>
         <button type='submit' className='bt bt-approve'>Cadastrar</button>
       </div>
 

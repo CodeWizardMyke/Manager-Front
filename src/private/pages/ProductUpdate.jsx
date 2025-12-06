@@ -10,8 +10,8 @@ import TopBar from '../components/TopBar/TopBar.jsx';
 import ProductSetData from './ProductSetData.jsx';
 
 function ProductUpdate() {
-  const [data,setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]); // criado um array extra para os dados filtrados
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
   const [query, setQuery] = useState('');
   const [searchBy, setSearchBy] = useState('default');
@@ -20,7 +20,8 @@ function ProductUpdate() {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
 
-  const [dataItem,setDataItem] = useState(null);
+  const [dataItem, setDataItem] = useState(null);
+  const [updatedOrder, setUpdatedOrder] = useState(false);
 
   const sendRequest = useCallback(async () => {
     const response = await searchProduc({ searchBy, query, size, page });
@@ -28,47 +29,74 @@ function ProductUpdate() {
 
     setCount(response.data.count);
     setData(response.data.rows);
+    setFilteredData(response.data.rows); // garante sync inicial
   }, [searchBy, query, size, page]);
 
-  useEffect(()=> {
+  useEffect(() => {
     sendRequest();
-  },[sendRequest])
+  }, [sendRequest]);
 
-  function clickedItem(item){
+  useEffect(() => {
+    if (updatedOrder && dataItem) {
+
+      // Atualiza o array principal
+      const newData = data.map(item =>
+        item.product_id === dataItem.product_id ? dataItem : item
+      );
+
+      // Atualiza a lista filtrada SEM PERDER filtro atual
+      const newFiltered = filteredData.map(item =>
+        item.product_id === dataItem.product_id ? dataItem : item
+      );
+
+      setData(newData);
+      setFilteredData(newFiltered);
+      setUpdatedOrder(false);
+    }
+  }, [updatedOrder, dataItem, data, filteredData]);
+
+  function clickedItem(item) {
     setDataItem(item);
   }
 
   return (
     <main className="container-fluid">
-      {
-        dataItem && <ProductSetData DataContent={dataItem} setDataContent={setDataItem}/>
-      }
-      {
-        <div className={`ContentSearch ${dataItem ? "hidden" : ""}`}>
-          <TopBar text={'Atualizar produto'} /> 
-          <SearchBar  // search bar vai ser responsavel por tratar tanto data quando filtredData 
-            optionSelect={settingsSearchFields}
-            query={query}
-            setQuery={setQuery}
-            searchBy={searchBy}
-            setSearchBy={setSearchBy}
-            filterBy={filterBy}
-            setFilterBy={setFilterBy}
-            data={data}
-            setFilteredData={setFilteredData}
-          />
-          <TableLayout
-            data={filteredData} //invés de tratar os dados diretos aplico o que foi filtrado na tabela
-            settings={settingsTableDefault}
-            clickItem={clickedItem}
-            page={page} setPage={setPage}
-            size={size} setSize={setSize}
-            count={count}
-          />
-        </div>
-      }
+      {dataItem && (
+        <ProductSetData
+          DataContent={dataItem}
+          setDataContent={setDataItem}
+          setUpdatedOrder={setUpdatedOrder}
+        />
+      )}
+
+      <div className={`ContentSearch ${dataItem ? 'hidden' : ''}`}>
+        <TopBar text={'Atualizar produto'} />
+
+        <SearchBar
+          optionSelect={settingsSearchFields}
+          query={query}
+          setQuery={setQuery}
+          searchBy={searchBy}
+          setSearchBy={setSearchBy}
+          filterBy={filterBy}
+          setFilterBy={setFilterBy}
+          data={data}
+          setFilteredData={setFilteredData}
+        />
+
+        <TableLayout
+          data={filteredData}
+          settings={settingsTableDefault}
+          clickItem={clickedItem}
+          page={page}
+          setPage={setPage}
+          size={size}
+          setSize={setSize}
+          count={count}
+        />
+      </div>
     </main>
-  )
+  );
 }
 
-export default ProductUpdate
+export default ProductUpdate;

@@ -19,7 +19,6 @@ export default async function createProduct({target, thumbnails, advertisings}){
   }
 };
 
-
 function insertImagesFile(array, string ,dataToInsert){
   array.forEach( file => dataToInsert.append(string, file));
 };
