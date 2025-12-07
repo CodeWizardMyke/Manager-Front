@@ -9,8 +9,7 @@ import { MdAddCircleOutline } from "react-icons/md";
 import { IoMdImages } from "react-icons/io";
 import fetchAxios from '../../../axios/config';
 
-function AdvertisingLayout({imagesChenged, setViewProduct, viewProduct, DataContent, updateProduct}) {
-  const [images, setImages] = useState([]);
+function AdvertisingLayout({setAdvertising, advertising, setViewProduct, viewProduct, DataContent, updateProduct}) {
   const [indexCurrentImage, setIndexCurrentImage] = useState(0);
   const [toggleListAdv, setToggleListAdv] = useState(true);
 
@@ -28,29 +27,28 @@ function AdvertisingLayout({imagesChenged, setViewProduct, viewProduct, DataCont
         return null;
       } );
 
-      setImages(arrImages)
+      setAdvertising(arrImages)
     }
   }, [DataContent]);
 
 
   function pushImage(e){
     let files = Array.from(e.target.files);
-    setImages(old => {
+    setAdvertising(old => {
       const updated = [...old, ...files];
-      imagesChenged(updated);
       return updated;
     });
   }
 
   function clearImages(){
-    setImages([]);
+    setAdvertising([]);
     setIndexCurrentImage(0);
   }
 
   function removeImage(event,index){
     event.stopPropagation(); // interrompe a propagação de um evento no DOM, impedindo que ele seja executado em elementos apais do elemento onde foi disparado.
-    let newImages = images.filter( ( img, i ) => i !== index); //filtra todas as imagens que o índice for diferente do índice que eu quero remover
-    setImages(newImages);
+    let newImages = advertising.filter( ( img, i ) => i !== index); //filtra todas as imagens que o índice for diferente do índice que eu quero remover
+    setAdvertising(newImages);
 
     if(indexCurrentImage === index){
       setIndexCurrentImage(0);
@@ -74,7 +72,6 @@ function AdvertisingLayout({imagesChenged, setViewProduct, viewProduct, DataCont
   }
   return (
     <div className='ContentAdvertisingLayout'>
-      <input type="number" defaultValue={images.length}  name='advertising_length' className='hidden'/>
 
       <div className="AdvertisingContainer">
         <button 
@@ -84,8 +81,8 @@ function AdvertisingLayout({imagesChenged, setViewProduct, viewProduct, DataCont
           ><FaToggleOn/></button>
         <div className="advThumbnail">
           { 
-            images.length > 0 ? (
-             <img src={ checkImageIndex(images[indexCurrentImage]) } alt="Imagem promoçional do produto" />
+            advertising.length > 0 ? (
+             <img src={ checkImageIndex(advertising[indexCurrentImage]) } alt="Imagem promoçional do produto" />
             ) : <div className="PhotoVideoICN"> <IoMdImages/> </div>
           }
           <div className='image-caption'>Propaganda do produto.</div>
@@ -94,10 +91,10 @@ function AdvertisingLayout({imagesChenged, setViewProduct, viewProduct, DataCont
             toggleListAdv && (
             <div className="advImagesList">
               <ul>
-                { images.length === 0 && <li className="PhotoVideoICN"> <IoMdImages/> </li> }
-                { images.length > 0 &&
+                { advertising.length === 0 && <li className="PhotoVideoICN"> <IoMdImages/> </li> }
+                { advertising.length > 0 &&
                   (
-                    images.map( (img,index) => (
+                    advertising.map( (img,index) => (
                       <li key={"id_Adv:"+index} onClick={ () => setIndexCurrentImage(index) }>
                         <img  src={ checkImageIndex(img) } alt={`Imagem ${index}`} />
                         <button type='button' onClick={ (event) => removeImage(event,index) }><IoTrashBin/></button>
@@ -106,11 +103,11 @@ function AdvertisingLayout({imagesChenged, setViewProduct, viewProduct, DataCont
                   )
                 }
                 {
-                  images.length === 2 && ( <label htmlFor="setImagesAdv">Quantidade maxima</label>)
+                  advertising.length === 2 && ( <label htmlFor="setImagesAdv">Quantidade maxima</label>)
                 }
               </ul>
               <div className="content-buttons-adv">
-                <label htmlFor={ images.length <2 ? "setImagesAdv" :"" }   className="Add" ><MdAddCircleOutline/></label>
+                <label htmlFor={ advertising.length <2 ? "setImagesAdv" :"" }   className="Add" ><MdAddCircleOutline/></label>
                 <label htmlFor="clearImagesAdv"className="Clear"><FaRegTrashAlt/></label>
                 <input
                   type="file"

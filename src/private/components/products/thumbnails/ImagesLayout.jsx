@@ -8,8 +8,7 @@ import { IoTrashBin } from 'react-icons/io5';
 import './ImagesLayout.css';
 import fetchAxios from '../../../axios/config';
 
-function ImagesLayout({ DataContent, setImagesRemovedFromApi}) {
-  const [images, setImages] = useState([]);
+function ImagesLayout({ DataContent, setThumbnails, thumbnails, setImagesRemovedFromApi}) {
   const [indexCurrentImage, setIndexCurrentImage] = useState(0);
   const [toggleList, setToggleList] = useState(true);
 
@@ -28,27 +27,27 @@ function ImagesLayout({ DataContent, setImagesRemovedFromApi}) {
         return null;
       } );
 
-      setImages(arrImages)
+      setThumbnails(arrImages)
     }
   }, [DataContent]);
 
   function pushImage(e){
     let files = Array.from(e.target.files);
-    setImages(old => {
+    setThumbnails(old => {
       const updated = [...old, ...files];
       return updated;
     });
   }
 
   function clearImages(){
-    setImages([]);
+    setThumbnails([]);
     setIndexCurrentImage(0);
   }
 
 
   function removeImage(event,index){
     event.stopPropagation(); // interrompe a propagação de um evento no DOM, impedindo que ele seja executado em elementos apais do elemento onde foi disparado.
-    let newImages = images.filter( ( img, i ) => {
+    let newImages = thumbnails.filter( ( img, i ) => {
       if(typeof img === "object" && img.thumbnail_id){
         if(i == index){
           setImagesRemovedFromApi( old => [ ...old, img.thumbnail_id] );
@@ -58,7 +57,7 @@ function ImagesLayout({ DataContent, setImagesRemovedFromApi}) {
       return i !== index;
 
     }); //filtra todas as imagens que o índice for diferente do índice que eu quero remover
-    setImages(newImages);
+    setThumbnails(newImages);
 
     if(indexCurrentImage === index){
       setIndexCurrentImage(0);
@@ -83,8 +82,6 @@ function ImagesLayout({ DataContent, setImagesRemovedFromApi}) {
 
   return (
     <div className='ImagesLayout'>
-      <input type="number" defaultValue={images.length}  name='thumbnail_length' className='hidden'/>
-
       <button 
         type='button'
         className={ 'toggleImageList' + ( toggleList ? ' active' : '' ) }
@@ -93,14 +90,14 @@ function ImagesLayout({ DataContent, setImagesRemovedFromApi}) {
 
       <div className="CurrentImage">
         <span className='image-caption'> Imagem do produto.</span>
-        {images.length > 0  && <img 
+        {thumbnails.length > 0  && <img 
           src={
-            checkImageIndex(images[indexCurrentImage])
+            checkImageIndex(thumbnails[indexCurrentImage])
           }  /*URL.createObjectURL só serve para o front end para exibição da imagem , já que o back-end não vai aceitar como imagem, porque ele precisa dos bytes do File */
           alt="Imagem atual selecionada" 
         />}
         {
-          !images.length > 0 && <div className="PhotoVideoICN"> <IoMdImages/> </div>
+          !thumbnails.length > 0 && <div className="PhotoVideoICN"> <IoMdImages/> </div>
         }
       </div>
         {
@@ -109,7 +106,7 @@ function ImagesLayout({ DataContent, setImagesRemovedFromApi}) {
             <div className="ImageLayoutSideL">
               <div className="ImageList">
                 <ul>
-                  {images.length >0 && images.map(
+                  {thumbnails.length >0 && thumbnails.map(
                     (item,index) => (
                       <li key={index} onClick={ () => setIndexCurrentImage(index) }>
                         <img 
@@ -121,7 +118,7 @@ function ImagesLayout({ DataContent, setImagesRemovedFromApi}) {
                     )
                   ) }
                   {
-                    !images.length > 0 && <li className='DarkList'><IoMdImages/></li>
+                    !thumbnails.length > 0 && <li className='DarkList'><IoMdImages/></li>
                   }
                 </ul>
               </div>

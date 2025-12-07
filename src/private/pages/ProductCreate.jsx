@@ -15,24 +15,22 @@ import ViewProductLayout from '../components/products/ViewProductLayout';
 import Loading from '../components/loading/Loading';
 
 function ProductCreate() {
-  
   const [thumbnails, setThumbnails]  = useState([]);
   const [advertising, setAdvertising] = useState([]);
-
-  const [loading, setLoading] = useState(false);
   const [viewProduct, setViewProduct] = useState(false);
-  const [getDataForm, setGetDataForm] = useState({});
+  const [loading, setLoading] = useState(false);
 
   function onSubmitForm (e){
     e.preventDefault();
     setLoading(true);
     const bodyData = new FormData(e.target);
 
-    // Anexa as imagens do estado manualmente:
+    bodyData.append("thumbnail_length", thumbnails.length);
     thumbnails.forEach((file, i) => {
       bodyData.append('thumbnails', file);
     });
-
+    
+    bodyData.append("advertising_length", advertising.length);
     advertising.forEach((file, i) => {
       bodyData.append('thumbnails', file);
     });
@@ -60,17 +58,18 @@ function ProductCreate() {
     }
   };
 
-  function handderSetDataForm (e) {
-    setGetDataForm(e.target);
-  }
-
   return (
     <main className="container-fluid">
-        <form id='FormCreateProduct'  className={`product-create-form ${viewProduct ? "hidden" : ""}`} onSubmit={onSubmitForm} onChange={(e) => handderSetDataForm(e)}>
-          { loading && <Loading /> }
+        { loading && <Loading /> }
+
+        <form 
+          id='FormCreateProduct'
+          className={`product-create-form ${viewProduct ? "hidden" : ""}`}
+          onSubmit={onSubmitForm} 
+        >
           <TopBar text={'Cadastro de produto'}/>
           <div className="content-top-module">
-            <ImagesLayout imagesChenged={setThumbnails}/>
+            <ImagesLayout setThumbnails={setThumbnails} thumbnails={thumbnails} />
             <MovieLayout/>
           </div>
           <div className="content-bottom-module">
@@ -81,19 +80,22 @@ function ProductCreate() {
               <ProdCreateBrand/>
               <ProdCreateCategorys/>
               <ProdPrice/>
-              <AdvertisingLayout imagesChenged={setAdvertising} setViewProduct={setViewProduct} />
+              <AdvertisingLayout 
+                setAdvertising={setAdvertising}
+                advertising={advertising}
+                setViewProduct={setViewProduct}
+              />
             </div>
           </div>
         </form>
-        {
-          viewProduct && 
+
+        {viewProduct && 
           <ViewProductLayout 
             setViewProduct={setViewProduct} 
             viewProduct={viewProduct}
             cThumbnail={thumbnails}
             cAdvertsising={advertising}
-          />
-        }
+        />}
     </main>
   )
 }
