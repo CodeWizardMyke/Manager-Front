@@ -8,144 +8,134 @@ import { IoTrashBin } from 'react-icons/io5';
 import './ImagesLayout.css';
 import fetchAxios from '../../../axios/config';
 
-function ImagesLayout({ DataContent, setThumbnails, thumbnails, setImagesRemovedFromApi}) {
-  const [indexCurrentImage, setIndexCurrentImage] = useState(0);
+function ImagesLayout({ DataContent, setThumbnails, thumbnails, setRemoveFromApi }) {
   const [toggleList, setToggleList] = useState(true);
+  const [indexCurrentImage, setIndexCurrentImage] = useState(0);
 
-  // popular o aray atual com as imagens retornada da api
+
+  // CARREGAR IMAGENS DA API
   useEffect(() => {
-    if(DataContent){
-      const arrImages = [];
-      const BaseUrl = fetchAxios.defaults.baseURL.split("/api")[0]
-      
-      //separar thumbnail para usar nesse componente
-      DataContent.thumbnails.forEach(e => {
-        if(e.type === 0 && e.path){
-          e.baseURL = BaseUrl;
-         return arrImages.push(e);
-        }; 
-        return null;
-      } );
+    if (!DataContent) return;
 
-      setThumbnails(arrImages)
-    }
+    const BaseUrl = fetchAxios.defaults.baseURL.split("/api")[0];
+
+    const arrImages = DataContent.thumbnails
+      .filter(img => img.type === 0 && img.path)
+      .map(img => ({
+        ...img,
+        preview: BaseUrl + img.path, 
+        fromApi: true
+      }));
+
+    setThumbnails(arrImages);
+
   }, [DataContent]);
 
-  function pushImage(e){
-    let files = Array.from(e.target.files);
-    setThumbnails(old => {
-      const updated = [...old, ...files];
-      return updated;
-    });
+
+  // ADICIONAR IMAGENS DO INPUT
+  function pushImage(e) {
+    const files = Array.from(e.target.files);
+
+    const newImage = files.map(file => ({
+      file,
+      preview: URL.createObjectURL(file), // preview REAL
+      fromApi: false
+    }));
+
+    setThumbnails(old => [...old, ...newImage]);
   }
 
-  function clearImages(){
-    setThumbnails([]);
-    setIndexCurrentImage(0);
+  // REMOVER IMAGEM
+  function removeImage(event, index) {
+    event.stopPropagation();
+
+    const removed = thumbnails[index];
+
+    if (removed?.fromApi && removed.thumbnail_id) {
+      setRemoveFromApi(old => [...old, removed.thumbnail_id]);
+    }
+
+    setThumbnails(old => old.filter((_, i) => i !== index));
+
+    if (indexCurrentImage === index) setIndexCurrentImage(0);
+    else if (indexCurrentImage > index) setIndexCurrentImage(i => i - 1);
   }
 
-
-  function removeImage(event,index){
-    event.stopPropagation(); // interrompe a propagação de um evento no DOM, impedindo que ele seja executado em elementos apais do elemento onde foi disparado.
-    let newImages = thumbnails.filter( ( img, i ) => {
-      if(typeof img === "object" && img.thumbnail_id){
-        if(i == index){
-          setImagesRemovedFromApi( old => [ ...old, img.thumbnail_id] );
-        }
-        return i !== index;
-      }
-      return i !== index;
-
-    }); //filtra todas as imagens que o índice for diferente do índice que eu quero remover
-    setThumbnails(newImages);
-
-    if(indexCurrentImage === index){
-      setIndexCurrentImage(0);
-    }
-    else if(indexCurrentImage > index){
-      setIndexCurrentImage( (oldIndex => oldIndex -1)); //se o índice da imagem atual for maior que o índice que eu quero remover, eu diminuo 1 do índice da imagem atual
-    }
-  }
-
-  function checkImageIndex(element){
-    
-    if( element instanceof File ){
-      return URL.createObjectURL(element);
-    }
-
-    if( typeof element === "object"){
-      const getBaseUrl = element.baseURL ? element.baseURL + element.path : '';
-      return getBaseUrl;
-    }
-    return null;
+  // FUNÇÃO SEGURA PARA PEGAR PREVIEW
+  function getPreview(img) {
+    return img?.preview || null;
   }
 
   return (
     <div className='ImagesLayout'>
-      <button 
+      <button
         type='button'
-        className={ 'toggleImageList' + ( toggleList ? ' active' : '' ) }
+        className={'toggleImageList' + (toggleList ? ' active' : '')}
         onClick={() => setToggleList(!toggleList)}
-        ><FaToggleOn/></button>
+      >
+        <FaToggleOn />
+      </button>
 
       <div className="CurrentImage">
-        <span className='image-caption'> Imagem do produto.</span>
-        {thumbnails.length > 0  && <img 
-          src={
-            checkImageIndex(thumbnails[indexCurrentImage])
-          }  /*URL.createObjectURL só serve para o front end para exibição da imagem , já que o back-end não vai aceitar como imagem, porque ele precisa dos bytes do File */
-          alt="Imagem atual selecionada" 
-        />}
-        {
-          !thumbnails.length > 0 && <div className="PhotoVideoICN"> <IoMdImages/> </div>
-        }
-      </div>
-        {
-          toggleList && (
+        <span className='image-caption'>Imagem do produto</span>
 
-            <div className="ImageLayoutSideL">
-              <div className="ImageList">
-                <ul>
-                  {thumbnails.length >0 && thumbnails.map(
-                    (item,index) => (
-                      <li key={index} onClick={ () => setIndexCurrentImage(index) }>
-                        <img 
-                          src={ checkImageIndex(item)}
-                          alt={`Imagem ${index}`} 
-                        />
-                        <button type='button' className='RemoveImage' onClick={ (event) => removeImage(event,index) }><IoTrashBin/></button>
-                      </li>
-                    )
-                  ) }
-                  {
-                    !thumbnails.length > 0 && <li className='DarkList'><IoMdImages/></li>
-                  }
-                </ul>
-              </div>
-              <div className="ImageSelection">
-                <label htmlFor="SetImageProduct" className='Add'><MdAddCircleOutline/></label>
-                <label htmlFor="ClearImages" className='Clear'><FaRegTrashAlt/></label>
-                <button 
-                  type='button' 
-                  id='ClearImages' 
-                  className='hidden'
-                  onClick={()=> clearImages()}
-                ></button>
-                <input
-                    type="file"
-                    name="thumbnails"
-                    id="SetImageProduct"
-                    className='hidden'
-                    multiple //Usar Essa função par adicionar mais de uma imagem
-                    accept="image/*" //Função para aceitar apenas imagens
-                    onChange={pushImage} //Sempre que houver uma mudança nova atualize a lista de imagens
-                />
-              </div>
-            </div>
-          )
-        }
+        {thumbnails.length > 0 ? (
+          <img src={getPreview(thumbnails[indexCurrentImage])} alt="Imagem atual" />
+        ) : (
+          <div className="PhotoVideoICN"><IoMdImages /></div>
+        )}
+      </div>
+
+      {toggleList && (
+        <div className="ImageLayoutSideL">
+          <div className="ImageList">
+            <ul>
+              {thumbnails.length > 0 ? (
+                thumbnails.map((item, index) => (
+                  <li key={index} onClick={() => setIndexCurrentImage(index)}>
+                    <img src={getPreview(item)} alt="" />
+                    <button
+                      type='button'
+                      className='RemoveImage'
+                      onClick={(ev) => removeImage(ev, index)}
+                    >
+                      <IoTrashBin />
+                    </button>
+                  </li>
+                ))
+              ) : (
+                <li className='DarkList'><IoMdImages /></li>
+              )}
+            </ul>
+          </div>
+
+          <div className="ImageSelection">
+            <label htmlFor="SetImageProduct" className='Add'>
+              <MdAddCircleOutline />
+            </label>
+
+            <label htmlFor="ClearImages" className='Clear'>
+              <FaRegTrashAlt />
+            </label>
+
+            <button id='ClearImages' type='button' className='hidden'
+              onClick={() => setThumbnails([])}
+            ></button>
+
+            <input
+              type="file"
+              id="SetImageProduct"
+              name="thumbnails"
+            accept="image/*"
+              className="hidden"
+              onChange={pushImage}
+            />
+          </div>
+        </div>
+      )}
     </div>
-  )
+  );
 }
+
 
 export default ImagesLayout

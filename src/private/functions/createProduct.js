@@ -2,6 +2,7 @@ import fetchAxios from "../axios/config";
 
 export default async function createProduct({target, thumbnails, advertisings}){
   const formData = new FormData(target);
+  
   const conURL = "/product/crud/create";
   const headers = {"Content-Type": "multpart/form-data"}
 

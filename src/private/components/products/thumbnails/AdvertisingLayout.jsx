@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { IoTrashBin } from 'react-icons/io5';
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FaToggleOn } from "react-icons/fa";
@@ -9,35 +9,38 @@ import { MdAddCircleOutline } from "react-icons/md";
 import { IoMdImages } from "react-icons/io";
 import fetchAxios from '../../../axios/config';
 
-function AdvertisingLayout({setAdvertising, advertising, setViewProduct, viewProduct, DataContent, updateProduct}) {
+function AdvertisingLayout({setAdvertising, advertising, setViewProduct, viewProduct, DataContent, updateProduct, setRemoveFromApi}) {
   const [indexCurrentImage, setIndexCurrentImage] = useState(0);
   const [toggleListAdv, setToggleListAdv] = useState(true);
 
-  useEffect(() => {
-    if(DataContent){
-      const arrImages = [];
-      const BaseUrl = fetchAxios.defaults.baseURL.split("/api")[0]
-      
-      //separar thumbnail para usar nesse componente
-      DataContent.thumbnails.forEach(e => {
-        if(e.type === 1 && e.path){
-          e.baseURL = BaseUrl;
-         return arrImages.push(e);
-        }; 
-        return null;
-      } );
+  React.useEffect(() => {
+    if (!DataContent) return;
 
-      setAdvertising(arrImages)
-    }
-  }, [DataContent]);
+    const BaseUrl = fetchAxios.defaults.baseURL.split("/api")[0];
+
+    const arrImages = DataContent.thumbnails
+      .filter(img => img.type === 1 && img.path)
+      .map(img => ({
+        ...img,
+        preview: BaseUrl + img.path, 
+        fromApi: true
+      }));
+
+    setAdvertising(arrImages);
+
+  }, [DataContent,setAdvertising]);
 
 
-  function pushImage(e){
-    let files = Array.from(e.target.files);
-    setAdvertising(old => {
-      const updated = [...old, ...files];
-      return updated;
-    });
+  function pushImage(e) {
+    const files = Array.from(e.target.files);
+
+    const newImage = files.map(file => ({
+      file,
+      preview: URL.createObjectURL(file), // preview REAL
+      fromApi: false
+    }));
+
+    setAdvertising(old => [...old, ...newImage]);
   }
 
   function clearImages(){
@@ -45,31 +48,25 @@ function AdvertisingLayout({setAdvertising, advertising, setViewProduct, viewPro
     setIndexCurrentImage(0);
   }
 
-  function removeImage(event,index){
-    event.stopPropagation(); // interrompe a propagação de um evento no DOM, impedindo que ele seja executado em elementos apais do elemento onde foi disparado.
-    let newImages = advertising.filter( ( img, i ) => i !== index); //filtra todas as imagens que o índice for diferente do índice que eu quero remover
-    setAdvertising(newImages);
+  function removeImage(event, index) {
+    event.stopPropagation();
 
-    if(indexCurrentImage === index){
-      setIndexCurrentImage(0);
+    const removed = advertising[index];
+
+    if (removed?.fromApi && removed.thumbnail_id) {
+      setRemoveFromApi(old => [...old, removed.thumbnail_id]);
     }
-    else if(indexCurrentImage > index){
-      setIndexCurrentImage( (oldIndex => oldIndex -1)); //se o índice da imagem atual for maior que o índice que eu quero remover, eu diminuo 1 do índice da imagem atual
-    }
+
+    setAdvertising(old => old.filter((_, i) => i !== index));
+
+    if (indexCurrentImage === index) setIndexCurrentImage(0);
+    else if (indexCurrentImage > index) setIndexCurrentImage(i => i - 1);
   }
 
-  function checkImageIndex(element){
-    
-    if( element instanceof File ){
-      return URL.createObjectURL(element);
-    }
-
-    if( typeof element === "object"){
-      const getBaseUrl = element.baseURL ? element.baseURL + element.path : '';
-      return getBaseUrl;
-    }
-    return null;
+  function getPreview(img) {
+    return img?.preview || null;
   }
+
   return (
     <div className='ContentAdvertisingLayout'>
 
@@ -82,7 +79,7 @@ function AdvertisingLayout({setAdvertising, advertising, setViewProduct, viewPro
         <div className="advThumbnail">
           { 
             advertising.length > 0 ? (
-             <img src={ checkImageIndex(advertising[indexCurrentImage]) } alt="Imagem promoçional do produto" />
+             <img src={ getPreview(advertising[indexCurrentImage]) } alt="Imagem promoçional do produto" />
             ) : <div className="PhotoVideoICN"> <IoMdImages/> </div>
           }
           <div className='image-caption'>Propaganda do produto.</div>
@@ -96,7 +93,7 @@ function AdvertisingLayout({setAdvertising, advertising, setViewProduct, viewPro
                   (
                     advertising.map( (img,index) => (
                       <li key={"id_Adv:"+index} onClick={ () => setIndexCurrentImage(index) }>
-                        <img  src={ checkImageIndex(img) } alt={`Imagem ${index}`} />
+                        <img  src={ getPreview(img) } alt={`Imagem ${index}`} />
                         <button type='button' onClick={ (event) => removeImage(event,index) }><IoTrashBin/></button>
                       </li>
                     ))

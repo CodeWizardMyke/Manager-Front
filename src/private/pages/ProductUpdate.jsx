@@ -29,7 +29,7 @@ function ProductUpdate() {
 
     setCount(response.data.count);
     setData(response.data.rows);
-    setFilteredData(response.data.rows); // garante sync inicial
+    setFilteredData(response.data.rows); 
   }, [searchBy, query, size, page]);
 
   useEffect(() => {

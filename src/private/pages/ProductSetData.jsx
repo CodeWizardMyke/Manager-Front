@@ -1,5 +1,5 @@
 //pagina para adicionar produtos e tambem editar os mesmos
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useRef, useState } from 'react'
 
 import Loading from '../components/loading/Loading'
 import createProduct from '../functions/createProduct';
@@ -12,57 +12,71 @@ import AdvertisingLayout from '../components/products/thumbnails/AdvertisingLayo
 import ViewProductLayout from '../components/products/ViewProductLayout';
 import CommonAttributes from '../components/products/common_attributes/CommonAttributes';
 import TopBar from '../components/TopBar/TopBar';
-import fetchAxios from '../axios/config';
+import putProduct from '../functions/puProduct';
 
 function ProductSetData({DataContent, setDataContent, setUpdatedOrder}) {
   const [loading, setLoading] = useState(false);
-  const [thumbnails, setThumbnails] = useState([]);
-  const [advertising, setAdvertising] = useState([]);
   const [viewProduct,setViewProduct] = useState(null);
-  const [imagesRemovedFromApi, setImagesRemovedFromApi] = useState([]);
-
-  useEffect(() => {
-  console.log('imagesRemovedFromApi', imagesRemovedFromApi)
-  }, [imagesRemovedFromApi]);
+  const formRef = useRef(null);
+  
+  const [removedImg, setRemovedImg] = useState([]);
+  const [thumbnails, setThumbnails]= useState([]);
+  const [advertisings, setAdvertisings]= useState([]);  
 
   async function sendRequest(event){
-    event.preventDefault();
-    setLoading(true);
+    try {
 
-    const response = await createProduct(event.target, thumbnails, advertising);
-    if(response.error) {
-      handlerErrors(response.error);
-    };
-
-    setLoading(false);
-    alert("Producto cadastrado com sucesso!");
+      event.preventDefault();
+      setLoading(true);
+  
+      await createProduct(event.target, thumbnails, advertisings);
+      
+      setLoading(false);
+      alert("Producto cadastrado com sucesso!");
+      
+    } catch (error) {
+      console.log('error', error);
+      setLoading(false);
+      handlerErrors(error);
+    }
   }
 
   async function updateProduct() {
-    const DataFormHtml = document.querySelector("#FormCreateProduct");
-    const dataForm = new FormData(DataFormHtml);
-    dataForm.append("removed_thumbnails", JSON.stringify(imagesRemovedFromApi));
-
-    thumbnails.forEach( (file, index) => {
-      if(typeof file !== "string"){
-        dataForm.append("thumbnails", file);
-      }
-    })
-    return false 
     try {
-      const response = await fetchAxios.put(
-        "/product/crud/update",
-        dataForm,
-        {"Content-Type": "multpart/form-data"}
-      )
-      setDataContent(response.data);
-      setUpdatedOrder(true);
-      setLoading(false);
+      setLoading(true);
+      const dataForm = new FormData(formRef.current);
+
+      let thumbApendLength = 0;
+      thumbnails.forEach(image => {
+        if (!image.fromApi && image.file) {
+          thumbApendLength += 1;
+          dataForm.append("thumbnails", image.file);
+        }
+      })
+      dataForm.append("thumbnail_length", thumbApendLength);
       
+      let advertApendLength = 0;
+      advertisings.forEach(image => {
+        if (!image.fromApi && image.file) {
+          advertApendLength += 1;
+          dataForm.append("thumbnails", image.file);
+        }
+      })
+      dataForm.append("advertising_length", advertApendLength);
+
+      dataForm.append("product_id", DataContent.product_id);
+      dataForm.append("thumbnails_removed",removedImg);
+      
+      const response = await putProduct({ htmlForm: dataForm });
+
+      setUpdatedOrder(true);
+      setDataContent(response.data);
+      setLoading(false);
+
     } catch (error) {
       setLoading(false);
-      alert(error.response.data.msg || "Erro ao atualizar produto");
-      console.log('error', error)
+      console.log('error', error);
+
     }
   }
 
@@ -76,21 +90,15 @@ function ProductSetData({DataContent, setDataContent, setUpdatedOrder}) {
   return (
     <main className="container-fuild">
       { loading && <Loading /> }
-      {DataContent && <button type='button' className='ButtonFixed' onClick={e => setDataContent(null)} >Voltar</button>}
+      {DataContent && <button type='button' className='ButtonFixed' onClick={ () => setDataContent(null)} >Voltar</button>}
       <form 
-        id='FormCreateProduct'
+        ref={formRef}
         className={`product-create-form ${viewProduct ? "hidden" : ""}`}
         onSubmit={e => sendRequest(e)}
       >
-        <input type="hidden" name="product_id" value={DataContent.product_id} />
         <TopBar text={'Cadastro de produto'}/>
-
         <div className="content-top-module">
-          <ImagesLayout 
-            imagesChenged={setThumbnails} 
-            DataContent={DataContent} 
-            setImagesRemovedFromApi={setImagesRemovedFromApi}
-          />
+          <ImagesLayout  setThumbnails={setThumbnails} thumbnails={thumbnails} DataContent={DataContent} setRemoveFromApi={setRemovedImg}  />
           <MovieLayout DataContent={DataContent} />
         </div>
 
@@ -101,11 +109,12 @@ function ProductSetData({DataContent, setDataContent, setUpdatedOrder}) {
             <ProdCreateCategorys DataContent={DataContent} />
             <ProdPrice DataContent={DataContent} />
             <AdvertisingLayout
-              imagesChenged={setAdvertising}
+              setAdvertising={setAdvertisings}
+              advertising={advertisings}
               setViewProduct={setViewProduct} 
               DataContent={DataContent}
               updateProduct={updateProduct}
-              imagesRemovedFromApi={imagesRemovedFromApi}
+              setRemoveFromApi={setRemovedImg} 
             />
           </div>
         </div>
@@ -116,8 +125,8 @@ function ProductSetData({DataContent, setDataContent, setUpdatedOrder}) {
           data={DataContent}
           setViewProduct={setViewProduct}
           viewProduct={viewProduct}
-          cThumbnail={thumbnails}
-          cAdvertsising={advertising}
+          cAdvertsising={advertisings}
+          cThumbnail={ thumbnails}
       />}
     </main>
   )
