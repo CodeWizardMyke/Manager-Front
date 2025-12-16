@@ -9,7 +9,16 @@ import { MdAddCircleOutline } from "react-icons/md";
 import { IoMdImages } from "react-icons/io";
 import fetchAxios from '../../../axios/config';
 
-function AdvertisingLayout({setAdvertising, advertising, setViewProduct, viewProduct, DataContent, updateProduct, setRemoveFromApi}) {
+function AdvertisingLayout({
+  setAdvertising, 
+  advertising,
+  setViewProduct,
+  viewProduct, 
+  DataContent, 
+  updateProduct, 
+  setRemoveFromApi,
+  deleteProduct
+}) {
   const [indexCurrentImage, setIndexCurrentImage] = useState(0);
   const [toggleListAdv, setToggleListAdv] = useState(true);
 
@@ -128,7 +137,7 @@ function AdvertisingLayout({setAdvertising, advertising, setViewProduct, viewPro
       </div>
 
       <div className="FormButtons">
-        <button type='button' className='bt bt-cancel'>Deletar</button>
+        <button type='button' className='bt bt-cancel' onClick={deleteProduct}>Deletar</button>
         <button type='button' className='bt bt-primary' onClick={()=> setViewProduct(!viewProduct)}>Visualizar</button>
         <button 
           type='button'

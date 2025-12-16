@@ -1,5 +1,5 @@
 //pagina para adicionar produtos e tambem editar os mesmos
-import React, {useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import Loading from '../components/loading/Loading'
 import createProduct from '../functions/createProduct';
@@ -13,6 +13,7 @@ import ViewProductLayout from '../components/products/ViewProductLayout';
 import CommonAttributes from '../components/products/common_attributes/CommonAttributes';
 import TopBar from '../components/TopBar/TopBar';
 import putProduct from '../functions/puProduct';
+import deleteProductApi from '../functions/deleteProductApi';
 
 function ProductSetData({DataContent, setDataContent, setUpdatedOrder}) {
   const [loading, setLoading] = useState(false);
@@ -80,6 +81,21 @@ function ProductSetData({DataContent, setDataContent, setUpdatedOrder}) {
     }
   }
 
+  async function deleteProduct() {
+    try {
+      setLoading(true);
+      await deleteProductApi({product_id: DataContent.product_id});
+      setUpdatedOrder(true);
+      setDataContent(null);
+      
+      setLoading(false);
+      
+    } catch (error) {
+      console.log('error', error);
+      alert('Erro ao deletar produto');
+    }
+  }
+
   function handlerErrors(params) {
     if(params.errors){
       console.log('data', params.errors);
@@ -115,6 +131,7 @@ function ProductSetData({DataContent, setDataContent, setUpdatedOrder}) {
               DataContent={DataContent}
               updateProduct={updateProduct}
               setRemoveFromApi={setRemovedImg} 
+              deleteProduct={deleteProduct}
             />
           </div>
         </div>

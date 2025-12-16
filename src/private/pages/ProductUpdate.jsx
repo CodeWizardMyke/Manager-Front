@@ -53,7 +53,11 @@ function ProductUpdate() {
       setFilteredData(newFiltered);
       setUpdatedOrder(false);
     }
-  }, [updatedOrder, dataItem, data, filteredData]);
+    if(updatedOrder && !dataItem){
+      sendRequest();
+      setUpdatedOrder(false);
+    }
+  }, [updatedOrder, dataItem, data, filteredData, sendRequest]);
 
   function clickedItem(item) {
     setDataItem(item);
