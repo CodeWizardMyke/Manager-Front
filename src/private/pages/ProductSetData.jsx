@@ -19,7 +19,7 @@ function ProductSetData({DataContent, setDataContent, setUpdatedOrder}) {
   const [loading, setLoading] = useState(false);
   const [viewProduct,setViewProduct] = useState(null);
   const formRef = useRef(null);
-  
+  const [movieRemoved, setMovieRemoved] = useState(false);
   const [removedImg, setRemovedImg] = useState([]);
   const [thumbnails, setThumbnails]= useState([]);
   const [advertisings, setAdvertisings]= useState([]);  
@@ -46,6 +46,10 @@ function ProductSetData({DataContent, setDataContent, setUpdatedOrder}) {
     try {
       setLoading(true);
       const dataForm = new FormData(formRef.current);
+      
+      if(movieRemoved){
+        dataForm.append("movie_removed", true);
+      }
 
       let thumbApendLength = 0;
       thumbnails.forEach(image => {
@@ -115,7 +119,7 @@ function ProductSetData({DataContent, setDataContent, setUpdatedOrder}) {
         <TopBar text={'Cadastro de produto'}/>
         <div className="content-top-module">
           <ImagesLayout  setThumbnails={setThumbnails} thumbnails={thumbnails} DataContent={DataContent} setRemoveFromApi={setRemovedImg}  />
-          <MovieLayout DataContent={DataContent} />
+          <MovieLayout DataContent={DataContent} setMovieRemoved={setMovieRemoved} />
         </div>
 
         <div className="content-bottom-module">

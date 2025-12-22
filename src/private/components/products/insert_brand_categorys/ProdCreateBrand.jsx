@@ -6,7 +6,7 @@ import './insert_brand_categorys.css';
 
 import Axios from '../../../axios/config';
 
-function ProdCreateBrand({DataContent}) {
+function ProdCreateBrand({DataContent,clearFields = null, setClearFields}) {
   const fk_brand_id = DataContent ? DataContent.fk_brand_id : null;
 
   const [ create, setcreate] = useState(true);
@@ -34,6 +34,15 @@ function ProdCreateBrand({DataContent}) {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    if(clearFields && clearFields !== null){
+      setQuery('Nenhuma marca Selecionada!');
+      setItemId(null);
+      setAttributeList([]);
+      setClearFields(false);
+    }
+  }, [clearFields,setClearFields]);
 
   const createAttribute = async () => {
     try {

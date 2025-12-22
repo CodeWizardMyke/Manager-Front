@@ -7,7 +7,7 @@ import './insert_brand_categorys.css';
 
 import Axios from '../../../axios/config';
 
-function ProdCreateCategorys({DataContent}) {
+function ProdCreateCategorys({DataContent, clearFields = null, setClearFields}) {
   const category_id = DataContent ? DataContent.fk_category_id : null;
   const [create, setcreate] = useState(true);
   const [reqResponse, setReqResponse] = useState('');
@@ -36,6 +36,15 @@ function ProdCreateCategorys({DataContent}) {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+   useEffect(() => {
+      if(clearFields && clearFields !== null){
+        setQuery('Nenhuma categoria selecionada!');
+        setItemId(null);
+        setAttributeList([]);
+        setClearFields(false);
+      }
+    }, [clearFields,setClearFields]);
 
   const createAttribute = async () => {
     try {

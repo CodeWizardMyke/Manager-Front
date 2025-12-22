@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import fetchAxios from '../axios/config';
 import '../style/module.css'
@@ -19,6 +19,8 @@ function ProductCreate() {
   const [advertising, setAdvertising] = useState([]);
   const [viewProduct, setViewProduct] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [clearFields, setClearFields] = useState(false);
+  const useForm = useRef(null);
 
   function onSubmitForm (e){
     e.preventDefault();
@@ -46,8 +48,10 @@ function ProductCreate() {
     fetchAxios.post('/product/crud/create', bodyData,{headers: {'Content-Type': 'multipart/form-data'}})
     .then((response) => {
       console.log('Produto cadastrado com sucesso:', response.data);
+
       setLoading(false);
       alert("Cadastro realizado com sucesso!");
+      clearForm();
     })
     .catch((error) => {
       setLoading(false);
@@ -66,11 +70,19 @@ function ProductCreate() {
     }
   };
 
+  function clearForm(){
+      setThumbnails([]);
+      setAdvertising([]);
+      setClearFields(true);
+      useForm.current.reset();
+  }
+
   return (
     <main className="container-fluid">
         { loading && <Loading /> }
 
         <form 
+          ref={useForm}
           id='FormCreateProduct'
           className={`product-create-form ${viewProduct ? "hidden" : ""}`}
           onSubmit={onSubmitForm} 
@@ -78,16 +90,27 @@ function ProductCreate() {
           <TopBar text={'Cadastro de produto'}/>
           <div className="content-top-module">
             <ImagesLayout setThumbnails={setThumbnails} thumbnails={thumbnails} />
-            <MovieLayout/>
+            <MovieLayout
+            clearFields={clearFields} 
+            setClearFields={setClearFields}
+            />
           </div>
           <div className="content-bottom-module">
             <div className="rightContent">
               <ProdCreateDescription/>
             </div>
             <div className="leftContent">
-              <ProdCreateBrand/>
-              <ProdCreateCategorys/>
-              <ProdPrice/>
+              <ProdCreateBrand
+                clearFields={clearFields} 
+                setClearFields={setClearFields}
+              />
+              <ProdCreateCategorys
+                clearFields={clearFields} 
+                setClearFields={setClearFields}/>
+              <ProdPrice
+                clearFields={clearFields} 
+                setClearFields={setClearFields}
+              />
               <AdvertisingLayout 
                 setAdvertising={setAdvertising}
                 advertising={advertising}

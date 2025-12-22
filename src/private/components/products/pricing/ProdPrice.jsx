@@ -8,7 +8,7 @@ import {
 } from './PricingProduct';
 import InputGroupPrice from './InputGroupPrice';
 
-function ProdPrice({DataContent}) {
+function ProdPrice({DataContent, clearFields = null, setClearFields}) {
 
   const [pCost, setPCost] = useState(DataContent ? DataContent.product_cost : '');
   const [pFees, setPFees] = useState(DataContent ? DataContent.fees_and_taxes : '');
@@ -31,6 +31,17 @@ useEffect(() => {
 
 }, [pCost, pFees, pMargin, pDiscount, discountValue]);
 
+   useEffect(() => {
+      if(clearFields && clearFields !== null){
+        setPCost('');
+        setPFees('');
+        setPMargin('');
+        setPDiscount('');
+        setPStock('');
+        setFinalPrice(0);
+        setClearFields(false);
+      }
+    }, [clearFields,setClearFields]);
 return (
   <div className="ProdPrice">
     <div className="price-inputs">

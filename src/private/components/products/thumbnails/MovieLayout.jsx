@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BiSolidMoviePlay } from "react-icons/bi";
 import './MovieLayout.css';
 
-function MovieLayout({ DataContent }) {
+function MovieLayout({ DataContent, clearFields,setClearFields, setMovieRemoved }) {
   const [movieURL, setMovieURL] = useState('');
   const [showMovie, setShowMovie] = useState(false);
 
@@ -13,7 +13,18 @@ function MovieLayout({ DataContent }) {
     }
   }, [DataContent]);
 
+  useEffect(() => {
+    if(clearFields && clearFields !== null){
+      setMovieURL('');
+      setShowMovie(false);
+      setClearFields(false);
+    }
+  }, [clearFields,setClearFields]);
+
   function removeMovie() {
+    if(DataContent?.movie_url){
+      setMovieRemoved(true);
+    }
     setMovieURL('');
     setShowMovie(false);
   }
