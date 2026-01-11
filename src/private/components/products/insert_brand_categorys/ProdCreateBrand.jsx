@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 import { IoSearchCircleOutline } from "react-icons/io5";
+import { GrClearOption } from "react-icons/gr";
+
 import { MdAdd } from "react-icons/md";
 import './insert_brand_categorys.css';
 
@@ -93,6 +95,7 @@ function ProdCreateBrand({DataContent,clearFields = null, setClearFields}) {
       setQuery('');
       setItemId(null);
       setAttributeList([]);
+      document.querySelector('#inputSearchTextBrand').value = '';
     }
   }
   // implementação do useRef para detectar cliques fora do componente
@@ -105,14 +108,12 @@ function ProdCreateBrand({DataContent,clearFields = null, setClearFields}) {
         <input type="text" className='hidden' name='fk_brand_id' value={itemId} readOnly />
         <input type="text" className='hidden' name='brand_name' value={query} readOnly />
         <div className="label_input">Gerenciador de marcas</div>
-        <div className="input_select">
-          <input type="text"  placeholder={DataContent ? `Marca: ${DataContent.brandProduct.brand_name}` : query }   disabled />
-          {
-            reqResponse !== '' && <span className="req_response">{reqResponse}</span>
-          }
+        <div className="valueSelectFeedback">
+          <span> {query !== '' ? query : 'Campo vazio'}</span>
         </div>
         <div className='input_search'>
-          <input type="text" placeholder={ create ? 'Criar Marca' : 'Buscar Marca' } onChange={ e => setQuery(e.target.value)} onClick={() => clearInputSearch()} />
+          <input type="text" id='inputSearchTextBrand'  placeholder={ create ? 'Criar nova marca.' : 'Buscar uma marca.' }defaultValue={''} onChange={ e => setQuery(e.target.value)} />
+          <button type='button' className='btn_clear' onClick={() => clearInputSearch()} ><GrClearOption/></button>
           {
             create ? 
             <button type='button' className='btn_search' onClick={() => createAttribute()} ><MdAdd/></button>
@@ -123,9 +124,15 @@ function ProdCreateBrand({DataContent,clearFields = null, setClearFields}) {
         <div className="create">
           {
             create ? 
-            <button type='button' className='btn_create' onClick={() => setcreate(false)}><IoSearchCircleOutline/></button>
+            <button type='button' onClick={() => setcreate(false)}>
+              <span>ir para painel de busca</span>
+              <IoSearchCircleOutline/>
+            </button>
             :
-            <button type='button' className='btn_create' onClick={() => setcreate(true)}><MdAdd/></button>
+            <button type='button' onClick={() => setcreate(true)}>
+              <span>ir para painel de criação</span>
+              <MdAdd/>
+              </button>
           }
         </div>
         <div className="SearchResult">
