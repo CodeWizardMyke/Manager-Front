@@ -75,14 +75,13 @@
   border-radius: 15px;
   margin: 0 auto;
   display: flex;
-  padding: 15px;
+  padding: 10px;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
 }
 .content-auth form div{
   width: 100%;
-  height: 45px;
   display: flex;
   flex-direction: row;
 }
@@ -104,10 +103,17 @@
   outline: none;
   padding: 0 10px;
 }
-.content-auth form div input:focus{
+.content-auth form div input:focus, .content-auth select:focus{
   border: 2px solid darkblue;
 }
 
+.content-auth select{
+  width: 100%;
+  height: 35px;
+  text-align: center;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+}
 
 .content-errros{
   max-height: 50px; height: 100%;
@@ -117,25 +123,40 @@
   color: darkred;
 }
 
-.keep-login{
+.suggestions{
   width: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+}
+.suggestions div{
+  width: 100%;
+  display: flex;
   justify-content: end;
+}
+.suggestions div label{
+  font-size: 12pt !important;
+  height: 15px;
   cursor: pointer;
 }
-.keep-login label{
-  max-width: 200px; width: 100%;
-  height: 35px;
-  user-select: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: end;
+#keeplogin{
+  margin: auto 0;
+  height: 15px;
+  width: 15px;
 }
 
-.keep-login input{
-  margin-left: 15px;
+.singup{
+  max-width: 200px;
+  height: 25px;
+  margin: 0 auto;
+  cursor: pointer;
+  background-color: #508ac4;
+  border: none !important;
+  color: #ccc;
+  outline: none;
+}
+.singup:hover{
+  background-color: #3d77b1;
+  color: #f5f5f5;
 }
 
 .submit-auth{
@@ -146,7 +167,7 @@
   justify-content: center;
 }
 .section-auth button {
-  background-color: #FFA33A;
+  background-color: #ec9f46;
   border-radius: 5px;
   border: none;
   font-weight: bold;
@@ -156,6 +177,6 @@
   max-width: 300px; width: 100%;
 }
 .section-auth button:hover{
-  background-color: #e68a00;
+  background-color: #e79b28;
   cursor: pointer;
 }
