@@ -4,6 +4,13 @@
   display: flex;
   flex-direction: column;
 }
+.contentAtt{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
 .content-top-module{
   display: flex;
   padding: 5px;
@@ -67,7 +74,7 @@
 }
 .leftContent{
   max-width: 49%;
-  min-height: 300px;
+  display: flex;
 }
 
 .image-caption{

@@ -5,8 +5,6 @@ import Loading from '../components/loading/Loading'
 import createProduct from '../functions/createProduct';
 import ImagesLayout from '../components/products/thumbnails/ImagesLayout';
 import MovieLayout from '../components/products/thumbnails/MovieLayout';
-import ProdCreateBrand from '../components/products/insert_brand_categorys/ProdCreateBrand';
-import ProdCreateCategorys from '../components/products/insert_brand_categorys/ProdCreateCategorys';
 import ProdPrice from '../components/products/pricing/ProdPrice';
 import AdvertisingLayout from '../components/products/thumbnails/AdvertisingLayout';
 import ViewProductLayout from '../components/products/ViewProductLayout';
@@ -124,9 +122,13 @@ function ProductSetData({DataContent, setDataContent, setUpdatedOrder}) {
 
         <div className="content-bottom-module">
           <div className="rightContent"> <CommonAttributes DataContent={DataContent} /> </div>
-          <div className="leftContent">
+          <div className="leftContent">{
+            /*
             <ProdCreateBrand DataContent={DataContent} />
             <ProdCreateCategorys DataContent={DataContent} />
+            */
+            }
+            
             <ProdPrice DataContent={DataContent} />
             <AdvertisingLayout
               setAdvertising={setAdvertisings}

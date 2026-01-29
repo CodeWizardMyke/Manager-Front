@@ -6,13 +6,13 @@ import '../style/module.css'
 import ImagesLayout from '../components/products/thumbnails/ImagesLayout'
 import MovieLayout from '../components/products//thumbnails/MovieLayout'
 import TopBar from '../components/TopBar/TopBar'
-import ProdCreateBrand from '../components/products/insert_brand_categorys/ProdCreateBrand';
-import ProdCreateCategorys from '../components/products/insert_brand_categorys/ProdCreateCategorys';
 import ProdPrice from '../components/products/pricing/ProdPrice';
 import AdvertisingLayout from '../components/products/thumbnails/AdvertisingLayout';
 import ProdCreateDescription from '../components/products/common_attributes/CommonAttributes';
 import ViewProductLayout from '../components/products/ViewProductLayout';
 import Loading from '../components/loading/Loading';
+import ContentBrandProduct from '../components/products/brand_category/ContentBrandProduct';
+import ContentCategoryProduct from '../components/products/brand_category/ContentCategoryProduct';
 
 function ProductCreate() {
   const [thumbnails, setThumbnails]  = useState([]);
@@ -100,13 +100,10 @@ function ProductCreate() {
               <ProdCreateDescription/>
             </div>
             <div className="leftContent">
-              <ProdCreateBrand
-                clearFields={clearFields} 
-                setClearFields={setClearFields}
-              />
-              <ProdCreateCategorys
-                clearFields={clearFields} 
-                setClearFields={setClearFields}/>
+              <div className="contentAtt">
+                <ContentBrandProduct/>
+                <ContentCategoryProduct/>
+              </div>
               <ProdPrice
                 clearFields={clearFields} 
                 setClearFields={setClearFields}

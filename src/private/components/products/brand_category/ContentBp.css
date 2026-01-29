@@ -1,0 +1,37 @@
+.ContentBp{ 
+  height: 150px;
+  max-width: 350px;
+  margin-bottom: 25px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+.colorR{
+  color: #ccc ;
+  opacity: 0.4 ;
+}
+
+.ContentBp .wrapperButtonsCbp{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 38px;
+}
+.ContentBp .wrapperButtonsCbp button{
+  width: 50%;
+  height: 35px;
+  border: 1px solid #ccc;
+  margin: 2px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #ffff;
+}
+.ContentBp .bts-search{
+  background-color: #0056B3;
+}
+.ContentBp .bts-create{
+  background-color: #28A745;
+  
+}
