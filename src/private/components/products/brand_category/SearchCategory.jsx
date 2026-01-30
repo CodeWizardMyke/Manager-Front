@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import fetchAxios from '../../../axios/config';
 import { GrClearOption } from 'react-icons/gr';
 
-const SearchCategory = () => {
+const SearchCategory = ({dataContent}) => {
   const [ list, setList] = useState([]);
   const [ query, setQuery] = useState(null);
   const [ selectData, setSelectData] = useState(null);
@@ -78,8 +78,8 @@ const SearchCategory = () => {
       </div>
 
       <div className="selectData">
-        <input type="text" name="category_name" disabled value={selectData ? selectData.category_name : "Nada selecionado!"} />
-        <input type="hidden" name="category_id" value={selectData ? selectData.category_id : null} />
+        <input type="text" name="category_name" disabled value={selectData ? selectData.category_name : dataContent.category_name } />
+        <input type="hidden" name="fk_category_id" value={selectData ? selectData.category_id : null} />
       </div>
 
       <div className="SearchBcResult">

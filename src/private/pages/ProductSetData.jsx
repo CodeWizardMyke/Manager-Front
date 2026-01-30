@@ -12,6 +12,8 @@ import CommonAttributes from '../components/products/common_attributes/CommonAtt
 import TopBar from '../components/TopBar/TopBar';
 import putProduct from '../functions/puProduct';
 import deleteProductApi from '../functions/deleteProductApi';
+import ContentBrandProduct from '../components/products/brand_category/ContentBrandProduct';
+import ContentCategoryProduct from '../components/products/brand_category/ContentCategoryProduct';
 
 function ProductSetData({DataContent, setDataContent, setUpdatedOrder}) {
   const [loading, setLoading] = useState(false);
@@ -122,12 +124,10 @@ function ProductSetData({DataContent, setDataContent, setUpdatedOrder}) {
 
         <div className="content-bottom-module">
           <div className="rightContent"> <CommonAttributes DataContent={DataContent} /> </div>
-          <div className="leftContent">{
-            /*
-            <ProdCreateBrand DataContent={DataContent} />
-            <ProdCreateCategorys DataContent={DataContent} />
-            */
-            }
+          <div className="leftContent">
+
+            <ContentBrandProduct dataContent={DataContent} />
+            <ContentCategoryProduct dataContent={DataContent} />
             
             <ProdPrice DataContent={DataContent} />
             <AdvertisingLayout

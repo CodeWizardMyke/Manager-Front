@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import fetchAxios from '../../../axios/config';
 import { GrClearOption } from 'react-icons/gr';
 
-const CreateCategory = () => {
+const CreateCategory = ({dataContent}) => {
   const [ list, setList] = useState([]);
   const [ query, setQuery] = useState(null);
   const [ selectData, setSelectData] = useState(null);
@@ -54,13 +54,13 @@ const CreateCategory = () => {
 
   return (
     <div className='SearchBc'>
-      <span>Buscar categoria.</span>
+      <span>Cadastrar categoria.</span>
       <div className="contentSearch">
         <div>
           <input 
             id='txtCreateCategory' 
             type="text"
-            placeholder='Campo de busca...'
+            placeholder='Nome da categoria'
             onChange={(e)=> setQuery(e.target.value)} 
             onClick={cleanInputText}
           />
@@ -71,12 +71,12 @@ const CreateCategory = () => {
           type='button'
           onClick={handdlerSubmit}
           className='submtBt'
-        >Buscar</button>
+        >Cadastrar</button>
       </div>
 
       <div className="selectData">
-        <input type="text" name="category_name" disabled value={selectData ? selectData.category_name : "Nada selecionado!"} />
-        <input type="hidden" name="category_id" value={selectData ? selectData.category_id : null} />
+        <input type="text" name="category_name" disabled value={selectData ? selectData.category_name : dataContent.category_name} />
+        <input type="hidden" name="fk_category_id" value={selectData ? selectData.category_id : null} />
       </div>
 
       <div className="SearchBcResult">

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import fetchAxios from '../../../axios/config';
 import { GrClearOption } from 'react-icons/gr';
 
-const CreateBrand = () => {
+const CreateBrand = ({dataContent = {brand_name:"Nada Selecionado!"}}) => {
   const [ list, setList] = useState([]);
   const [ query, setQuery] = useState(null);
   const [ selectData, setSelectData] = useState(null);
@@ -55,13 +55,13 @@ const CreateBrand = () => {
 
   return (
     <div className='SearchBc'>
-      <span>Cadastro de marcas.</span>
+      <span>Cadastrar marca.</span>
       <div className="contentSearch">
         <div>
           <input 
             id='textField'
             type="text"
-            placeholder='Campo de busca...'
+            placeholder='Nome da marca.'
             onChange={(e)=> setQuery(e.target.value)} 
             onClick={cleanInputText}
           />
@@ -76,8 +76,8 @@ const CreateBrand = () => {
       </div>
 
       <div className="selectData">
-        <input type="text" name="brand_name" disabled value={selectData ? selectData.brand_name : "Nada selecionado!"} />
-        <input type="hidden" name="brand_id" value={selectData ? selectData.brand_id : null} />
+        <input type="text" name="brand_name" disabled value={selectData ? selectData.brand_name : dataContent.brand_name} />
+        <input type="hidden" name="fk_brand_id" value={selectData ? selectData.brand_id : null} />
       </div>
 
       <div className="SearchBcResult">

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import fetchAxios from '../../../axios/config';
 import { GrClearOption } from 'react-icons/gr';
 
-const SearchBrand = () => {
+const SearchBrand = ({dataContent}) => {
   const [ list, setList] = useState([]);
   const [ query, setQuery] = useState(null);
   const [ selectData, setSelectData] = useState(null);
@@ -75,8 +75,8 @@ const SearchBrand = () => {
       </div>
 
       <div className="selectData">
-        <input type="text" name="brand_name" disabled value={selectData ? selectData.brand_name : "Nada selecionado!"} />
-        <input type="hidden" name="brand_id" value={selectData ? selectData.brand_id : null} />
+        <input type="text" name="brand_name" disabled value={selectData ? selectData.brand_name : dataContent.brand_name} />
+        <input type="hidden" name="fk_brand_id" value={selectData ? selectData.brand_id : null} />
       </div>
 
       <div className="SearchBcResult">

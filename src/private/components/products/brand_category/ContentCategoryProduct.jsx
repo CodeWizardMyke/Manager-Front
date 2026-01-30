@@ -1,17 +1,25 @@
-import React, {  useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import "./index.css"
 import "./ContentBp.css"
 
 import SearchCategory from './SearchCategory';
 import CreateCategory from './CreateCategory';
 
-const ContentCategoryProduct = () => {
+const ContentCategoryProduct = ({dataContent}) => {
   const [toggle, setToggle] = useState(true);
+  const [categoryName, setCategoryName] = useState({category_name:"Nada selecionado!"});
+
+  useEffect(()=> {
+    if(dataContent){
+      setCategoryName(dataContent.categoryProduct);
+    }
+  },[dataContent])
 
   return (
     <div className='ContentBp'>
-      {!toggle && <SearchCategory/>}
-      {toggle && <CreateCategory/>}
+      {!toggle && <SearchCategory dataContent={categoryName}/>}
+      {toggle && <CreateCategory dataContent={categoryName}/>}
+
       <div className="wrapperButtonsCbp">
         <button 
           type='button' 
