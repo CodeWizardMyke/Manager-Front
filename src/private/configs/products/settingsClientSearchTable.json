@@ -1,0 +1,5 @@
+[
+  { "value": "client_id", "label": "ID" },
+  { "value": "name", "label": "Nome", "maxLength": 45 },
+  { "value": "email", "label": "Email" }
+]

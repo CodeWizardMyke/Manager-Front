@@ -34,9 +34,9 @@ function SideMenu() {
             </div>
             <div className={ `dropdown-menu ${toggleMenu === 'clients' ? 'show' : ''}` }>
               <ul>
-                <li onClick={() => navigate('clients')}><button type='button'>Buscar</button></li>
-                <li onClick={() => navigate('')}><button type='button'>Cadasto</button></li>
-                <li onClick={() => navigate('')}><button type='button'> Compras</button></li>
+                <li onClick={() => navigate('client/create')}><button type='button'>Cadasto</button></li>
+                <li onClick={() => navigate('client/search')}><button type='button'>Buscar</button></li>
+                <li onClick={() => navigate('client/purchases')}><button type='button'> Compras</button></li>
               </ul>
             </div>
           </li>

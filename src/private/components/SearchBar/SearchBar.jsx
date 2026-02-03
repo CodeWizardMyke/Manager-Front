@@ -58,7 +58,7 @@ function SearchBar({
         <div>
           <input
             type="text"
-            placeholder="Buscar produto..."
+            placeholder="Campo de pesquisa."
             value={query}
             onChange={e => setQuery(e.target.value)}
           />

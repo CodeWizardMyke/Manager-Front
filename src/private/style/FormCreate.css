@@ -1,0 +1,56 @@
+.FormCreate{
+  display: flex;
+  flex-direction: column;
+  min-height: 800px;
+  flex-shrink: 1;
+}
+.FormCreate h2{
+  margin: 25px 10px;
+  color: #4A4A4A;
+}
+
+.formContext{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background-color: #FAFAFA;
+  min-height: 45px;
+  margin: 75px 15px;
+  border-radius: 5px;
+  padding: 10px;
+  position: relative;
+  color: #4A4A4A;
+  user-select: none;
+}
+.formContext span{
+  position: absolute;
+  top: -25px;
+  font-weight: 600;
+}
+.formContext input{
+  height: 25px;
+  border: none;
+  margin-left: 5px;
+  background-color: #ffff;
+  border-radius: 5px;
+  color: #4A4A4A;
+  padding-left: 5px;
+}
+.formContext select{
+  width: 120px;
+  border: none;
+  color: #4A4A4A;
+  padding-left: 5px;
+  height: 25px;
+  border-radius: 5px;
+}
+
+.formContext input:hover, .formContext select:hover{
+  background-color: #dddd;
+  cursor: pointer;
+}
+
+.space-start{
+  justify-content: start;
+}

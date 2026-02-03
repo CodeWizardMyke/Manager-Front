@@ -16,6 +16,8 @@ import UserAuth from './private/UserAuth';
 import ProductCreate from './private/pages/ProductCreate';
 import ProductSearch from './private/pages/ProductSearch';
 import ProductUpdate from './private/pages/ProductUpdate';
+import ClientSearch from './private/pages/ClientSearch';
+import ClientCreate from './private/pages/ClientCreate';
 
 const router = createBrowserRouter([
   {
@@ -23,11 +25,16 @@ const router = createBrowserRouter([
     element:<Manager/>,
     children:[
       {path:'/main',element:<Home/>},
+
       {path:'/products', element:<ProductCreate/>},
       {path:'/products/search', element:<ProductSearch/>},
       {path:'/products/update', element:<ProductUpdate/>},
+
+      {path:'/client/create',  element:<ClientCreate/>},
+      {path:'/client/search',  element:<ClientSearch/>},
+      {path:'/client/purchases',  element:<Clients/>},
+
       {path:'/cart',     element:<Cart/>},
-      {path:'/clients',  element:<Clients/>},
       {path:'/employee',element:<Employee/>},
       {path:'/dashboard',element:<Dashboard/>},
       {path:'/config',element:<Config/>},

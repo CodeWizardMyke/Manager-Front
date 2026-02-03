@@ -1,0 +1,10 @@
+{
+    "search":[
+    { "value": "", "label": "Todos" },
+    { "value": "email", "label": "Email" },
+    { "value": "client_id", "label": "ID" }
+  ],
+  "filter":[
+    { "value": "name", "label": "Nome" }
+  ]
+}
