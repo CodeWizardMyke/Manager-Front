@@ -3,6 +3,7 @@
   flex-direction: column;
   min-height: 800px;
   flex-shrink: 1;
+  position: relative;
 }
 .FormCreate h2{
   margin: 25px 10px;
@@ -12,7 +13,24 @@
   user-select: none;
   display: none;
 }
-
+.prevPag{
+  height: 35px;
+  max-width: 120px;
+  width: 100%;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  border: none;
+  background-color: #FD7E14;
+  opacity: 0.7;
+  color: #fff;
+  border-radius: 5px;
+  transition: all 200ms ease;
+}
+.prevPag:hover{
+  opacity: 1;
+}
 .formContext{
   display: flex;
   align-items: center;

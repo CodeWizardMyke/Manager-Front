@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import SearchBar from '../components/SearchBar/SearchBar';
-import ViewProductLayout from '../components/products/ViewProductLayout';
 import TableLayout from '../components/Table/TableLayout';
-import optionSelect from '../configs/products/settingsClientSearchFields.json';
-import tableFields from '../configs/products/settingsClientSearchTable.json';
+import optionSelect from '../configs/clients/settingsClientSearchFields.json';
+import tableFields from '../configs/clients/settingsClientSearchTable.json';
 import TopBar from '../components/TopBar/TopBar';
 
 import searchClients from '../functions/searchClients';
+import ViewClientLayout from '../components/Client/ViewClientLayout';
 
 function ClientSearch() {
   const [data, setData] = useState([]);
@@ -21,7 +21,7 @@ function ClientSearch() {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
 
-  const [product, setProduct] = useState(null);
+  const [itemSelected, setItemSelected] = useState(null);
   const [toggleView, setToggleView] = useState(false);
 
   const sendRequest = useCallback(async () => {
@@ -37,17 +37,17 @@ function ClientSearch() {
   }, [sendRequest]);
 
   const clickItem = (item) => {
-    setProduct(item);
+    setItemSelected(item);
     setToggleView(true);
   };
 
   return (
     <main className="container-fluid">
       {toggleView ? (
-        <ViewProductLayout
-          data={product}
-          setViewProduct={setToggleView}
-          viewProduct={toggleView}
+        <ViewClientLayout
+          data={itemSelected}
+          sendRequest={sendRequest}
+          setToggleView={setToggleView}
         />
       ) : (
         <div className="ContentSearch">

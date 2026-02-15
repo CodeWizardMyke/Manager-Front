@@ -2,7 +2,7 @@
   "search":[
     { "value": "", "label": "Todos" },
     { "value": "title", "label": "TITULO" },
-    { "value": "product_id", "label": "ID" }
+    { "value": "id", "label": "ID" }
   ],
   "filter":[
     { "value": "title", "label": "TITULO" }

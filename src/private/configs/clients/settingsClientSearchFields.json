@@ -1,7 +1,7 @@
 {
     "search":[
     { "value": "default", "label": "Todos" },
-    { "value": "clientInstagram", "label": "Instagram" }
+    { "value": "instagram", "label": "Instagram" }
   ],
   "filter":[
     { "value": "clientName", "label": "Nome" }

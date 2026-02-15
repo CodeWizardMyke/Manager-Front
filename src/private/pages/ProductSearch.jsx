@@ -28,8 +28,16 @@ function ProductSearch() {
     const response = await searchProduc({ searchBy, query, size, page });
     if (response.error) return console.error(response);
 
-    setCount(response.data.count);
-    setData(response.data.rows);
+    if(response.data){
+      if(response.data.count){
+        setCount(response.data.count);
+      }
+    }
+    if(response.data){
+      if(response.data.rows){
+        setData(response.data.rows);
+      }
+    }
   }, [searchBy, query, size, page]);
 
   useEffect(() => {

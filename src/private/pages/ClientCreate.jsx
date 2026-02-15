@@ -13,7 +13,6 @@ function ClientCreate({data = {}}) {
     e.preventDefault();
     try {
       setLoading(true);
-      console.log('promisse');
 
       const bodyData = new FormData(e.target);
 
