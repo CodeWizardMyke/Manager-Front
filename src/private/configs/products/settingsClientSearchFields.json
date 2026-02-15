@@ -1,10 +1,9 @@
 {
     "search":[
-    { "value": "", "label": "Todos" },
-    { "value": "email", "label": "Email" },
-    { "value": "client_id", "label": "ID" }
+    { "value": "default", "label": "Todos" },
+    { "value": "clientInstagram", "label": "Instagram" }
   ],
   "filter":[
-    { "value": "name", "label": "Nome" }
+    { "value": "clientName", "label": "Nome" }
   ]
 }

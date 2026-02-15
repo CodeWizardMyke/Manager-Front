@@ -7,7 +7,7 @@ import optionSelect from '../configs/products/settingsClientSearchFields.json';
 import tableFields from '../configs/products/settingsClientSearchTable.json';
 import TopBar from '../components/TopBar/TopBar';
 
-import searchProduc from '../functions/searchProduct';
+import searchClients from '../functions/searchClients';
 
 function ClientSearch() {
   const [data, setData] = useState([]);
@@ -15,7 +15,7 @@ function ClientSearch() {
 
   const [query, setQuery] = useState('');
   const [searchBy, setSearchBy] = useState('default');
-  const [filterBy, setFilterBy] = useState('title');
+  const [filterBy, setFilterBy] = useState('clientName');
 
   const [size, setSize] = useState(10);
   const [page, setPage] = useState(1);
@@ -25,12 +25,11 @@ function ClientSearch() {
   const [toggleView, setToggleView] = useState(false);
 
   const sendRequest = useCallback(async () => {
-  console.log('deve ser adicionado a função para fazer a requisição dos clientes ao back end')
-   /* const response = await searchProduc({ searchBy, query, size, page });
+    const response = await searchClients({ searchBy, query, size, page });
     if (response.error) return console.error(response);
 
     setCount(response.data.count);
-    setData(response.data.rows);*/
+    setData(response.data.rows);
   }, [searchBy, query, size, page]);
 
   useEffect(() => {

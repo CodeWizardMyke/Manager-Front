@@ -8,6 +8,10 @@
   margin: 25px 10px;
   color: #4A4A4A;
 }
+.disable-function div{
+  user-select: none;
+  display: none;
+}
 
 .formContext{
   display: flex;
@@ -16,13 +20,17 @@
   flex-wrap: wrap;
   background-color: #FAFAFA;
   min-height: 45px;
-  margin: 75px 15px;
+  margin: 25px 15px;
   border-radius: 5px;
   padding: 10px;
   position: relative;
   color: #4A4A4A;
   user-select: none;
 }
+.formContext div{
+  margin: 10px 0;
+}
+
 .formContext span{
   position: absolute;
   top: -25px;
@@ -35,7 +43,7 @@
   background-color: #ffff;
   border-radius: 5px;
   color: #4A4A4A;
-  padding-left: 5px;
+  padding-left: 15px;
 }
 .formContext select{
   width: 120px;
@@ -53,4 +61,60 @@
 
 .space-start{
   justify-content: start;
+}
+
+.space-start div{
+  margin-right: 25px;
+}
+.max-width-div-400{
+  max-width: 400px;
+  width: 100%;
+}
+.max-width-div-400 input{
+  width: 100%;
+  max-width: 300px;
+}
+.max-width-div-200{
+  max-width: 200px;
+  width: 100%;
+}
+.max-width-div-200 input{
+  width: 100%;
+  max-width: 100px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  min-height: 45px;
+}
+
+.buttonsWrapper button{
+  margin: 5px;
+  height: 35px;
+  max-width: 240px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 200ms ease;
+  color: #ccc;
+}
+.buttonsWrapper button:hover{
+  opacity: 1;
+  color: #ffff;
+}
+
+.buttonsWrapper  .create{
+  background-color: #28A745;
+}
+.buttonsWrapper .update{
+  background-color: #FD7E14;
+}
+
+.buttonsWrapper .delete{
+  background-color: #FF0000;
 }
