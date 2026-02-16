@@ -1,0 +1,7 @@
+[
+  { "value": "product_id", "label": "ID" },
+  { "value": "title", "label": "nome do produto", "maxLength": 45},
+  { "value": "tot", "label": "Valor final" },
+  { "value": "totUnd", "label": "preço" },
+  { "value": "qtd", "label": "quantidade  " }
+]

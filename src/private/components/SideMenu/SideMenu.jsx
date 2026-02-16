@@ -36,7 +36,7 @@ function SideMenu() {
               <ul>
                 <li onClick={() => navigate('client/create')}><button type='button'>Cadasto</button></li>
                 <li onClick={() => navigate('client/search')}><button type='button'>Buscar</button></li>
-                <li onClick={() => navigate('client/purchases')}><button type='button'> Compras</button></li>
+                <li onClick={() => navigate('client/cart')}><button type='button'> Compras</button></li>
               </ul>
             </div>
           </li>

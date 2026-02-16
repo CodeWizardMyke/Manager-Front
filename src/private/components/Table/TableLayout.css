@@ -76,3 +76,29 @@
 .wrapperBtns button:hover{
   background-color: #0057b3d3;
 }
+
+.table-header-info{
+  height: 75px;
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0;
+  align-items: start;
+  justify-content: space-between;
+}
+.prevBtn{
+  min-width: 200px;
+  min-height: 35px;
+  border-radius: 5px;
+  border: none;
+  margin: 10px 0 ;
+  font-weight: 600;
+  background-color: #FD7E14;
+  color: #dddd;
+  opacity: 0.9;
+  transition: all 200ms ease;
+}
+.prevBtn:hover{
+  cursor: pointer;
+  opacity: 1;
+  color: #f5f5f5;
+}

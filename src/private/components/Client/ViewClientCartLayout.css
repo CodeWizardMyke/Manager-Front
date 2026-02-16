@@ -1,0 +1,16 @@
+.section{
+  position: relative;
+  padding: 10px;
+  height: 100%;
+}
+
+.section-header{
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+}
+.section-header .cart-detail{
+  display: flex;
+  padding: 25px 10px;
+  flex-direction: column;
+}

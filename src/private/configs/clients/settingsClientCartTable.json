@@ -1,0 +1,5 @@
+[
+  { "value": "client_id", "label": "ID" },
+  { "value": "clientName", "label": "Nome", "maxLength": 45 },
+  { "value": "clientInstagram", "label": "instagram" }
+]

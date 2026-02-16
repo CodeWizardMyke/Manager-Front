@@ -1,0 +1,7 @@
+[
+  { "value": "cart_id", "label": "ID" },
+  { "value": "createdAt", "label": "Data: "},
+  { "value": "qtd_products", "label": "Qtd" },
+  { "value": "totUnd", "label": "Valor" },
+  { "value": "state", "label": "Status" }
+]
