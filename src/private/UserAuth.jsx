@@ -19,14 +19,15 @@ function UserAuth() {
   }
 
   function userAthorized(response) {
+    console.log(response.data)
     if(keepLogIn === 'on'){
       cleanStorage();
-      localStorage.setItem('employee',  JSON.stringify(response.data.user));
-      localStorage.setItem('token', JSON.stringify(response.data.token));
+      localStorage.setItem('employee', JSON.stringify(response.data.user));
+      localStorage.setItem('token', response.data.token);
     }else{
       cleanStorage();
-      sessionStorage.setItem('employee',  JSON.stringify(response.data.user));
-      sessionStorage.setItem('token', JSON.stringify(response.data.token));
+      sessionStorage.setItem('employee', JSON.stringify(response.data.user));
+      sessionStorage.setItem('token', response.data.token);
     }
     navigate('/main');
   }
@@ -46,21 +47,19 @@ function UserAuth() {
       updateErrorsSpan();
       const formData = new FormData(event.target);
 
-      let response = null;
-
       if(createAcc === true){
         await createNewUser(formData);
         window.alert('Usuário cadastrado com sucesso, faça o login para validar sua sessão.')
       }
+
       if(createAcc === false){
-        response = await loginUser(formData)
-      }
-      if(response !== null){
+        const response = await loginUser(formData);
         userAthorized(response);
       }
-      console.log('response', response);
+ 
       setLoading(false);
     } catch (error) {
+
       setLoading(false);
       console.log(error);
       if(error.response){
@@ -96,7 +95,6 @@ function UserAuth() {
                     <label htmlFor="userName">Nome</label>
                     <input type="text" name="name" id="userName" required/>
                   </div>
-
                   <div>
                     <label htmlFor="role">Cargo</label>
                     <select name="role" id="role">
@@ -107,11 +105,17 @@ function UserAuth() {
                 </>
               )
             }
+           <div>
+            <div className='demoAuth' >
+              <p>Login: demo@demo.com</p>
+              <p>Senha: demo@123</p>
+            </div>
+           </div>
             <div>
               <label htmlFor="email">Email</label>
               <input type="email" name="email" id="email" required/>
             </div>
-           
+
             <div>
               <label htmlFor="password">Senha</label>
               <input type="password" name="password" id="password" required/>
@@ -130,15 +134,16 @@ function UserAuth() {
                 <label htmlFor="keeplogin">manter credenciais</label>
                 <input type="checkbox" name="keeplogin" id="keeplogin" onChange={(e) => setKeepLogIn(e.target.value)}/>
               </div>
-              <div>
-                <input type="button" value={ !createAcc ? "Fazer novo cadastro" : "Conta existente fazer login"} className='singup' onClick={()=> setCreateAcc(!createAcc)} />
-              </div>
-            </article>
-
-            <div className="content-errros"></div>
             <article className="submit-auth">
                 <button type="submit">{ createAcc ? "Enviar cadastro" : "Entrar" }</button>
             </article>
+            
+            </article>
+
+            <div className="content-errros"></div>
+              <div>
+                <input type="button" value={ !createAcc ? "Fazer novo cadastro" : "Conta existente fazer login"} className='singup' onClick={()=> setCreateAcc(!createAcc)} />
+              </div>
           </form>
         </div>
       </section>

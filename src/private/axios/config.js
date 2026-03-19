@@ -14,7 +14,7 @@ if(sessionToken === null){
 
 const headers = {
   'Content-Type': 'application/json',
-  'Authorization': 'Baerer ' + JSON.parse(token)
+  'Authorization': 'Baerer ' + token
 }
 
 const fetchAxios =  axios.create({

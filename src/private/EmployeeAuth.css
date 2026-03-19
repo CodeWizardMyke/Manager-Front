@@ -10,6 +10,14 @@
   }
 }
 
+.demoAuth{
+  display: block;
+  height: 45px;
+  text-align: center;
+  justify-content: space-evenly;
+  font: 1em sans-serif;
+}
+
 .container-auth {
   position: relative;
   overflow: hidden;
