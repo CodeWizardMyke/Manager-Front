@@ -12,7 +12,6 @@ function ImagesLayout({ DataContent, setThumbnails, thumbnails, setRemoveFromApi
   const [toggleList, setToggleList] = useState(true);
   const [indexCurrentImage, setIndexCurrentImage] = useState(0);
 
-
   // CARREGAR IMAGENS DA API
   useEffect(() => {
     if (!DataContent) return;
@@ -31,7 +30,6 @@ function ImagesLayout({ DataContent, setThumbnails, thumbnails, setRemoveFromApi
 
   }, [DataContent]);
 
-
   // ADICIONAR IMAGENS DO INPUT
   function pushImage(e) {
     const files = Array.from(e.target.files);
@@ -43,6 +41,7 @@ function ImagesLayout({ DataContent, setThumbnails, thumbnails, setRemoveFromApi
     }));
 
     setThumbnails(old => [...old, ...newImage]);
+     e.target.value = null;
   }
 
   // REMOVER IMAGEM

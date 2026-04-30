@@ -27,23 +27,13 @@ function ProductCreate() {
     setLoading(true);
     const bodyData = new FormData(e.target);
 
-    let thumbApendLength = 0;
       thumbnails.forEach(image => {
-        if (!image.fromApi && image.file) {
-          thumbApendLength += 1;
-          bodyData.append("thumbnails", image.file);
-        }
+        if (!image.fromApi && image.file) bodyData.append("thumbnails", image.file);
       })
-      bodyData.append("thumbnail_length", thumbApendLength);
       
-      let advertApendLength = 0;
       advertising.forEach(image => {
-        if (!image.fromApi && image.file) {
-          advertApendLength += 1;
-          bodyData.append("thumbnails", image.file);
-        }
+        if (!image.fromApi && image.file)  bodyData.append("advertisings", image.file);
       })
-      bodyData.append("advertising_length", advertApendLength);
 
     fetchAxios.post('/product/crud/create', bodyData,{headers: {'Content-Type': 'multipart/form-data'}})
     .then((response) => {

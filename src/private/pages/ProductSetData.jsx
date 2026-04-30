@@ -51,23 +51,17 @@ function ProductSetData({DataContent, setDataContent, setUpdatedOrder}) {
         dataForm.append("movie_removed", true);
       }
 
-      let thumbApendLength = 0;
       thumbnails.forEach(image => {
-        if (!image.fromApi && image.file) {
-          thumbApendLength += 1;
-          dataForm.append("thumbnails", image.file);
-        }
+        if (!image.fromApi && image.file)  dataForm.append("thumbnails", image.file);
       })
-      dataForm.append("thumbnail_length", thumbApendLength);
       
-      let advertApendLength = 0;
       advertisings.forEach(image => {
-        if (!image.fromApi && image.file) {
-          advertApendLength += 1;
-          dataForm.append("thumbnails", image.file);
+        if (!image.fromApi && image.file) dataForm.append("advertisings", image.file);
         }
-      })
-      dataForm.append("advertising_length", advertApendLength);
+      )
+
+      console.log(thumbnails);
+      console.log(advertisings);
 
       dataForm.append("product_id", DataContent.product_id);
       dataForm.append("thumbnails_removed",removedImg);

@@ -36,7 +36,7 @@ function ProdDetails({dataProduct}) {
           <p><strong>Categoria:</strong> {getCategoryName()}</p>
           <p><strong>Marca:</strong> {getBrandName()}</p>
           <p><strong>Formato do produto:</strong> {dataProduct.product_shape} </p>
-          <p><strong>Aroma:</strong> {dataProduct.additional} </p>
+          <p><strong>Adicional:</strong> {dataProduct.additional} </p>
           <p><strong>Volume:</strong> {dataProduct.NET_VOLUM} </p>
           <p><strong>Faixa etaria:</strong> {dataProduct.age_group} </p>
         </div>

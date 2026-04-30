@@ -50,6 +50,7 @@ function AdvertisingLayout({
     }));
 
     setAdvertising(old => [...old, ...newImage]);
+     e.target.value = null;
   }
 
   function clearImages(){
@@ -117,7 +118,7 @@ function AdvertisingLayout({
                 <label htmlFor="clearImagesAdv"className="Clear"><FaRegTrashAlt/></label>
                 <input
                   type="file"
-                  name="thumbnails"
+                  name="advertisings"
                   id="setImagesAdv"
                   className='hidden'
                   multiple //Usar Essa função par adicionar mais de uma imagem
