@@ -19,7 +19,6 @@ function UserAuth() {
   }
 
   function userAthorized(response) {
-    console.log(response.data)
     if(keepLogIn === 'on'){
       cleanStorage();
       localStorage.setItem('employee', JSON.stringify(response.data.user));
@@ -107,8 +106,8 @@ function UserAuth() {
             }
            <div>
             <div className='demoAuth' >
-              <p>Login: demo@demo.com</p>
-              <p>Senha: demo@123</p>
+              <p>demo@demo.com</p>
+              <p>demo@123</p>
             </div>
            </div>
             <div>

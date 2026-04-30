@@ -1,25 +1,23 @@
 import axios from "axios";
 
-const sessionToken = sessionStorage.getItem('token');
-const localToken = localStorage.getItem('token');
- 
-let token = null;
+const fetchAxios = axios.create({
+  baseURL: 'http://localhost:1515/api',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
 
-if(localToken === null){
-  token = sessionToken;
-}
-if(sessionToken === null){
-  token = localToken;
-}
+fetchAxios.interceptors.request.use((config) => {
+  const sessionToken = sessionStorage.getItem('token');
+  const localToken = localStorage.getItem('token');
 
-const headers = {
-  'Content-Type': 'application/json',
-  'Authorization': 'Baerer ' + token
-}
+  const token = localToken || sessionToken;
 
-const fetchAxios =  axios.create({
-  baseURL:'http://localhost:1515/api',
-  headers: headers,
+  if (token) {
+    config.headers.Authorization = 'Bearer ' + token;
+  }
+
+  return config;
 });
 
 export default fetchAxios;
